@@ -1,6 +1,6 @@
 cmake_minimum_required (VERSION 3.16)
 
-project(Tank_War_Server C CXX)
+project(UE_Server C CXX)
 
 include_directories(../include)
 include_directories(../protobuf)
@@ -17,9 +17,9 @@ include_directories(${Protobuf_INCLUDE_DIRS})
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")
 
-add_executable(Tank_War_Server ${DIR_PROTO} ${DIR_SRCS})
+add_executable(UE_Server ${DIR_PROTO} ${DIR_SRCS})
 
-target_link_libraries(Tank_War_Server ${Protobuf_LIBRARIES})
+target_link_libraries(UE_Server ${Protobuf_LIBRARIES})
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS True)
 

@@ -1,4 +1,4 @@
-#include "Room_Game_Process.h"
+#include "Room_Process.h"
 
 Room_Process::Room_Process(int socket)
     : socket_host(socket)
@@ -33,12 +33,6 @@ Room_Process::~Room_Process()
         delfd(recv_epoll, v.first);
         addfd(hall_epoll, v.first);
         v.second->sockinfo->states = hall;
-        delete v.second;
-    }
-
-    // 回收Tank信息
-    for (auto &v : Tank_info)
-    {
         delete v.second;
     }
 
@@ -259,8 +253,8 @@ void Room_Process::room_process()
     }
     if (ret == "StartGame")
     {
-        thread T(&Room_Process::game_process, this);
-        T.detach();
+        // thread T(&Room_Process::game_process, this);
+        // T.detach();
     }
     if (ret == "disband")
     {

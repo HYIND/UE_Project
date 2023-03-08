@@ -1,9 +1,6 @@
 #pragma once
 
 #include "Tank_Server.h"
-#include "Style.h"
-#include "Prop.h"
-#include "Map.h"
 
 using namespace std;
 
@@ -96,12 +93,9 @@ public:
     int socket_host = 0;  //房主socket
 
     unordered_map<int, Room_userinfo *> info; //房内玩家信息 socket->userinfo
-    unordered_map<int, Tank *> Tank_info;     //房内玩家对应Tank信息  socket->tankinfo
 
     /* 地图相关 */
     int map_id = 0;                       //当前地图号
-    Map map_info;                         //记录初始地图信息
-    unordered_map<int, Prop *> Prop_info; //记录地图中道具信息
 
     /* 相关的fd */
     int recv_pipe[2];        //接收线程管道
@@ -150,26 +144,11 @@ public:
     void Init_Timer();   //初始化定时器
     void Delete_Timer(); //销毁定时器
 
-    void confim();    //开始游戏前最后同步地图ID，同时检查有无用户掉线
-    void EndGame();   //检查游戏是否达到结束要求
-    void Init_Game(); //初始化游戏
-
-    void Refreash_tankinfo(int socket, Header &header, char *content);   //刷新坦克信息
-    void Refreash_bulletinfo(int socket, Header &header, char *content); //刷新位置信息
-    bool Hit_tank(int socket, Header &header, char *content);            //坦克击中校验
-    bool Hit_brick(int socket, Header &header, char *content);           //墙体击中校验
-    void hittank_notify(int hited_socket, int hited_id, int health);     // Tank受击消息通知
-    void hitbrick_notify(int hited_brick_id, int health);                // Brick受击消息通知
-    void destroy(int hited_socket, int hited_id);                        //摧毁消息通知
-
-    int return_class_game(int socket, Header &header, char *content); //处理游戏消息的入口函数，负责解析消息并调用相应的函数
-
     /* 各个线程的线程函数 */
     void run(); //初始运行函数，运行三个线程：接收线程、房间处理线程、发送线程
 
     void recv_process(); //接收线程函数，负责接收数据并加入消息队列
     void room_process(); //房间消息处理线程函数，负责处理消息队列中的数据
-    void game_process(); //游戏消息处理线程函数，负责处理消息队列中的数据
     void send_process(); //发送线程函数，负责将发送队列中的消息发回
 
     void Refreash_Tank_process(bool *end);   //定时广播局内信息的线程

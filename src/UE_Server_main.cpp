@@ -1,7 +1,6 @@
 #include "header.h"
 #include "Tank_Server.h"
 #include "Hall_Process.h"
-#include "Map.h"
 #include <net/if.h>
 #include <sys/ioctl.h>
 using namespace std;
@@ -72,9 +71,6 @@ int main(int argc, char *argv[])
     addsig(SIGINT);
     addsig(SIGTERM);
     signal(SIGPIPE, SIG_IGN);
-
-    Init_Style();
-    Init_Map();
 
     thread T1(server_listen, listen_socket);
 
