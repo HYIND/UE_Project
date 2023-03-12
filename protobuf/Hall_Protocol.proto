@@ -1,0 +1,33 @@
+syntax = "proto3"; 
+package Hall_Protobuf;
+
+message HallInfo_Response{   // 201
+  message User {
+    string name = 1;
+  } repeated User userinfo = 1;
+  message RoomInfo{
+    int32 room_id = 1;
+    string host_name = 2;
+  } repeated RoomInfo roominfo = 2;
+}
+
+message HallMessage_Request{  // 103
+  string content = 1;
+}
+message HallMessage_Response{  // 203
+  string name = 1;
+  string content = 2;
+}
+
+message EnterRoom_Request{    //105
+  int32 room_id = 1;
+}
+
+message EnterRoom_Response{    //205
+  int32 room_id = 1;
+  int32 result = 2;
+}
+
+message Ping_info{   //106
+  int32 ping_id = 1;
+}

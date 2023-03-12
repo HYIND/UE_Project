@@ -1,6 +1,7 @@
 #include "header.h"
-#include "Tank_Server.h"
-#include "Hall_Process.h"
+#include "UE_Server.h"
+#include "Hall_Server.h"
+#include "Mysql_Server.h"
 #include <net/if.h>
 #include <sys/ioctl.h>
 using namespace std;
@@ -35,11 +36,34 @@ int get_local_ip(const char *eth_inf, char *out)
     return 0;
 }
 
-int main(int argc, char *argv[])
+void sig_handler(int sig)
+{
+    int save_errno = errno;
+    int msg = sig;
+    send(Listen_Server::Instance()->Get_pipe(), (char *)&msg, 1, 0);
+    send(Login_Server::Instance()->Get_pipe(), (char *)&msg, 1, 0);
+    send(Hall_Server::Instance()->Get_pipe(), (char *)&msg, 1, 0);
+    errno = save_errno;
+}
+
+void addsig(int sig)
+{
+    struct sigaction sa;
+    memset(&sa, '\0', sizeof(sa));
+    sa.sa_handler = sig_handler;
+    sa.sa_flags |= SA_RESTART;
+    // sigfillset(&sa.sa_mask);
+    assert(sigaction(sig, &sa, NULL) != -1);
+}
+
+int Init_Server(int argc, char *argv[])
 {
     LOGINFO("Start Server!");
-    GOOGLE_PROTOBUF_VERIFY_VERSION;
-    
+    if (!Mysql_Server::Instance()->CreateConnect())
+    {
+        perror("Contect database error");
+        return false;
+    }
     sockaddr_in sockaddr;
     int listen_socket;
     if (argc > 1)
@@ -57,30 +81,42 @@ int main(int argc, char *argv[])
 
     if (listen_socket == -1)
     {
-        perror("create listen_socket error");
-        return -1;
+        perror("Create listen_socket error");
+        return false;
     }
 
-    assert(socketpair(PF_UNIX, SOCK_DGRAM, 0, listen_pipe) != -1);
-    assert(socketpair(PF_UNIX, SOCK_DGRAM, 0, hall_pipe) != -1);
-    setnonblocking(listen_pipe[1]);
-    addfd(listen_epoll, listen_pipe[0]);
-    setnonblocking(hall_pipe[1]);
-    addfd(hall_epoll, hall_pipe[0]);
+    Listen_Server::Instance()->Init_Listen(listen_socket);
+    Login_Server::Instance()->Init_Login();
+    Hall_Server::Instance()->Init_Hall();
 
     addsig(SIGINT);
     addsig(SIGTERM);
     signal(SIGPIPE, SIG_IGN);
 
-    thread T1(server_listen, listen_socket);
+    thread T1(&Hall_Server::Run, Hall_Server::Instance());
+    thread T2(&Login_Server::Run, Login_Server::Instance());
+    thread T3(&Listen_Server::Run, Listen_Server::Instance());
 
-    thread T2(server_hall);
+    // test
+    // thread T4(
+    //     []()
+    //     {
+    //         socket_message *msg = new socket_message(0);
+    //         msg->header.type = 700;
+    //         Login_Server::Instance()->OnLoginProcess(msg);
+    //     }
+    //     );
 
+    T3.join();
     T2.join();
     T1.join();
-    close(listen_pipe[0]);
-    close(listen_pipe[1]);
-    close(hall_pipe[0]);
-    close(hall_pipe[1]);
+
+    return true;
+}
+
+int main(int argc, char *argv[])
+{
+    GOOGLE_PROTOBUF_VERIFY_VERSION;
+    Init_Server(argc, argv);
     return 0;
 }

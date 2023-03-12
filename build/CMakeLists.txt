@@ -17,9 +17,10 @@ include_directories(${Protobuf_INCLUDE_DIRS})
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")
 
-add_executable(UE_Server ${DIR_PROTO} ${DIR_SRCS})
+add_executable(${PROJECT_NAME} ${DIR_PROTO} ${DIR_SRCS})
 
-target_link_libraries(UE_Server ${Protobuf_LIBRARIES})
+target_link_libraries(${PROJECT_NAME} ${Protobuf_LIBRARIES})
+target_link_libraries(${PROJECT_NAME} libmysqlclient.so)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS True)
 

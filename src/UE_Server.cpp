@@ -1,67 +1,41 @@
-#include "Tank_Server.h"
+#include "UE_Server.h"
 
-vector<sock_info *> user_list;
-vector<Room_Process *> room_list;
-vector<int> game_pipe_list;
-
-int listen_epoll = epoll_create(100);
-int hall_epoll = epoll_create(100);
-
-epoll_event listen_events[100];
-epoll_event hall_events[200];
-
-int listen_pipe[2];
-int hall_pipe[2];
-
-int room_counter = 0;
-
-string get_IP(int socket)
+bool Listen_Server::Init_Listen(int socket)
 {
-    for (auto &v : user_list)
+    Listen_Socket = socket;
+    assert(socketpair(PF_UNIX, SOCK_DGRAM, 0, Listen_pipe) != -1);
+    setnonblocking(Listen_pipe[1]);
+    addfd(Listen_epoll, Listen_pipe[0]);
+
+    return true;
+}
+int Listen_Server::Run()
+{
+    thread listen_thread(&Listen_Server::Listen_Process, this);
+    listen_thread.join();
+
+    ThreadEnd();
+    LOGINFO("Listen_Server::Run ,Listen_Server Close!");
+    return 1;
+}
+void Listen_Server::ThreadEnd()
+{
+    close(Listen_pipe[0]);
+    close(Listen_pipe[1]);
+}
+int Listen_Server::Listen_Process()
+{
+    if (Listen_Socket == 0)
     {
-        if (v->tcp_fd == socket)
-            return inet_ntoa(v->tcp_addr.sin_addr);
+        LOGINFO("Listen_Server::Run  fail cause Listen_Socket not initialized");
+        return -1;
     }
-    return "";
-}
-
-string get_userid(int socket)
-{
-    for (auto &v : user_list)
-    {
-        if (v->tcp_fd == socket)
-            return v->userid;
-    }
-    return "";
-}
-
-void sig_handler(int sig)
-{
-    int save_errno = errno;
-    int msg = sig;
-    send(listen_pipe[1], (char *)&msg, 1, 0);
-    send(hall_pipe[1], (char *)&msg, 1, 0);
-    errno = save_errno;
-}
-
-void addsig(int sig)
-{
-    struct sigaction sa;
-    memset(&sa, '\0', sizeof(sa));
-    sa.sa_handler = sig_handler;
-    sa.sa_flags |= SA_RESTART;
-    // sigfillset(&sa.sa_mask);
-    assert(sigaction(sig, &sa, NULL) != -1);
-}
-
-void server_listen(int listen_socket)
-{
-    addfd(listen_epoll, listen_socket);
-    int ret = listen(listen_socket, 10);
+    addfd(Listen_epoll, Listen_Socket);
+    int ret = listen(Listen_Socket, 10);
     if (ret < 0)
     {
         perror("listen socket error");
-        return;
+        return -1;
     }
 
     // int timefd = timerfd_create(CLOCK_MONOTONIC, 0);
@@ -79,7 +53,7 @@ void server_listen(int listen_socket)
     int stop = false;
     while (!stop)
     {
-        int number = epoll_wait(listen_epoll, listen_events, 200, -1);
+        int number = epoll_wait(Listen_epoll, Listen_events, 200, -1);
         if (number < 0 && (errno != EINTR))
         {
             cout << "listen_epoll failure\n";
@@ -95,51 +69,38 @@ void server_listen(int listen_socket)
             //     cout<<exp;
             //     // addfd(listen_epoll,timefd,false);
             // }
-            if ((listen_events[i].data.fd == listen_pipe[0]) && (listen_events[i].events & EPOLLIN))
+            if ((Listen_events[i].data.fd == Listen_pipe[0]) && (Listen_events[i].events & EPOLLIN))
             {
+                int sig;
+                char signals[1024];
+                int ret = recv(Listen_pipe[0], signals, 1023, 0);
+                if (ret == -1 || ret == 0)
+                    continue;
+                else
                 {
-                    int sig;
-                    char signals[1024];
-                    int ret = recv(listen_pipe[0], signals, 1023, 0);
-                    if (ret == -1 || ret == 0)
-                        continue;
-                    else
+                    for (int i = 0; i < ret; i++)
                     {
-                        for (int i = 0; i < ret; i++)
+                        switch (signals[i])
                         {
-                            switch (signals[i])
-                            {
-                            case SIGINT:
-                            case SIGTERM:
-                            {
-                                stop = true;
-                                break;
-                            }
-                            }
+                        case SIGINT:
+                        case SIGTERM:
+                        {
+                            stop = true;
+                            break;
+                        }
                         }
                     }
                 }
             }
-            else if (listen_events[i].events & EPOLLIN)
+            else if (Listen_events[i].events & EPOLLIN)
             {
                 sockaddr_in client;
                 socklen_t length = sizeof(client);
-                int socket_fd = accept(listen_socket, (struct sockaddr *)&client, &length);
+                int socket_fd = accept(Listen_Socket, (struct sockaddr *)&client, &length);
                 if (socket_fd != -1)
                 {
-                    setnonblocking(socket_fd);
-                    sock_info *info = new sock_info(socket_fd, client);
-                    user_list.emplace_back(info);
-                    int flag = 1;
-                    setsockopt(socket_fd, IPPROTO_TCP, TCP_NODELAY, (void *)&flag, sizeof(flag));
-
-                    addfd(hall_epoll, socket_fd);
-
-                    // info->send_udp_info(socket_fd); // 同步udp信息，并提前建立好udp连接
-
-                    // int i = 0;
-                    // socklen_t j = sizeof(i);
-                    // getsockopt(listen_socket, SOL_SOCKET, SO_RCVBUF, (char *)&i, &j);
+                    Login_Server::Instance()->Push_Fd(socket_fd, client);
+                    LOGINFO("user connect : address : {}:{},", inet_ntoa(client.sin_addr), ntohs(client.sin_port));
                 }
                 else
                     cout << "socket accept fail!\n";
@@ -147,6 +108,8 @@ void server_listen(int listen_socket)
         }
     }
     // close(timefd);
-    close(listen_epoll);
-    close(listen_socket);
+    close(Listen_epoll);
+    close(Listen_Socket);
+
+    return 1;
 }
