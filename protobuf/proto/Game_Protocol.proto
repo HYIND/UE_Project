@@ -1,0 +1,28 @@
+syntax = "proto3"; 
+package Game_Protobuf;
+ 
+message Gameinfo
+{
+    int32 roomid =1;
+    int32 playersnum =2;
+    int32 playerslimit =3;
+    int32 mapid =4;
+    int32 hostid =5;
+    repeated PlayerAllinfo playersallinfo =6;
+}
+message PlayerAllinfo
+{
+    int32 id=1;
+    string playersname = 2;
+    string token =3;
+    int32 group = 4;
+}
+
+message NewGame_Request{ //4000
+    Gameinfo gameinfo=1; 
+}
+
+message NewGame_Response{   //5000
+    int32 result =1;
+    string DS_IP =2;
+}

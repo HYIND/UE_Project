@@ -1,0 +1,1 @@
+ protoc -I=../  -I=./ --cpp_out=../ *.proto 

@@ -2,9 +2,13 @@ cmake_minimum_required (VERSION 3.16)
 
 project(UE_Server C CXX)
 
+# C++14
+set(CMAKE_CXX_STANDARD 17)
+
 include_directories(../include)
 include_directories(../protobuf)
 include_directories(../spdlog)
+include_directories(../libevent/include)
 aux_source_directory(../src DIR_SRCS)
 aux_source_directory(../protobuf DIR_PROTO)
 
@@ -15,7 +19,7 @@ include_directories(${Protobuf_INCLUDE_DIRS})
 
 # set(CMAKE_BUILD_TYPE "Debug")
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread -levent")
 
 add_executable(${PROJECT_NAME} ${DIR_PROTO} ${DIR_SRCS})
 

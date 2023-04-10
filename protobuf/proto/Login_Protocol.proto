@@ -1,0 +1,49 @@
+syntax = "proto3"; 
+package Login_Protobuf;
+
+// message SearchResponse {
+//   message Result {
+//     string url = 1;
+//     string title = 2;
+//     int64  telephone = 3;
+//     repeated string snippets = 4;
+//   }
+//   repeated Result results = 1;
+// }
+
+// Login_Server
+message Account{
+  string account = 1;
+  string password = 2; 
+}
+message Login_Request{
+  Account Logininfo = 1;
+}
+message Logout_Request{
+}
+message Signup_Request{
+  Account Signupinfo = 1;
+  string Name = 2;
+}
+
+message Login_Response{
+  int32 result =1;
+  string name =2;
+  string token =3;
+}
+message Signup_Response{
+  int32 result=1;
+}
+message Logout_Response{
+}
+
+message Reconnect_Request{
+  string token =1;
+}
+message Reconnect_Response{
+  int32 result =1;
+  string token =2;
+}
+
+message Heart_Package{
+}

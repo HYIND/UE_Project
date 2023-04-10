@@ -1,7 +1,6 @@
 #pragma once
 
 #include "header.h"
-#include "NetworkStuct.h"
 
 using namespace std;
 
@@ -19,8 +18,15 @@ enum class Signup_Request_Result
     SignupSuccess = 1 // 注册成功
 };
 
+enum class Reconnect_Result
+{
+	Fail = 0,
+	Success = 1
+};
+
 class Login_Server
 {
+    /* 以下为基础服务框架 */
 public:
     static Login_Server *Instance()
     {
@@ -28,35 +34,26 @@ public:
         return m_Instance;
     }
 
+private:
+    Login_Server(){};
+
 public:
     bool Init_Login();
     int Run();
     void ThreadEnd();
 
-    void Push_Fd(int socket_fd, sockaddr_in &tcp_addr);
+    int Get_pipe() { return Login_pipe[1]; };
 
 protected:
-    void Recv_Process();  // 接收线程函数
-    void Login_Process(); // 处理线程函数
-    void Send_Process();  // 发送线程函数
-
-    int OnLoginProcess(Socket_Message *msg);
-    void OnLogin(const int socket_fd, const Header header, const char *content);
-    void OnSignup(const int socket_fd, const Header header, const char *content);
+    void Recv_Process();           // 接收线程函数
+    void Login_Process();          // 处理线程函数
+    void Send_Process();           // 发送线程函数
+    void HeartBeatCheck_Process(); // 心跳检测函数
 
     template <typename T>
     int Get_Header_Type(T &message);
     template <typename T>
     void SendTo_SendQueue(int socket, T &message);
-
-private:
-    Login_Server(){};
-
-    Login_Request_Result Check_Login(string &acount, string &password, User_Info **userinfo);
-    Signup_Request_Result Check_Signup(string &name, string &acount, string &password);
-
-public:
-    int Get_pipe() { return Login_pipe[1]; };
 
 private:
     // Epoll
@@ -74,6 +71,24 @@ private:
     condition_variable SendProcess_cv;  // 唤醒发送线程的条件变量
     bool Login_Process_stop = false;
 
+    /* 以下为逻辑处理 */
+public:
+    void Push_Fd(int socket_fd, sockaddr_in &tcp_addr);
+    void Push_Fd(Socket_Info &info);
+
+protected:
+    int OnLoginProcess(Socket_Message *msg);
+    void OnLogin(const int socket_fd, const Header header, const char *content);
+    void OnSignup(const int socket_fd, const Header header, const char *content);
+    void OnReconnect(const int socket_fd, const Header header, const char *content);
+
+    Login_Request_Result Check_Login(string &acount, string &password, User_Info **userinfo);
+    Signup_Request_Result Check_Signup(string &name, string &acount, string &password);
+
+    void RemoveFd(int fd);
+
+private:
     // Logic Process
     vector<Socket_Info *> Login_fd_list;
+    map<int, int> HeartBeat_map; //<fd->count>
 };

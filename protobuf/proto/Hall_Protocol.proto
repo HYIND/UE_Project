@@ -1,0 +1,18 @@
+syntax = "proto3"; 
+package Hall_Protobuf;
+
+message PublicMessage_Request{  // 400
+  string content = 1;
+}
+
+message PublicMessage_MutiResponse{  // 500
+  string name = 1;
+  string content = 2;
+}
+
+message Ping_Request{   //600
+  int32 pingpack_id = 1;
+}
+message Ping_Response{   //605
+  int32 pingpack_id = 1;
+}

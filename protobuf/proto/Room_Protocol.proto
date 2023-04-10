@@ -1,0 +1,131 @@
+syntax = "proto3"; 
+package Room_Protobuf;
+ 
+message Playerinfo
+{
+    string playersname = 1;
+    int32 state = 2;
+    int32 group = 3;
+}
+
+message RoomDisplayInfo
+{
+    int32 room_id = 1;
+    string host_name = 2;
+    int32 playersnum = 3;
+    int32 playerslimit = 4;
+    int32 mapid = 5;
+}
+
+message CreateRoominfo
+{
+    int32 playerslimit = 2;
+    int32 mapid = 3;
+}
+
+message RoomAllInfo
+{
+    int32 room_id = 1;
+    string host_name = 2;
+    int32 playersnum = 3;
+    int32 playerslimit = 4;
+    int32 mapid = 5;
+    repeated Playerinfo playerinfo = 6;
+}
+
+message CreateRoom_Request{ //800
+  CreateRoominfo Createinfo=1;
+}
+  
+message SerachRoom_Request{ //810
+}
+  
+message JoinRoom_Request{ //820
+  int32 Roomid=1;
+}
+  
+message ExitRoom_Request{ //830
+}
+  
+message KickRoom_Request{  //840
+  Playerinfo playerinfo =1;
+}
+
+message ChangeMap_Request{  //850
+  int32 mapid=1;
+}
+
+message ChangePlayerlimit_Request{  //860
+  int32 limit=1;
+}
+
+message ChangeReady_Request{  //870
+  int32 state =1;
+}
+
+message RoomMessage_Request{  // 880
+  string content = 1;
+}
+
+message ChangeTeam_Request{  //890
+  int32 group =1;
+}
+
+message CreateRoom_Response{  //900
+  int32 result=1;
+}
+
+message SerachRoom_Response{   // 910
+  repeated RoomDisplayInfo roominfo = 1;
+}
+
+message JoinRoom_Response{ //920
+  int32 result = 1;
+  RoomAllInfo roominfo = 3;
+}
+message JoinRoom_MutiResponse{   //925
+  Playerinfo playerinfo =1;
+}
+
+message ExitRoom_Response{   //930
+  int32 result = 1;
+}
+message ExitRoom_MutiResponse{   //935
+  Playerinfo playerinfo =1;
+  int32 changehost =2;
+  string new_hostname =3;
+}
+
+
+message KickRoom_Response{  //940
+}
+
+message ChangeMap_MutiResponse{  //950
+  int32 mapid=1;
+}
+
+message ChangePlayerlimit_MutiResponse{   //960
+  int32 limit=1;
+}
+
+message ChangeReady_MutiResponse{ //970
+  string name =1;
+  int32 state =2;
+}
+
+message RoomMessage_MutiResponse{  // 980
+  string name = 1;
+  string content = 2;
+}
+
+message ChangeTeam_MutiResponse{ //990
+  string name =1;
+  int32 group =2;
+}
+
+message StartGame_Request{ //1800
+}
+message StartGame_MutiResponse{ //2000
+  int32 result =1;
+  string DS_IP =2;
+}

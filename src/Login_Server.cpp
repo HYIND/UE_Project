@@ -1,14 +1,7 @@
 #include "Login_Server.h"
-#include "Hall_Server.h"
-
-enum Login_Server_MsgNum
-{
-    Req_Login = 700,
-    Req_Signup = 710,
-
-    Response_Login = 705,
-    Response_Signup = 715
-};
+#include "Center_Server.h"
+#include "RateLimiter.h"
+#include "MsgNum.h"
 
 template <typename T>
 int Login_Server::Get_Header_Type(T &message)
@@ -18,9 +11,9 @@ int Login_Server::Get_Header_Type(T &message)
     else if (is_same<T, Login_Protobuf::Signup_Response>::value)
         return Login_Server_MsgNum::Response_Signup;
     else if (is_same<T, Login_Protobuf::Login_Request>::value)
-        return Login_Server_MsgNum::Req_Login;
+        return Login_Server_MsgNum::Request_Login;
     else if (is_same<T, Login_Protobuf::Signup_Request>::value)
-        return Login_Server_MsgNum::Req_Signup;
+        return Login_Server_MsgNum::Request_Signup;
     return 0;
 }
 template <typename T>
@@ -51,6 +44,7 @@ bool Login_Server::Init_Login()
 int Login_Server::Run()
 {
     Login_Process_stop = false;
+    thread heartcheck_thread(&Login_Server::HeartBeatCheck_Process, this);
     thread send_thread(&Login_Server::Send_Process, this);
     thread login_thread(&Login_Server::Login_Process, this);
     thread recv_thread(&Login_Server::Recv_Process, this);
@@ -58,6 +52,7 @@ int Login_Server::Run()
     recv_thread.join();
     login_thread.join();
     send_thread.join();
+    heartcheck_thread.join();
 
     ThreadEnd();
     LOGINFO("Login_Server::Run ,Login_Server Close!");
@@ -85,8 +80,7 @@ void Login_Server::Recv_Process()
     char buffer[1024];
     memset(buffer, '\0', 1024);
     Socket_Message *recv_message = nullptr;
-    int stop = false;
-    while (!stop)
+    while (!Login_Process_stop)
     {
         int number = epoll_wait(Login_epoll, Login_events, 200, -1);
         if (number < 0 && (errno != EINTR))
@@ -104,7 +98,9 @@ void Login_Server::Recv_Process()
             //     cout<<exp;
             //     // addfd(Login_epoll,timefd,false);
             // }
-            if ((Login_events[i].data.fd == Login_pipe[0]) && (Login_events[i].events & EPOLLIN))
+            int socket_fd = ((Epoll_Data *)Login_events[i].data.ptr)->fd;
+            uint32_t event = Login_events[i].events;
+            if ((socket_fd == Login_pipe[0]) && (event & EPOLLIN))
             {
                 int sig;
                 char signals[1024];
@@ -120,26 +116,32 @@ void Login_Server::Recv_Process()
                         case SIGINT:
                         case SIGTERM:
                         {
-                            stop = true;
+                            Login_Process_stop = true;
                             break;
                         }
                         }
                     }
                 }
             }
-            else if (Login_events[i].events & EPOLLIN)
+            else if (event & EPOLLRDHUP)
             {
-                int socket_fd = Login_events[i].data.fd;
-                int recv_length = 0;
-                int re_num = recv(socket_fd, buffer, sizeof(Header), 0);
+                RemoveFd(socket_fd);
+            }
+            else if (event & EPOLLIN)
+            {
+                int re_num = recv(socket_fd, buffer, TokenSize + sizeof(Header), 0);
                 while (re_num > 0)
                 {
                     int count = 0;
 
                     recv_message = new Socket_Message(socket_fd);
+
+                    // 获取token
+                    char token_ch[TokenSize];
+                    memcpy(token_ch, buffer, TokenSize);
+
                     // 获取头
-                    recv_length += sizeof(Header);
-                    memcpy(&recv_message->header, buffer, recv_length);
+                    memcpy(&recv_message->header, buffer + TokenSize, sizeof(Header));
 
                     // 获取内容（可能为空）
                     if (recv_message->header.length > 0)
@@ -148,14 +150,21 @@ void Login_Server::Recv_Process()
                         re_num = recv(socket_fd, recv_message->content, recv_message->header.length, 0);
                     }
 
-                    RecvQueue.emplace(recv_message); // 投递消息
-                    LoginProcess_cv.notify_one();    // 唤醒一个处理线程
+                    HeartBeat_map[socket_fd] = 0;
+                    if (!RateLimiter_Manager::Instance()->TryPass(socket_fd) || recv_message->header.type == Heart_Package)
+                    {
+                        delete (recv_message);
+                    }
+                    else
+                    {
+                        RecvQueue.emplace(recv_message); // 投递消息
+                        LoginProcess_cv.notify_one();    // 唤醒一个处理线程
+                    }
 
-                    if (count == 5) // 计数，防止持续占用
+                    if (++count == 5) // 计数，防止持续占用
                         break;
 
-                    recv_length = 0;
-                    re_num = recv(socket_fd, buffer, sizeof(Header), 0);
+                    re_num = recv(socket_fd, buffer, TokenSize + sizeof(Header), 0);
                 }
             }
         }
@@ -220,6 +229,26 @@ void Login_Server::Send_Process()
         }
     }
 }
+void Login_Server::HeartBeatCheck_Process()
+{
+    while (!Login_Process_stop)
+    {
+        for (auto map_it = HeartBeat_map.begin(); map_it != HeartBeat_map.end(); map_it++)
+        {
+            if (++(map_it->second) == 6) // 5s*6没有收到心跳包，判定客户端掉线
+            {
+                LOGINFO("Login_Server::HeartBeatCheck_Process , fd {} timeout! disconnect", map_it->first);
+                int fd = map_it->first;
+                RemoveFd(fd);
+            }
+            else if (map_it->second < 6 && map_it->second >= 0)
+            {
+                (map_it->second)++;
+            }
+        }
+        this_thread::sleep_for(std::chrono::seconds(5)); // 定时五秒
+    }
+}
 
 int Login_Server::OnLoginProcess(Socket_Message *msg)
 {
@@ -229,14 +258,19 @@ int Login_Server::OnLoginProcess(Socket_Message *msg)
 
     switch (header.type)
     {
-    case Req_Login:
+    case Request_Login:
     {
         OnLogin(socket_fd, header, content);
         break;
     }
-    case Req_Signup:
+    case Request_Signup:
     {
         OnSignup(socket_fd, header, content);
+        break;
+    }
+    case Request_Reconnect:
+    {
+        OnReconnect(socket_fd, header, content);
         break;
     }
     }
@@ -254,6 +288,20 @@ void Login_Server::Push_Fd(int socket_fd, sockaddr_in &tcp_addr)
     int flag = 1;
     setsockopt(socket_fd, IPPROTO_TCP, TCP_NODELAY, (void *)&flag, sizeof(flag));
     addfd(Login_epoll, socket_fd);
+    RateLimiter_Manager::Instance()->Push(socket_fd);
+    HeartBeat_map[socket_fd] = 0;
+}
+
+void Login_Server::Push_Fd(Socket_Info &info_in)
+{
+    setnonblocking(info_in.Get_SocketFd());
+    Socket_Info *info = new Socket_Info(info_in);
+    Login_fd_list.emplace_back(info);
+    int flag = 1;
+    setsockopt(info_in.Get_SocketFd(), IPPROTO_TCP, TCP_NODELAY, (void *)&flag, sizeof(flag));
+    addfd(Login_epoll, info_in.Get_SocketFd());
+    HeartBeat_map[info_in.Get_SocketFd()] = 0;
+    RateLimiter_Manager::Instance()->Push(info_in.Get_SocketFd());
 }
 
 void Login_Server::OnLogin(const int socket_fd, const Header header, const char *content)
@@ -284,10 +332,13 @@ void Login_Server::OnLogin(const int socket_fd, const Header header, const char 
                     userinfo->SetSocketinfo_Move(info);
                     Login_fd_list.erase(it);
                     delfd(Login_epoll, socket_fd);
-                    Hall_Server::Instance()->Push_User(userinfo);
+                    userinfo->token = Get_Token();
+                    HeartBeat_map.erase(socket_fd);
+                    Center_Server::Instance()->Push_User(userinfo);
 
                     Response.set_name(userinfo->Get_UserName());
                     Response.set_result((int)Login_Request_Result::LoginSuccess);
+                    Response.set_token(userinfo->Get_Token());
                     find_result = true;
                     break;
                 }
@@ -353,4 +404,65 @@ Signup_Request_Result Login_Server::Check_Signup(string &name, string &acount, s
         return Signup_Request_Result::SignupSuccess;
 
     return Signup_Request_Result::InnerError;
+}
+
+void Login_Server::RemoveFd(int fd)
+{
+    try
+    {
+        delfd(Login_epoll, fd);
+        close(fd);
+        for (auto it = Login_fd_list.begin(); it != Login_fd_list.end(); it++)
+        {
+            if ((*it)->Get_SocketFd() == fd)
+            {
+                Login_fd_list.erase(it);
+                if (*it)
+                    delete (*it);
+                break;
+            }
+        }
+        auto it = HeartBeat_map.find(fd);
+        if (it != HeartBeat_map.end())
+            HeartBeat_map.erase(it);
+        RateLimiter_Manager::Instance()->Pop(fd);
+    }
+    catch (exception &e)
+    {
+        perror(e.what());
+        LOGINFO("Login_Server::RemoveFd , an unknown error :{}", e.what());
+    }
+}
+
+void Login_Server::OnReconnect(const int socket_fd, const Header header, const char *content)
+{
+    Login_Protobuf::Reconnect_Request Request;
+    Request.ParseFromArray(content, header.length);
+    string Token = Request.token();
+
+    auto map_it = HeartBeat_map.find(socket_fd);
+    if (map_it != HeartBeat_map.end())
+        HeartBeat_map.erase(map_it);
+
+    bool find_result = false;
+    for (auto it = Login_fd_list.begin(); it != Login_fd_list.end(); it++)
+    {
+        Socket_Info *info = *it;
+        if (info->tcp_fd == socket_fd)
+        {
+            Login_fd_list.erase(it);
+            delfd(Login_epoll, socket_fd);
+            HeartBeat_map.erase(socket_fd);
+            if (!Center_Server::Instance()->Check_Reconnect(info, Token))
+            {
+                Login_fd_list.emplace_back(info);
+                addfd(Login_epoll, socket_fd);
+                HeartBeat_map[socket_fd] = 0;
+                return;
+            }
+            find_result = true;
+            return;
+        }
+    }
+    HeartBeat_map[socket_fd] = 0;
 }

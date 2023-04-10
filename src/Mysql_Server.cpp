@@ -1,5 +1,4 @@
 #include "Mysql_Server.h"
-#include "Config.h"
 
 Mysql_Server::Mysql_Server()
 {

@@ -48,6 +48,17 @@ struct Login_RequestDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 Login_RequestDefaultTypeInternal _Login_Request_default_instance_;
+PROTOBUF_CONSTEXPR Logout_Request::Logout_Request(
+    ::_pbi::ConstantInitialized) {}
+struct Logout_RequestDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR Logout_RequestDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~Logout_RequestDefaultTypeInternal() {}
+  union {
+    Logout_Request _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 Logout_RequestDefaultTypeInternal _Logout_Request_default_instance_;
 PROTOBUF_CONSTEXPR Signup_Request::Signup_Request(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.name_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
@@ -65,6 +76,7 @@ PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORIT
 PROTOBUF_CONSTEXPR Login_Response::Login_Response(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.name_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.token_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
   , /*decltype(_impl_.result_)*/0
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct Login_ResponseDefaultTypeInternal {
@@ -89,8 +101,57 @@ struct Signup_ResponseDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 Signup_ResponseDefaultTypeInternal _Signup_Response_default_instance_;
+PROTOBUF_CONSTEXPR Logout_Response::Logout_Response(
+    ::_pbi::ConstantInitialized) {}
+struct Logout_ResponseDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR Logout_ResponseDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~Logout_ResponseDefaultTypeInternal() {}
+  union {
+    Logout_Response _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 Logout_ResponseDefaultTypeInternal _Logout_Response_default_instance_;
+PROTOBUF_CONSTEXPR Reconnect_Request::Reconnect_Request(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.token_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_._cached_size_)*/{}} {}
+struct Reconnect_RequestDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR Reconnect_RequestDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~Reconnect_RequestDefaultTypeInternal() {}
+  union {
+    Reconnect_Request _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 Reconnect_RequestDefaultTypeInternal _Reconnect_Request_default_instance_;
+PROTOBUF_CONSTEXPR Reconnect_Response::Reconnect_Response(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.token_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.result_)*/0
+  , /*decltype(_impl_._cached_size_)*/{}} {}
+struct Reconnect_ResponseDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR Reconnect_ResponseDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~Reconnect_ResponseDefaultTypeInternal() {}
+  union {
+    Reconnect_Response _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 Reconnect_ResponseDefaultTypeInternal _Reconnect_Response_default_instance_;
+PROTOBUF_CONSTEXPR Heart_Package::Heart_Package(
+    ::_pbi::ConstantInitialized) {}
+struct Heart_PackageDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR Heart_PackageDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~Heart_PackageDefaultTypeInternal() {}
+  union {
+    Heart_Package _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 Heart_PackageDefaultTypeInternal _Heart_Package_default_instance_;
 }  // namespace Login_Protobuf
-static ::_pb::Metadata file_level_metadata_Login_5fProtocol_2eproto[5];
+static ::_pb::Metadata file_level_metadata_Login_5fProtocol_2eproto[10];
 static constexpr ::_pb::EnumDescriptor const** file_level_enum_descriptors_Login_5fProtocol_2eproto = nullptr;
 static constexpr ::_pb::ServiceDescriptor const** file_level_service_descriptors_Login_5fProtocol_2eproto = nullptr;
 
@@ -111,6 +172,12 @@ const uint32_t TableStruct_Login_5fProtocol_2eproto::offsets[] PROTOBUF_SECTION_
   ~0u,  // no _inlined_string_donated_
   PROTOBUF_FIELD_OFFSET(::Login_Protobuf::Login_Request, _impl_.logininfo_),
   ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::Login_Protobuf::Logout_Request, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  ~0u,  // no _inlined_string_donated_
+  ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::Login_Protobuf::Signup_Request, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
@@ -126,6 +193,7 @@ const uint32_t TableStruct_Login_5fProtocol_2eproto::offsets[] PROTOBUF_SECTION_
   ~0u,  // no _inlined_string_donated_
   PROTOBUF_FIELD_OFFSET(::Login_Protobuf::Login_Response, _impl_.result_),
   PROTOBUF_FIELD_OFFSET(::Login_Protobuf::Login_Response, _impl_.name_),
+  PROTOBUF_FIELD_OFFSET(::Login_Protobuf::Login_Response, _impl_.token_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::Login_Protobuf::Signup_Response, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -133,38 +201,79 @@ const uint32_t TableStruct_Login_5fProtocol_2eproto::offsets[] PROTOBUF_SECTION_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
   PROTOBUF_FIELD_OFFSET(::Login_Protobuf::Signup_Response, _impl_.result_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::Login_Protobuf::Logout_Response, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  ~0u,  // no _inlined_string_donated_
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::Login_Protobuf::Reconnect_Request, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  ~0u,  // no _inlined_string_donated_
+  PROTOBUF_FIELD_OFFSET(::Login_Protobuf::Reconnect_Request, _impl_.token_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::Login_Protobuf::Reconnect_Response, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  ~0u,  // no _inlined_string_donated_
+  PROTOBUF_FIELD_OFFSET(::Login_Protobuf::Reconnect_Response, _impl_.result_),
+  PROTOBUF_FIELD_OFFSET(::Login_Protobuf::Reconnect_Response, _impl_.token_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::Login_Protobuf::Heart_Package, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  ~0u,  // no _inlined_string_donated_
 };
 static const ::_pbi::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, -1, sizeof(::Login_Protobuf::Account)},
   { 8, -1, -1, sizeof(::Login_Protobuf::Login_Request)},
-  { 15, -1, -1, sizeof(::Login_Protobuf::Signup_Request)},
-  { 23, -1, -1, sizeof(::Login_Protobuf::Login_Response)},
-  { 31, -1, -1, sizeof(::Login_Protobuf::Signup_Response)},
+  { 15, -1, -1, sizeof(::Login_Protobuf::Logout_Request)},
+  { 21, -1, -1, sizeof(::Login_Protobuf::Signup_Request)},
+  { 29, -1, -1, sizeof(::Login_Protobuf::Login_Response)},
+  { 38, -1, -1, sizeof(::Login_Protobuf::Signup_Response)},
+  { 45, -1, -1, sizeof(::Login_Protobuf::Logout_Response)},
+  { 51, -1, -1, sizeof(::Login_Protobuf::Reconnect_Request)},
+  { 58, -1, -1, sizeof(::Login_Protobuf::Reconnect_Response)},
+  { 66, -1, -1, sizeof(::Login_Protobuf::Heart_Package)},
 };
 
 static const ::_pb::Message* const file_default_instances[] = {
   &::Login_Protobuf::_Account_default_instance_._instance,
   &::Login_Protobuf::_Login_Request_default_instance_._instance,
+  &::Login_Protobuf::_Logout_Request_default_instance_._instance,
   &::Login_Protobuf::_Signup_Request_default_instance_._instance,
   &::Login_Protobuf::_Login_Response_default_instance_._instance,
   &::Login_Protobuf::_Signup_Response_default_instance_._instance,
+  &::Login_Protobuf::_Logout_Response_default_instance_._instance,
+  &::Login_Protobuf::_Reconnect_Request_default_instance_._instance,
+  &::Login_Protobuf::_Reconnect_Response_default_instance_._instance,
+  &::Login_Protobuf::_Heart_Package_default_instance_._instance,
 };
 
 const char descriptor_table_protodef_Login_5fProtocol_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
   "\n\024Login_Protocol.proto\022\016Login_Protobuf\","
   "\n\007Account\022\017\n\007account\030\001 \001(\t\022\020\n\010password\030\002"
   " \001(\t\";\n\rLogin_Request\022*\n\tLogininfo\030\001 \001(\013"
-  "2\027.Login_Protobuf.Account\"K\n\016Signup_Requ"
-  "est\022+\n\nSignupinfo\030\001 \001(\0132\027.Login_Protobuf"
-  ".Account\022\014\n\004Name\030\002 \001(\t\".\n\016Login_Response"
-  "\022\016\n\006result\030\001 \001(\005\022\014\n\004name\030\002 \001(\t\"!\n\017Signup"
-  "_Response\022\016\n\006result\030\001 \001(\005b\006proto3"
+  "2\027.Login_Protobuf.Account\"\020\n\016Logout_Requ"
+  "est\"K\n\016Signup_Request\022+\n\nSignupinfo\030\001 \001("
+  "\0132\027.Login_Protobuf.Account\022\014\n\004Name\030\002 \001(\t"
+  "\"=\n\016Login_Response\022\016\n\006result\030\001 \001(\005\022\014\n\004na"
+  "me\030\002 \001(\t\022\r\n\005token\030\003 \001(\t\"!\n\017Signup_Respon"
+  "se\022\016\n\006result\030\001 \001(\005\"\021\n\017Logout_Response\"\"\n"
+  "\021Reconnect_Request\022\r\n\005token\030\001 \001(\t\"3\n\022Rec"
+  "onnect_Response\022\016\n\006result\030\001 \001(\005\022\r\n\005token"
+  "\030\002 \001(\t\"\017\n\rHeart_Packageb\006proto3"
   ;
 static ::_pbi::once_flag descriptor_table_Login_5fProtocol_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_Login_5fProtocol_2eproto = {
-    false, false, 313, descriptor_table_protodef_Login_5fProtocol_2eproto,
+    false, false, 471, descriptor_table_protodef_Login_5fProtocol_2eproto,
     "Login_Protocol.proto",
-    &descriptor_table_Login_5fProtocol_2eproto_once, nullptr, 0, 5,
+    &descriptor_table_Login_5fProtocol_2eproto_once, nullptr, 0, 10,
     schemas, file_default_instances, TableStruct_Login_5fProtocol_2eproto::offsets,
     file_level_metadata_Login_5fProtocol_2eproto, file_level_enum_descriptors_Login_5fProtocol_2eproto,
     file_level_service_descriptors_Login_5fProtocol_2eproto,
@@ -625,6 +734,46 @@ void Login_Request::InternalSwap(Login_Request* other) {
 
 // ===================================================================
 
+class Logout_Request::_Internal {
+ public:
+};
+
+Logout_Request::Logout_Request(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase(arena, is_message_owned) {
+  // @@protoc_insertion_point(arena_constructor:Login_Protobuf.Logout_Request)
+}
+Logout_Request::Logout_Request(const Logout_Request& from)
+  : ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase() {
+  Logout_Request* const _this = this; (void)_this;
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  // @@protoc_insertion_point(copy_constructor:Login_Protobuf.Logout_Request)
+}
+
+
+
+
+
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData Logout_Request::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase::CopyImpl,
+    ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase::MergeImpl,
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*Logout_Request::GetClassData() const { return &_class_data_; }
+
+
+
+
+
+
+
+::PROTOBUF_NAMESPACE_ID::Metadata Logout_Request::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
+      &descriptor_table_Login_5fProtocol_2eproto_getter, &descriptor_table_Login_5fProtocol_2eproto_once,
+      file_level_metadata_Login_5fProtocol_2eproto[2]);
+}
+
+// ===================================================================
+
 class Signup_Request::_Internal {
  public:
   static const ::Login_Protobuf::Account& signupinfo(const Signup_Request* msg);
@@ -865,7 +1014,7 @@ void Signup_Request::InternalSwap(Signup_Request* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata Signup_Request::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Login_5fProtocol_2eproto_getter, &descriptor_table_Login_5fProtocol_2eproto_once,
-      file_level_metadata_Login_5fProtocol_2eproto[2]);
+      file_level_metadata_Login_5fProtocol_2eproto[3]);
 }
 
 // ===================================================================
@@ -885,6 +1034,7 @@ Login_Response::Login_Response(const Login_Response& from)
   Login_Response* const _this = this; (void)_this;
   new (&_impl_) Impl_{
       decltype(_impl_.name_){}
+    , decltype(_impl_.token_){}
     , decltype(_impl_.result_){}
     , /*decltype(_impl_._cached_size_)*/{}};
 
@@ -897,6 +1047,14 @@ Login_Response::Login_Response(const Login_Response& from)
     _this->_impl_.name_.Set(from._internal_name(), 
       _this->GetArenaForAllocation());
   }
+  _impl_.token_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.token_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_token().empty()) {
+    _this->_impl_.token_.Set(from._internal_token(), 
+      _this->GetArenaForAllocation());
+  }
   _this->_impl_.result_ = from._impl_.result_;
   // @@protoc_insertion_point(copy_constructor:Login_Protobuf.Login_Response)
 }
@@ -907,12 +1065,17 @@ inline void Login_Response::SharedCtor(
   (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_.name_){}
+    , decltype(_impl_.token_){}
     , decltype(_impl_.result_){0}
     , /*decltype(_impl_._cached_size_)*/{}
   };
   _impl_.name_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
     _impl_.name_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.token_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.token_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
@@ -928,6 +1091,7 @@ Login_Response::~Login_Response() {
 inline void Login_Response::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   _impl_.name_.Destroy();
+  _impl_.token_.Destroy();
 }
 
 void Login_Response::SetCachedSize(int size) const {
@@ -941,6 +1105,7 @@ void Login_Response::Clear() {
   (void) cached_has_bits;
 
   _impl_.name_.ClearToEmpty();
+  _impl_.token_.ClearToEmpty();
   _impl_.result_ = 0;
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
@@ -966,6 +1131,16 @@ const char* Login_Response::_InternalParse(const char* ptr, ::_pbi::ParseContext
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
           CHK_(::_pbi::VerifyUTF8(str, "Login_Protobuf.Login_Response.name"));
+        } else
+          goto handle_unusual;
+        continue;
+      // string token = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+          auto str = _internal_mutable_token();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, "Login_Protobuf.Login_Response.token"));
         } else
           goto handle_unusual;
         continue;
@@ -1014,6 +1189,16 @@ uint8_t* Login_Response::_InternalSerialize(
         2, this->_internal_name(), target);
   }
 
+  // string token = 3;
+  if (!this->_internal_token().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_token().data(), static_cast<int>(this->_internal_token().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "Login_Protobuf.Login_Response.token");
+    target = stream->WriteStringMaybeAliased(
+        3, this->_internal_token(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
@@ -1035,6 +1220,13 @@ size_t Login_Response::ByteSizeLong() const {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
         this->_internal_name());
+  }
+
+  // string token = 3;
+  if (!this->_internal_token().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_token());
   }
 
   // int32 result = 1;
@@ -1063,6 +1255,9 @@ void Login_Response::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const :
   if (!from._internal_name().empty()) {
     _this->_internal_set_name(from._internal_name());
   }
+  if (!from._internal_token().empty()) {
+    _this->_internal_set_token(from._internal_token());
+  }
   if (from._internal_result() != 0) {
     _this->_internal_set_result(from._internal_result());
   }
@@ -1089,13 +1284,17 @@ void Login_Response::InternalSwap(Login_Response* other) {
       &_impl_.name_, lhs_arena,
       &other->_impl_.name_, rhs_arena
   );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &_impl_.token_, lhs_arena,
+      &other->_impl_.token_, rhs_arena
+  );
   swap(_impl_.result_, other->_impl_.result_);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata Login_Response::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Login_5fProtocol_2eproto_getter, &descriptor_table_Login_5fProtocol_2eproto_once,
-      file_level_metadata_Login_5fProtocol_2eproto[3]);
+      file_level_metadata_Login_5fProtocol_2eproto[4]);
 }
 
 // ===================================================================
@@ -1273,7 +1472,520 @@ void Signup_Response::InternalSwap(Signup_Response* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata Signup_Response::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Login_5fProtocol_2eproto_getter, &descriptor_table_Login_5fProtocol_2eproto_once,
-      file_level_metadata_Login_5fProtocol_2eproto[4]);
+      file_level_metadata_Login_5fProtocol_2eproto[5]);
+}
+
+// ===================================================================
+
+class Logout_Response::_Internal {
+ public:
+};
+
+Logout_Response::Logout_Response(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase(arena, is_message_owned) {
+  // @@protoc_insertion_point(arena_constructor:Login_Protobuf.Logout_Response)
+}
+Logout_Response::Logout_Response(const Logout_Response& from)
+  : ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase() {
+  Logout_Response* const _this = this; (void)_this;
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  // @@protoc_insertion_point(copy_constructor:Login_Protobuf.Logout_Response)
+}
+
+
+
+
+
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData Logout_Response::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase::CopyImpl,
+    ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase::MergeImpl,
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*Logout_Response::GetClassData() const { return &_class_data_; }
+
+
+
+
+
+
+
+::PROTOBUF_NAMESPACE_ID::Metadata Logout_Response::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
+      &descriptor_table_Login_5fProtocol_2eproto_getter, &descriptor_table_Login_5fProtocol_2eproto_once,
+      file_level_metadata_Login_5fProtocol_2eproto[6]);
+}
+
+// ===================================================================
+
+class Reconnect_Request::_Internal {
+ public:
+};
+
+Reconnect_Request::Reconnect_Request(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:Login_Protobuf.Reconnect_Request)
+}
+Reconnect_Request::Reconnect_Request(const Reconnect_Request& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  Reconnect_Request* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.token_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _impl_.token_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.token_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_token().empty()) {
+    _this->_impl_.token_.Set(from._internal_token(), 
+      _this->GetArenaForAllocation());
+  }
+  // @@protoc_insertion_point(copy_constructor:Login_Protobuf.Reconnect_Request)
+}
+
+inline void Reconnect_Request::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.token_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.token_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.token_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+}
+
+Reconnect_Request::~Reconnect_Request() {
+  // @@protoc_insertion_point(destructor:Login_Protobuf.Reconnect_Request)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void Reconnect_Request::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.token_.Destroy();
+}
+
+void Reconnect_Request::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void Reconnect_Request::Clear() {
+// @@protoc_insertion_point(message_clear_start:Login_Protobuf.Reconnect_Request)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  _impl_.token_.ClearToEmpty();
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* Reconnect_Request::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // string token = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          auto str = _internal_mutable_token();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, "Login_Protobuf.Reconnect_Request.token"));
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* Reconnect_Request::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:Login_Protobuf.Reconnect_Request)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // string token = 1;
+  if (!this->_internal_token().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_token().data(), static_cast<int>(this->_internal_token().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "Login_Protobuf.Reconnect_Request.token");
+    target = stream->WriteStringMaybeAliased(
+        1, this->_internal_token(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:Login_Protobuf.Reconnect_Request)
+  return target;
+}
+
+size_t Reconnect_Request::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:Login_Protobuf.Reconnect_Request)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // string token = 1;
+  if (!this->_internal_token().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_token());
+  }
+
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
+}
+
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData Reconnect_Request::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
+    Reconnect_Request::MergeImpl
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*Reconnect_Request::GetClassData() const { return &_class_data_; }
+
+
+void Reconnect_Request::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<Reconnect_Request*>(&to_msg);
+  auto& from = static_cast<const Reconnect_Request&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:Login_Protobuf.Reconnect_Request)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (!from._internal_token().empty()) {
+    _this->_internal_set_token(from._internal_token());
+  }
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void Reconnect_Request::CopyFrom(const Reconnect_Request& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:Login_Protobuf.Reconnect_Request)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool Reconnect_Request::IsInitialized() const {
+  return true;
+}
+
+void Reconnect_Request::InternalSwap(Reconnect_Request* other) {
+  using std::swap;
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &_impl_.token_, lhs_arena,
+      &other->_impl_.token_, rhs_arena
+  );
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata Reconnect_Request::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
+      &descriptor_table_Login_5fProtocol_2eproto_getter, &descriptor_table_Login_5fProtocol_2eproto_once,
+      file_level_metadata_Login_5fProtocol_2eproto[7]);
+}
+
+// ===================================================================
+
+class Reconnect_Response::_Internal {
+ public:
+};
+
+Reconnect_Response::Reconnect_Response(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:Login_Protobuf.Reconnect_Response)
+}
+Reconnect_Response::Reconnect_Response(const Reconnect_Response& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  Reconnect_Response* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.token_){}
+    , decltype(_impl_.result_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _impl_.token_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.token_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_token().empty()) {
+    _this->_impl_.token_.Set(from._internal_token(), 
+      _this->GetArenaForAllocation());
+  }
+  _this->_impl_.result_ = from._impl_.result_;
+  // @@protoc_insertion_point(copy_constructor:Login_Protobuf.Reconnect_Response)
+}
+
+inline void Reconnect_Response::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.token_){}
+    , decltype(_impl_.result_){0}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.token_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.token_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+}
+
+Reconnect_Response::~Reconnect_Response() {
+  // @@protoc_insertion_point(destructor:Login_Protobuf.Reconnect_Response)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void Reconnect_Response::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.token_.Destroy();
+}
+
+void Reconnect_Response::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void Reconnect_Response::Clear() {
+// @@protoc_insertion_point(message_clear_start:Login_Protobuf.Reconnect_Response)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  _impl_.token_.ClearToEmpty();
+  _impl_.result_ = 0;
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* Reconnect_Response::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // int32 result = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          _impl_.result_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // string token = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          auto str = _internal_mutable_token();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, "Login_Protobuf.Reconnect_Response.token"));
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* Reconnect_Response::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:Login_Protobuf.Reconnect_Response)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // int32 result = 1;
+  if (this->_internal_result() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(1, this->_internal_result(), target);
+  }
+
+  // string token = 2;
+  if (!this->_internal_token().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_token().data(), static_cast<int>(this->_internal_token().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "Login_Protobuf.Reconnect_Response.token");
+    target = stream->WriteStringMaybeAliased(
+        2, this->_internal_token(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:Login_Protobuf.Reconnect_Response)
+  return target;
+}
+
+size_t Reconnect_Response::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:Login_Protobuf.Reconnect_Response)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // string token = 2;
+  if (!this->_internal_token().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_token());
+  }
+
+  // int32 result = 1;
+  if (this->_internal_result() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_result());
+  }
+
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
+}
+
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData Reconnect_Response::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
+    Reconnect_Response::MergeImpl
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*Reconnect_Response::GetClassData() const { return &_class_data_; }
+
+
+void Reconnect_Response::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<Reconnect_Response*>(&to_msg);
+  auto& from = static_cast<const Reconnect_Response&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:Login_Protobuf.Reconnect_Response)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (!from._internal_token().empty()) {
+    _this->_internal_set_token(from._internal_token());
+  }
+  if (from._internal_result() != 0) {
+    _this->_internal_set_result(from._internal_result());
+  }
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void Reconnect_Response::CopyFrom(const Reconnect_Response& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:Login_Protobuf.Reconnect_Response)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool Reconnect_Response::IsInitialized() const {
+  return true;
+}
+
+void Reconnect_Response::InternalSwap(Reconnect_Response* other) {
+  using std::swap;
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &_impl_.token_, lhs_arena,
+      &other->_impl_.token_, rhs_arena
+  );
+  swap(_impl_.result_, other->_impl_.result_);
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata Reconnect_Response::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
+      &descriptor_table_Login_5fProtocol_2eproto_getter, &descriptor_table_Login_5fProtocol_2eproto_once,
+      file_level_metadata_Login_5fProtocol_2eproto[8]);
+}
+
+// ===================================================================
+
+class Heart_Package::_Internal {
+ public:
+};
+
+Heart_Package::Heart_Package(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase(arena, is_message_owned) {
+  // @@protoc_insertion_point(arena_constructor:Login_Protobuf.Heart_Package)
+}
+Heart_Package::Heart_Package(const Heart_Package& from)
+  : ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase() {
+  Heart_Package* const _this = this; (void)_this;
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  // @@protoc_insertion_point(copy_constructor:Login_Protobuf.Heart_Package)
+}
+
+
+
+
+
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData Heart_Package::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase::CopyImpl,
+    ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase::MergeImpl,
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*Heart_Package::GetClassData() const { return &_class_data_; }
+
+
+
+
+
+
+
+::PROTOBUF_NAMESPACE_ID::Metadata Heart_Package::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
+      &descriptor_table_Login_5fProtocol_2eproto_getter, &descriptor_table_Login_5fProtocol_2eproto_once,
+      file_level_metadata_Login_5fProtocol_2eproto[9]);
 }
 
 // @@protoc_insertion_point(namespace_scope)
@@ -1287,6 +1999,10 @@ template<> PROTOBUF_NOINLINE ::Login_Protobuf::Login_Request*
 Arena::CreateMaybeMessage< ::Login_Protobuf::Login_Request >(Arena* arena) {
   return Arena::CreateMessageInternal< ::Login_Protobuf::Login_Request >(arena);
 }
+template<> PROTOBUF_NOINLINE ::Login_Protobuf::Logout_Request*
+Arena::CreateMaybeMessage< ::Login_Protobuf::Logout_Request >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::Login_Protobuf::Logout_Request >(arena);
+}
 template<> PROTOBUF_NOINLINE ::Login_Protobuf::Signup_Request*
 Arena::CreateMaybeMessage< ::Login_Protobuf::Signup_Request >(Arena* arena) {
   return Arena::CreateMessageInternal< ::Login_Protobuf::Signup_Request >(arena);
@@ -1298,6 +2014,22 @@ Arena::CreateMaybeMessage< ::Login_Protobuf::Login_Response >(Arena* arena) {
 template<> PROTOBUF_NOINLINE ::Login_Protobuf::Signup_Response*
 Arena::CreateMaybeMessage< ::Login_Protobuf::Signup_Response >(Arena* arena) {
   return Arena::CreateMessageInternal< ::Login_Protobuf::Signup_Response >(arena);
+}
+template<> PROTOBUF_NOINLINE ::Login_Protobuf::Logout_Response*
+Arena::CreateMaybeMessage< ::Login_Protobuf::Logout_Response >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::Login_Protobuf::Logout_Response >(arena);
+}
+template<> PROTOBUF_NOINLINE ::Login_Protobuf::Reconnect_Request*
+Arena::CreateMaybeMessage< ::Login_Protobuf::Reconnect_Request >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::Login_Protobuf::Reconnect_Request >(arena);
+}
+template<> PROTOBUF_NOINLINE ::Login_Protobuf::Reconnect_Response*
+Arena::CreateMaybeMessage< ::Login_Protobuf::Reconnect_Response >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::Login_Protobuf::Reconnect_Response >(arena);
+}
+template<> PROTOBUF_NOINLINE ::Login_Protobuf::Heart_Package*
+Arena::CreateMaybeMessage< ::Login_Protobuf::Heart_Package >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::Login_Protobuf::Heart_Package >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 

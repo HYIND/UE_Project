@@ -6,4 +6,4 @@ build/*
 !build/CMakeLists.txt
 
 bin/*
-!bin/Tank_War_Server
+!bin/UE_Server

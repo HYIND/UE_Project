@@ -1,40 +1,10 @@
 #include "header.h"
 #include "UE_Server.h"
-#include "Hall_Server.h"
+#include "Center_Server.h"
 #include "Mysql_Server.h"
-#include <net/if.h>
-#include <sys/ioctl.h>
+#include "RPC_Server.h"
+#include "event.h"
 using namespace std;
-
-int get_local_ip(const char *eth_inf, char *out)
-{
-    int sd;
-    struct sockaddr_in sin;
-    struct ifreq ifr;
-
-    sd = socket(AF_INET, SOCK_DGRAM, 0);
-    if (-1 == sd)
-    {
-        printf("socket error: %s\n", strerror(errno));
-        return -1;
-    }
-
-    strncpy(ifr.ifr_name, eth_inf, IFNAMSIZ);
-    ifr.ifr_name[IFNAMSIZ - 1] = 0;
-
-    // if error: No such device
-    if (ioctl(sd, SIOCGIFADDR, &ifr) < 0)
-    {
-        printf("ioctl error: %s\n", strerror(errno));
-        close(sd);
-        return -1;
-    }
-
-    strcpy(out, inet_ntoa(((struct sockaddr_in *)&ifr.ifr_addr)->sin_addr));
-
-    close(sd);
-    return 0;
-}
 
 void sig_handler(int sig)
 {
@@ -42,7 +12,7 @@ void sig_handler(int sig)
     int msg = sig;
     send(Listen_Server::Instance()->Get_pipe(), (char *)&msg, 1, 0);
     send(Login_Server::Instance()->Get_pipe(), (char *)&msg, 1, 0);
-    send(Hall_Server::Instance()->Get_pipe(), (char *)&msg, 1, 0);
+    send(Center_Server::Instance()->Get_pipe(), (char *)&msg, 1, 0);
     errno = save_errno;
 }
 
@@ -66,18 +36,11 @@ int Init_Server(int argc, char *argv[])
     }
     sockaddr_in sockaddr;
     int listen_socket;
-    if (argc > 1)
-    {
-        listen_socket = get_new_socket(argv[1], DEFAULT_TCP_PORT, SOCK_STREAM, sockaddr);
-        LOCAL_IP = argv[1];
-    }
-    else
-    {
-        char IP[20] = {'\0'};
-        get_local_ip("eth0", IP);
-        listen_socket = get_new_socket(IP, DEFAULT_TCP_PORT, SOCK_STREAM, sockaddr);
-        LOCAL_IP = IP;
-    }
+
+    string IP = Config::Instance()->Read<string>("center_serverip", "0");
+    int Port = Config::Instance()->Read("center_serverport", 0);
+    listen_socket = Get_newsocket(IP, Port, SOCK_STREAM, sockaddr);
+    LOCAL_IP = IP;
 
     if (listen_socket == -1)
     {
@@ -87,26 +50,28 @@ int Init_Server(int argc, char *argv[])
 
     Listen_Server::Instance()->Init_Listen(listen_socket);
     Login_Server::Instance()->Init_Login();
-    Hall_Server::Instance()->Init_Hall();
+    Center_Server::Instance()->Init_CenterServer();
+    RPC_Server::Instance()->Init();
 
     addsig(SIGINT);
     addsig(SIGTERM);
     signal(SIGPIPE, SIG_IGN);
 
-    thread T1(&Hall_Server::Run, Hall_Server::Instance());
+    thread T1(&Center_Server::Run, Center_Server::Instance());
     thread T2(&Login_Server::Run, Login_Server::Instance());
     thread T3(&Listen_Server::Run, Listen_Server::Instance());
+    thread T4(&RPC_Server::Start, RPC_Server::Instance());
 
     // test
-    // thread T4(
+    // thread T5(
     //     []()
     //     {
-    //         socket_message *msg = new socket_message(0);
-    //         msg->header.type = 700;
-    //         Login_Server::Instance()->OnLoginProcess(msg);
-    //     }
-    //     );
+    //         Game_Protobuf::NewGame_Request Request;
+    //         RPC_Message Msg;
+    //         RPC_Client::Instance()->Excute_RPCRequest(Request, Msg, RPC_GameServer);
+    //     });
 
+    T4.join();
     T3.join();
     T2.join();
     T1.join();
@@ -118,5 +83,6 @@ int main(int argc, char *argv[])
 {
     GOOGLE_PROTOBUF_VERIFY_VERSION;
     Init_Server(argc, argv);
+
     return 0;
 }

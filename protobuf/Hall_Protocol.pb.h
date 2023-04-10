@@ -45,63 +45,47 @@ struct TableStruct_Hall_5fProtocol_2eproto {
 };
 extern const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_Hall_5fProtocol_2eproto;
 namespace Hall_Protobuf {
-class EnterRoom_Request;
-struct EnterRoom_RequestDefaultTypeInternal;
-extern EnterRoom_RequestDefaultTypeInternal _EnterRoom_Request_default_instance_;
-class EnterRoom_Response;
-struct EnterRoom_ResponseDefaultTypeInternal;
-extern EnterRoom_ResponseDefaultTypeInternal _EnterRoom_Response_default_instance_;
-class HallInfo_Response;
-struct HallInfo_ResponseDefaultTypeInternal;
-extern HallInfo_ResponseDefaultTypeInternal _HallInfo_Response_default_instance_;
-class HallInfo_Response_RoomInfo;
-struct HallInfo_Response_RoomInfoDefaultTypeInternal;
-extern HallInfo_Response_RoomInfoDefaultTypeInternal _HallInfo_Response_RoomInfo_default_instance_;
-class HallInfo_Response_User;
-struct HallInfo_Response_UserDefaultTypeInternal;
-extern HallInfo_Response_UserDefaultTypeInternal _HallInfo_Response_User_default_instance_;
-class HallMessage_Request;
-struct HallMessage_RequestDefaultTypeInternal;
-extern HallMessage_RequestDefaultTypeInternal _HallMessage_Request_default_instance_;
-class HallMessage_Response;
-struct HallMessage_ResponseDefaultTypeInternal;
-extern HallMessage_ResponseDefaultTypeInternal _HallMessage_Response_default_instance_;
-class Ping_info;
-struct Ping_infoDefaultTypeInternal;
-extern Ping_infoDefaultTypeInternal _Ping_info_default_instance_;
+class Ping_Request;
+struct Ping_RequestDefaultTypeInternal;
+extern Ping_RequestDefaultTypeInternal _Ping_Request_default_instance_;
+class Ping_Response;
+struct Ping_ResponseDefaultTypeInternal;
+extern Ping_ResponseDefaultTypeInternal _Ping_Response_default_instance_;
+class PublicMessage_MutiResponse;
+struct PublicMessage_MutiResponseDefaultTypeInternal;
+extern PublicMessage_MutiResponseDefaultTypeInternal _PublicMessage_MutiResponse_default_instance_;
+class PublicMessage_Request;
+struct PublicMessage_RequestDefaultTypeInternal;
+extern PublicMessage_RequestDefaultTypeInternal _PublicMessage_Request_default_instance_;
 }  // namespace Hall_Protobuf
 PROTOBUF_NAMESPACE_OPEN
-template<> ::Hall_Protobuf::EnterRoom_Request* Arena::CreateMaybeMessage<::Hall_Protobuf::EnterRoom_Request>(Arena*);
-template<> ::Hall_Protobuf::EnterRoom_Response* Arena::CreateMaybeMessage<::Hall_Protobuf::EnterRoom_Response>(Arena*);
-template<> ::Hall_Protobuf::HallInfo_Response* Arena::CreateMaybeMessage<::Hall_Protobuf::HallInfo_Response>(Arena*);
-template<> ::Hall_Protobuf::HallInfo_Response_RoomInfo* Arena::CreateMaybeMessage<::Hall_Protobuf::HallInfo_Response_RoomInfo>(Arena*);
-template<> ::Hall_Protobuf::HallInfo_Response_User* Arena::CreateMaybeMessage<::Hall_Protobuf::HallInfo_Response_User>(Arena*);
-template<> ::Hall_Protobuf::HallMessage_Request* Arena::CreateMaybeMessage<::Hall_Protobuf::HallMessage_Request>(Arena*);
-template<> ::Hall_Protobuf::HallMessage_Response* Arena::CreateMaybeMessage<::Hall_Protobuf::HallMessage_Response>(Arena*);
-template<> ::Hall_Protobuf::Ping_info* Arena::CreateMaybeMessage<::Hall_Protobuf::Ping_info>(Arena*);
+template<> ::Hall_Protobuf::Ping_Request* Arena::CreateMaybeMessage<::Hall_Protobuf::Ping_Request>(Arena*);
+template<> ::Hall_Protobuf::Ping_Response* Arena::CreateMaybeMessage<::Hall_Protobuf::Ping_Response>(Arena*);
+template<> ::Hall_Protobuf::PublicMessage_MutiResponse* Arena::CreateMaybeMessage<::Hall_Protobuf::PublicMessage_MutiResponse>(Arena*);
+template<> ::Hall_Protobuf::PublicMessage_Request* Arena::CreateMaybeMessage<::Hall_Protobuf::PublicMessage_Request>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace Hall_Protobuf {
 
 // ===================================================================
 
-class HallInfo_Response_User final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Hall_Protobuf.HallInfo_Response.User) */ {
+class PublicMessage_Request final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Hall_Protobuf.PublicMessage_Request) */ {
  public:
-  inline HallInfo_Response_User() : HallInfo_Response_User(nullptr) {}
-  ~HallInfo_Response_User() override;
-  explicit PROTOBUF_CONSTEXPR HallInfo_Response_User(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+  inline PublicMessage_Request() : PublicMessage_Request(nullptr) {}
+  ~PublicMessage_Request() override;
+  explicit PROTOBUF_CONSTEXPR PublicMessage_Request(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
 
-  HallInfo_Response_User(const HallInfo_Response_User& from);
-  HallInfo_Response_User(HallInfo_Response_User&& from) noexcept
-    : HallInfo_Response_User() {
+  PublicMessage_Request(const PublicMessage_Request& from);
+  PublicMessage_Request(PublicMessage_Request&& from) noexcept
+    : PublicMessage_Request() {
     *this = ::std::move(from);
   }
 
-  inline HallInfo_Response_User& operator=(const HallInfo_Response_User& from) {
+  inline PublicMessage_Request& operator=(const PublicMessage_Request& from) {
     CopyFrom(from);
     return *this;
   }
-  inline HallInfo_Response_User& operator=(HallInfo_Response_User&& from) noexcept {
+  inline PublicMessage_Request& operator=(PublicMessage_Request&& from) noexcept {
     if (this == &from) return *this;
     if (GetOwningArena() == from.GetOwningArena()
   #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
@@ -124,20 +108,20 @@ class HallInfo_Response_User final :
   static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
     return default_instance().GetMetadata().reflection;
   }
-  static const HallInfo_Response_User& default_instance() {
+  static const PublicMessage_Request& default_instance() {
     return *internal_default_instance();
   }
-  static inline const HallInfo_Response_User* internal_default_instance() {
-    return reinterpret_cast<const HallInfo_Response_User*>(
-               &_HallInfo_Response_User_default_instance_);
+  static inline const PublicMessage_Request* internal_default_instance() {
+    return reinterpret_cast<const PublicMessage_Request*>(
+               &_PublicMessage_Request_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
     0;
 
-  friend void swap(HallInfo_Response_User& a, HallInfo_Response_User& b) {
+  friend void swap(PublicMessage_Request& a, PublicMessage_Request& b) {
     a.Swap(&b);
   }
-  inline void Swap(HallInfo_Response_User* other) {
+  inline void Swap(PublicMessage_Request* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -150,7 +134,7 @@ class HallInfo_Response_User final :
       ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
     }
   }
-  void UnsafeArenaSwap(HallInfo_Response_User* other) {
+  void UnsafeArenaSwap(PublicMessage_Request* other) {
     if (other == this) return;
     GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
     InternalSwap(other);
@@ -158,14 +142,14 @@ class HallInfo_Response_User final :
 
   // implements Message ----------------------------------------------
 
-  HallInfo_Response_User* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<HallInfo_Response_User>(arena);
+  PublicMessage_Request* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<PublicMessage_Request>(arena);
   }
   using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
-  void CopyFrom(const HallInfo_Response_User& from);
+  void CopyFrom(const PublicMessage_Request& from);
   using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
-  void MergeFrom( const HallInfo_Response_User& from) {
-    HallInfo_Response_User::MergeImpl(*this, from);
+  void MergeFrom( const PublicMessage_Request& from) {
+    PublicMessage_Request::MergeImpl(*this, from);
   }
   private:
   static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
@@ -183,512 +167,15 @@ class HallInfo_Response_User final :
   void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
   void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(HallInfo_Response_User* other);
+  void InternalSwap(PublicMessage_Request* other);
 
   private:
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "Hall_Protobuf.HallInfo_Response.User";
+    return "Hall_Protobuf.PublicMessage_Request";
   }
   protected:
-  explicit HallInfo_Response_User(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                       bool is_message_owned = false);
-  public:
-
-  static const ClassData _class_data_;
-  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
-
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  enum : int {
-    kNameFieldNumber = 1,
-  };
-  // string name = 1;
-  void clear_name();
-  const std::string& name() const;
-  template <typename ArgT0 = const std::string&, typename... ArgT>
-  void set_name(ArgT0&& arg0, ArgT... args);
-  std::string* mutable_name();
-  PROTOBUF_NODISCARD std::string* release_name();
-  void set_allocated_name(std::string* name);
-  private:
-  const std::string& _internal_name() const;
-  inline PROTOBUF_ALWAYS_INLINE void _internal_set_name(const std::string& value);
-  std::string* _internal_mutable_name();
-  public:
-
-  // @@protoc_insertion_point(class_scope:Hall_Protobuf.HallInfo_Response.User)
- private:
-  class _Internal;
-
-  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
-  typedef void InternalArenaConstructable_;
-  typedef void DestructorSkippable_;
-  struct Impl_ {
-    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr name_;
-    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-  };
-  union { Impl_ _impl_; };
-  friend struct ::TableStruct_Hall_5fProtocol_2eproto;
-};
-// -------------------------------------------------------------------
-
-class HallInfo_Response_RoomInfo final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Hall_Protobuf.HallInfo_Response.RoomInfo) */ {
- public:
-  inline HallInfo_Response_RoomInfo() : HallInfo_Response_RoomInfo(nullptr) {}
-  ~HallInfo_Response_RoomInfo() override;
-  explicit PROTOBUF_CONSTEXPR HallInfo_Response_RoomInfo(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
-
-  HallInfo_Response_RoomInfo(const HallInfo_Response_RoomInfo& from);
-  HallInfo_Response_RoomInfo(HallInfo_Response_RoomInfo&& from) noexcept
-    : HallInfo_Response_RoomInfo() {
-    *this = ::std::move(from);
-  }
-
-  inline HallInfo_Response_RoomInfo& operator=(const HallInfo_Response_RoomInfo& from) {
-    CopyFrom(from);
-    return *this;
-  }
-  inline HallInfo_Response_RoomInfo& operator=(HallInfo_Response_RoomInfo&& from) noexcept {
-    if (this == &from) return *this;
-    if (GetOwningArena() == from.GetOwningArena()
-  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
-        && GetOwningArena() != nullptr
-  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
-    ) {
-      InternalSwap(&from);
-    } else {
-      CopyFrom(from);
-    }
-    return *this;
-  }
-
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return default_instance().GetMetadata().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return default_instance().GetMetadata().reflection;
-  }
-  static const HallInfo_Response_RoomInfo& default_instance() {
-    return *internal_default_instance();
-  }
-  static inline const HallInfo_Response_RoomInfo* internal_default_instance() {
-    return reinterpret_cast<const HallInfo_Response_RoomInfo*>(
-               &_HallInfo_Response_RoomInfo_default_instance_);
-  }
-  static constexpr int kIndexInFileMessages =
-    1;
-
-  friend void swap(HallInfo_Response_RoomInfo& a, HallInfo_Response_RoomInfo& b) {
-    a.Swap(&b);
-  }
-  inline void Swap(HallInfo_Response_RoomInfo* other) {
-    if (other == this) return;
-  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
-    if (GetOwningArena() != nullptr &&
-        GetOwningArena() == other->GetOwningArena()) {
-   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
-    if (GetOwningArena() == other->GetOwningArena()) {
-  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
-      InternalSwap(other);
-    } else {
-      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
-    }
-  }
-  void UnsafeArenaSwap(HallInfo_Response_RoomInfo* other) {
-    if (other == this) return;
-    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
-    InternalSwap(other);
-  }
-
-  // implements Message ----------------------------------------------
-
-  HallInfo_Response_RoomInfo* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<HallInfo_Response_RoomInfo>(arena);
-  }
-  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
-  void CopyFrom(const HallInfo_Response_RoomInfo& from);
-  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
-  void MergeFrom( const HallInfo_Response_RoomInfo& from) {
-    HallInfo_Response_RoomInfo::MergeImpl(*this, from);
-  }
-  private:
-  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
-  public:
-  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
-  bool IsInitialized() const final;
-
-  size_t ByteSizeLong() const final;
-  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
-  uint8_t* _InternalSerialize(
-      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
-  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
-
-  private:
-  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
-  void SharedDtor();
-  void SetCachedSize(int size) const final;
-  void InternalSwap(HallInfo_Response_RoomInfo* other);
-
-  private:
-  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
-  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "Hall_Protobuf.HallInfo_Response.RoomInfo";
-  }
-  protected:
-  explicit HallInfo_Response_RoomInfo(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                       bool is_message_owned = false);
-  public:
-
-  static const ClassData _class_data_;
-  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
-
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  enum : int {
-    kHostNameFieldNumber = 2,
-    kRoomIdFieldNumber = 1,
-  };
-  // string host_name = 2;
-  void clear_host_name();
-  const std::string& host_name() const;
-  template <typename ArgT0 = const std::string&, typename... ArgT>
-  void set_host_name(ArgT0&& arg0, ArgT... args);
-  std::string* mutable_host_name();
-  PROTOBUF_NODISCARD std::string* release_host_name();
-  void set_allocated_host_name(std::string* host_name);
-  private:
-  const std::string& _internal_host_name() const;
-  inline PROTOBUF_ALWAYS_INLINE void _internal_set_host_name(const std::string& value);
-  std::string* _internal_mutable_host_name();
-  public:
-
-  // int32 room_id = 1;
-  void clear_room_id();
-  int32_t room_id() const;
-  void set_room_id(int32_t value);
-  private:
-  int32_t _internal_room_id() const;
-  void _internal_set_room_id(int32_t value);
-  public:
-
-  // @@protoc_insertion_point(class_scope:Hall_Protobuf.HallInfo_Response.RoomInfo)
- private:
-  class _Internal;
-
-  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
-  typedef void InternalArenaConstructable_;
-  typedef void DestructorSkippable_;
-  struct Impl_ {
-    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr host_name_;
-    int32_t room_id_;
-    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-  };
-  union { Impl_ _impl_; };
-  friend struct ::TableStruct_Hall_5fProtocol_2eproto;
-};
-// -------------------------------------------------------------------
-
-class HallInfo_Response final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Hall_Protobuf.HallInfo_Response) */ {
- public:
-  inline HallInfo_Response() : HallInfo_Response(nullptr) {}
-  ~HallInfo_Response() override;
-  explicit PROTOBUF_CONSTEXPR HallInfo_Response(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
-
-  HallInfo_Response(const HallInfo_Response& from);
-  HallInfo_Response(HallInfo_Response&& from) noexcept
-    : HallInfo_Response() {
-    *this = ::std::move(from);
-  }
-
-  inline HallInfo_Response& operator=(const HallInfo_Response& from) {
-    CopyFrom(from);
-    return *this;
-  }
-  inline HallInfo_Response& operator=(HallInfo_Response&& from) noexcept {
-    if (this == &from) return *this;
-    if (GetOwningArena() == from.GetOwningArena()
-  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
-        && GetOwningArena() != nullptr
-  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
-    ) {
-      InternalSwap(&from);
-    } else {
-      CopyFrom(from);
-    }
-    return *this;
-  }
-
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return default_instance().GetMetadata().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return default_instance().GetMetadata().reflection;
-  }
-  static const HallInfo_Response& default_instance() {
-    return *internal_default_instance();
-  }
-  static inline const HallInfo_Response* internal_default_instance() {
-    return reinterpret_cast<const HallInfo_Response*>(
-               &_HallInfo_Response_default_instance_);
-  }
-  static constexpr int kIndexInFileMessages =
-    2;
-
-  friend void swap(HallInfo_Response& a, HallInfo_Response& b) {
-    a.Swap(&b);
-  }
-  inline void Swap(HallInfo_Response* other) {
-    if (other == this) return;
-  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
-    if (GetOwningArena() != nullptr &&
-        GetOwningArena() == other->GetOwningArena()) {
-   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
-    if (GetOwningArena() == other->GetOwningArena()) {
-  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
-      InternalSwap(other);
-    } else {
-      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
-    }
-  }
-  void UnsafeArenaSwap(HallInfo_Response* other) {
-    if (other == this) return;
-    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
-    InternalSwap(other);
-  }
-
-  // implements Message ----------------------------------------------
-
-  HallInfo_Response* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<HallInfo_Response>(arena);
-  }
-  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
-  void CopyFrom(const HallInfo_Response& from);
-  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
-  void MergeFrom( const HallInfo_Response& from) {
-    HallInfo_Response::MergeImpl(*this, from);
-  }
-  private:
-  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
-  public:
-  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
-  bool IsInitialized() const final;
-
-  size_t ByteSizeLong() const final;
-  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
-  uint8_t* _InternalSerialize(
-      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
-  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
-
-  private:
-  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
-  void SharedDtor();
-  void SetCachedSize(int size) const final;
-  void InternalSwap(HallInfo_Response* other);
-
-  private:
-  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
-  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "Hall_Protobuf.HallInfo_Response";
-  }
-  protected:
-  explicit HallInfo_Response(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                       bool is_message_owned = false);
-  public:
-
-  static const ClassData _class_data_;
-  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
-
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-
-  // nested types ----------------------------------------------------
-
-  typedef HallInfo_Response_User User;
-  typedef HallInfo_Response_RoomInfo RoomInfo;
-
-  // accessors -------------------------------------------------------
-
-  enum : int {
-    kUserinfoFieldNumber = 1,
-    kRoominfoFieldNumber = 2,
-  };
-  // repeated .Hall_Protobuf.HallInfo_Response.User userinfo = 1;
-  int userinfo_size() const;
-  private:
-  int _internal_userinfo_size() const;
-  public:
-  void clear_userinfo();
-  ::Hall_Protobuf::HallInfo_Response_User* mutable_userinfo(int index);
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Hall_Protobuf::HallInfo_Response_User >*
-      mutable_userinfo();
-  private:
-  const ::Hall_Protobuf::HallInfo_Response_User& _internal_userinfo(int index) const;
-  ::Hall_Protobuf::HallInfo_Response_User* _internal_add_userinfo();
-  public:
-  const ::Hall_Protobuf::HallInfo_Response_User& userinfo(int index) const;
-  ::Hall_Protobuf::HallInfo_Response_User* add_userinfo();
-  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Hall_Protobuf::HallInfo_Response_User >&
-      userinfo() const;
-
-  // repeated .Hall_Protobuf.HallInfo_Response.RoomInfo roominfo = 2;
-  int roominfo_size() const;
-  private:
-  int _internal_roominfo_size() const;
-  public:
-  void clear_roominfo();
-  ::Hall_Protobuf::HallInfo_Response_RoomInfo* mutable_roominfo(int index);
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Hall_Protobuf::HallInfo_Response_RoomInfo >*
-      mutable_roominfo();
-  private:
-  const ::Hall_Protobuf::HallInfo_Response_RoomInfo& _internal_roominfo(int index) const;
-  ::Hall_Protobuf::HallInfo_Response_RoomInfo* _internal_add_roominfo();
-  public:
-  const ::Hall_Protobuf::HallInfo_Response_RoomInfo& roominfo(int index) const;
-  ::Hall_Protobuf::HallInfo_Response_RoomInfo* add_roominfo();
-  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Hall_Protobuf::HallInfo_Response_RoomInfo >&
-      roominfo() const;
-
-  // @@protoc_insertion_point(class_scope:Hall_Protobuf.HallInfo_Response)
- private:
-  class _Internal;
-
-  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
-  typedef void InternalArenaConstructable_;
-  typedef void DestructorSkippable_;
-  struct Impl_ {
-    ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Hall_Protobuf::HallInfo_Response_User > userinfo_;
-    ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Hall_Protobuf::HallInfo_Response_RoomInfo > roominfo_;
-    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-  };
-  union { Impl_ _impl_; };
-  friend struct ::TableStruct_Hall_5fProtocol_2eproto;
-};
-// -------------------------------------------------------------------
-
-class HallMessage_Request final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Hall_Protobuf.HallMessage_Request) */ {
- public:
-  inline HallMessage_Request() : HallMessage_Request(nullptr) {}
-  ~HallMessage_Request() override;
-  explicit PROTOBUF_CONSTEXPR HallMessage_Request(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
-
-  HallMessage_Request(const HallMessage_Request& from);
-  HallMessage_Request(HallMessage_Request&& from) noexcept
-    : HallMessage_Request() {
-    *this = ::std::move(from);
-  }
-
-  inline HallMessage_Request& operator=(const HallMessage_Request& from) {
-    CopyFrom(from);
-    return *this;
-  }
-  inline HallMessage_Request& operator=(HallMessage_Request&& from) noexcept {
-    if (this == &from) return *this;
-    if (GetOwningArena() == from.GetOwningArena()
-  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
-        && GetOwningArena() != nullptr
-  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
-    ) {
-      InternalSwap(&from);
-    } else {
-      CopyFrom(from);
-    }
-    return *this;
-  }
-
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return default_instance().GetMetadata().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return default_instance().GetMetadata().reflection;
-  }
-  static const HallMessage_Request& default_instance() {
-    return *internal_default_instance();
-  }
-  static inline const HallMessage_Request* internal_default_instance() {
-    return reinterpret_cast<const HallMessage_Request*>(
-               &_HallMessage_Request_default_instance_);
-  }
-  static constexpr int kIndexInFileMessages =
-    3;
-
-  friend void swap(HallMessage_Request& a, HallMessage_Request& b) {
-    a.Swap(&b);
-  }
-  inline void Swap(HallMessage_Request* other) {
-    if (other == this) return;
-  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
-    if (GetOwningArena() != nullptr &&
-        GetOwningArena() == other->GetOwningArena()) {
-   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
-    if (GetOwningArena() == other->GetOwningArena()) {
-  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
-      InternalSwap(other);
-    } else {
-      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
-    }
-  }
-  void UnsafeArenaSwap(HallMessage_Request* other) {
-    if (other == this) return;
-    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
-    InternalSwap(other);
-  }
-
-  // implements Message ----------------------------------------------
-
-  HallMessage_Request* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<HallMessage_Request>(arena);
-  }
-  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
-  void CopyFrom(const HallMessage_Request& from);
-  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
-  void MergeFrom( const HallMessage_Request& from) {
-    HallMessage_Request::MergeImpl(*this, from);
-  }
-  private:
-  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
-  public:
-  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
-  bool IsInitialized() const final;
-
-  size_t ByteSizeLong() const final;
-  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
-  uint8_t* _InternalSerialize(
-      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
-  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
-
-  private:
-  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
-  void SharedDtor();
-  void SetCachedSize(int size) const final;
-  void InternalSwap(HallMessage_Request* other);
-
-  private:
-  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
-  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "Hall_Protobuf.HallMessage_Request";
-  }
-  protected:
-  explicit HallMessage_Request(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+  explicit PublicMessage_Request(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                        bool is_message_owned = false);
   public:
 
@@ -718,7 +205,7 @@ class HallMessage_Request final :
   std::string* _internal_mutable_content();
   public:
 
-  // @@protoc_insertion_point(class_scope:Hall_Protobuf.HallMessage_Request)
+  // @@protoc_insertion_point(class_scope:Hall_Protobuf.PublicMessage_Request)
  private:
   class _Internal;
 
@@ -734,24 +221,24 @@ class HallMessage_Request final :
 };
 // -------------------------------------------------------------------
 
-class HallMessage_Response final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Hall_Protobuf.HallMessage_Response) */ {
+class PublicMessage_MutiResponse final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Hall_Protobuf.PublicMessage_MutiResponse) */ {
  public:
-  inline HallMessage_Response() : HallMessage_Response(nullptr) {}
-  ~HallMessage_Response() override;
-  explicit PROTOBUF_CONSTEXPR HallMessage_Response(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+  inline PublicMessage_MutiResponse() : PublicMessage_MutiResponse(nullptr) {}
+  ~PublicMessage_MutiResponse() override;
+  explicit PROTOBUF_CONSTEXPR PublicMessage_MutiResponse(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
 
-  HallMessage_Response(const HallMessage_Response& from);
-  HallMessage_Response(HallMessage_Response&& from) noexcept
-    : HallMessage_Response() {
+  PublicMessage_MutiResponse(const PublicMessage_MutiResponse& from);
+  PublicMessage_MutiResponse(PublicMessage_MutiResponse&& from) noexcept
+    : PublicMessage_MutiResponse() {
     *this = ::std::move(from);
   }
 
-  inline HallMessage_Response& operator=(const HallMessage_Response& from) {
+  inline PublicMessage_MutiResponse& operator=(const PublicMessage_MutiResponse& from) {
     CopyFrom(from);
     return *this;
   }
-  inline HallMessage_Response& operator=(HallMessage_Response&& from) noexcept {
+  inline PublicMessage_MutiResponse& operator=(PublicMessage_MutiResponse&& from) noexcept {
     if (this == &from) return *this;
     if (GetOwningArena() == from.GetOwningArena()
   #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
@@ -774,20 +261,20 @@ class HallMessage_Response final :
   static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
     return default_instance().GetMetadata().reflection;
   }
-  static const HallMessage_Response& default_instance() {
+  static const PublicMessage_MutiResponse& default_instance() {
     return *internal_default_instance();
   }
-  static inline const HallMessage_Response* internal_default_instance() {
-    return reinterpret_cast<const HallMessage_Response*>(
-               &_HallMessage_Response_default_instance_);
+  static inline const PublicMessage_MutiResponse* internal_default_instance() {
+    return reinterpret_cast<const PublicMessage_MutiResponse*>(
+               &_PublicMessage_MutiResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    4;
+    1;
 
-  friend void swap(HallMessage_Response& a, HallMessage_Response& b) {
+  friend void swap(PublicMessage_MutiResponse& a, PublicMessage_MutiResponse& b) {
     a.Swap(&b);
   }
-  inline void Swap(HallMessage_Response* other) {
+  inline void Swap(PublicMessage_MutiResponse* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -800,7 +287,7 @@ class HallMessage_Response final :
       ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
     }
   }
-  void UnsafeArenaSwap(HallMessage_Response* other) {
+  void UnsafeArenaSwap(PublicMessage_MutiResponse* other) {
     if (other == this) return;
     GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
     InternalSwap(other);
@@ -808,14 +295,14 @@ class HallMessage_Response final :
 
   // implements Message ----------------------------------------------
 
-  HallMessage_Response* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<HallMessage_Response>(arena);
+  PublicMessage_MutiResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<PublicMessage_MutiResponse>(arena);
   }
   using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
-  void CopyFrom(const HallMessage_Response& from);
+  void CopyFrom(const PublicMessage_MutiResponse& from);
   using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
-  void MergeFrom( const HallMessage_Response& from) {
-    HallMessage_Response::MergeImpl(*this, from);
+  void MergeFrom( const PublicMessage_MutiResponse& from) {
+    PublicMessage_MutiResponse::MergeImpl(*this, from);
   }
   private:
   static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
@@ -833,15 +320,15 @@ class HallMessage_Response final :
   void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
   void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(HallMessage_Response* other);
+  void InternalSwap(PublicMessage_MutiResponse* other);
 
   private:
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "Hall_Protobuf.HallMessage_Response";
+    return "Hall_Protobuf.PublicMessage_MutiResponse";
   }
   protected:
-  explicit HallMessage_Response(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+  explicit PublicMessage_MutiResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                        bool is_message_owned = false);
   public:
 
@@ -886,7 +373,7 @@ class HallMessage_Response final :
   std::string* _internal_mutable_content();
   public:
 
-  // @@protoc_insertion_point(class_scope:Hall_Protobuf.HallMessage_Response)
+  // @@protoc_insertion_point(class_scope:Hall_Protobuf.PublicMessage_MutiResponse)
  private:
   class _Internal;
 
@@ -903,24 +390,24 @@ class HallMessage_Response final :
 };
 // -------------------------------------------------------------------
 
-class EnterRoom_Request final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Hall_Protobuf.EnterRoom_Request) */ {
+class Ping_Request final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Hall_Protobuf.Ping_Request) */ {
  public:
-  inline EnterRoom_Request() : EnterRoom_Request(nullptr) {}
-  ~EnterRoom_Request() override;
-  explicit PROTOBUF_CONSTEXPR EnterRoom_Request(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+  inline Ping_Request() : Ping_Request(nullptr) {}
+  ~Ping_Request() override;
+  explicit PROTOBUF_CONSTEXPR Ping_Request(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
 
-  EnterRoom_Request(const EnterRoom_Request& from);
-  EnterRoom_Request(EnterRoom_Request&& from) noexcept
-    : EnterRoom_Request() {
+  Ping_Request(const Ping_Request& from);
+  Ping_Request(Ping_Request&& from) noexcept
+    : Ping_Request() {
     *this = ::std::move(from);
   }
 
-  inline EnterRoom_Request& operator=(const EnterRoom_Request& from) {
+  inline Ping_Request& operator=(const Ping_Request& from) {
     CopyFrom(from);
     return *this;
   }
-  inline EnterRoom_Request& operator=(EnterRoom_Request&& from) noexcept {
+  inline Ping_Request& operator=(Ping_Request&& from) noexcept {
     if (this == &from) return *this;
     if (GetOwningArena() == from.GetOwningArena()
   #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
@@ -943,20 +430,20 @@ class EnterRoom_Request final :
   static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
     return default_instance().GetMetadata().reflection;
   }
-  static const EnterRoom_Request& default_instance() {
+  static const Ping_Request& default_instance() {
     return *internal_default_instance();
   }
-  static inline const EnterRoom_Request* internal_default_instance() {
-    return reinterpret_cast<const EnterRoom_Request*>(
-               &_EnterRoom_Request_default_instance_);
+  static inline const Ping_Request* internal_default_instance() {
+    return reinterpret_cast<const Ping_Request*>(
+               &_Ping_Request_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    5;
+    2;
 
-  friend void swap(EnterRoom_Request& a, EnterRoom_Request& b) {
+  friend void swap(Ping_Request& a, Ping_Request& b) {
     a.Swap(&b);
   }
-  inline void Swap(EnterRoom_Request* other) {
+  inline void Swap(Ping_Request* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -969,7 +456,7 @@ class EnterRoom_Request final :
       ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
     }
   }
-  void UnsafeArenaSwap(EnterRoom_Request* other) {
+  void UnsafeArenaSwap(Ping_Request* other) {
     if (other == this) return;
     GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
     InternalSwap(other);
@@ -977,14 +464,14 @@ class EnterRoom_Request final :
 
   // implements Message ----------------------------------------------
 
-  EnterRoom_Request* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<EnterRoom_Request>(arena);
+  Ping_Request* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<Ping_Request>(arena);
   }
   using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
-  void CopyFrom(const EnterRoom_Request& from);
+  void CopyFrom(const Ping_Request& from);
   using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
-  void MergeFrom( const EnterRoom_Request& from) {
-    EnterRoom_Request::MergeImpl(*this, from);
+  void MergeFrom( const Ping_Request& from) {
+    Ping_Request::MergeImpl(*this, from);
   }
   private:
   static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
@@ -1002,15 +489,15 @@ class EnterRoom_Request final :
   void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
   void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(EnterRoom_Request* other);
+  void InternalSwap(Ping_Request* other);
 
   private:
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "Hall_Protobuf.EnterRoom_Request";
+    return "Hall_Protobuf.Ping_Request";
   }
   protected:
-  explicit EnterRoom_Request(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+  explicit Ping_Request(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                        bool is_message_owned = false);
   public:
 
@@ -1024,18 +511,18 @@ class EnterRoom_Request final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kRoomIdFieldNumber = 1,
+    kPingpackIdFieldNumber = 1,
   };
-  // int32 room_id = 1;
-  void clear_room_id();
-  int32_t room_id() const;
-  void set_room_id(int32_t value);
+  // int32 pingpack_id = 1;
+  void clear_pingpack_id();
+  int32_t pingpack_id() const;
+  void set_pingpack_id(int32_t value);
   private:
-  int32_t _internal_room_id() const;
-  void _internal_set_room_id(int32_t value);
+  int32_t _internal_pingpack_id() const;
+  void _internal_set_pingpack_id(int32_t value);
   public:
 
-  // @@protoc_insertion_point(class_scope:Hall_Protobuf.EnterRoom_Request)
+  // @@protoc_insertion_point(class_scope:Hall_Protobuf.Ping_Request)
  private:
   class _Internal;
 
@@ -1043,7 +530,7 @@ class EnterRoom_Request final :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   struct Impl_ {
-    int32_t room_id_;
+    int32_t pingpack_id_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -1051,24 +538,24 @@ class EnterRoom_Request final :
 };
 // -------------------------------------------------------------------
 
-class EnterRoom_Response final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Hall_Protobuf.EnterRoom_Response) */ {
+class Ping_Response final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Hall_Protobuf.Ping_Response) */ {
  public:
-  inline EnterRoom_Response() : EnterRoom_Response(nullptr) {}
-  ~EnterRoom_Response() override;
-  explicit PROTOBUF_CONSTEXPR EnterRoom_Response(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+  inline Ping_Response() : Ping_Response(nullptr) {}
+  ~Ping_Response() override;
+  explicit PROTOBUF_CONSTEXPR Ping_Response(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
 
-  EnterRoom_Response(const EnterRoom_Response& from);
-  EnterRoom_Response(EnterRoom_Response&& from) noexcept
-    : EnterRoom_Response() {
+  Ping_Response(const Ping_Response& from);
+  Ping_Response(Ping_Response&& from) noexcept
+    : Ping_Response() {
     *this = ::std::move(from);
   }
 
-  inline EnterRoom_Response& operator=(const EnterRoom_Response& from) {
+  inline Ping_Response& operator=(const Ping_Response& from) {
     CopyFrom(from);
     return *this;
   }
-  inline EnterRoom_Response& operator=(EnterRoom_Response&& from) noexcept {
+  inline Ping_Response& operator=(Ping_Response&& from) noexcept {
     if (this == &from) return *this;
     if (GetOwningArena() == from.GetOwningArena()
   #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
@@ -1091,20 +578,20 @@ class EnterRoom_Response final :
   static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
     return default_instance().GetMetadata().reflection;
   }
-  static const EnterRoom_Response& default_instance() {
+  static const Ping_Response& default_instance() {
     return *internal_default_instance();
   }
-  static inline const EnterRoom_Response* internal_default_instance() {
-    return reinterpret_cast<const EnterRoom_Response*>(
-               &_EnterRoom_Response_default_instance_);
+  static inline const Ping_Response* internal_default_instance() {
+    return reinterpret_cast<const Ping_Response*>(
+               &_Ping_Response_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    6;
+    3;
 
-  friend void swap(EnterRoom_Response& a, EnterRoom_Response& b) {
+  friend void swap(Ping_Response& a, Ping_Response& b) {
     a.Swap(&b);
   }
-  inline void Swap(EnterRoom_Response* other) {
+  inline void Swap(Ping_Response* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1117,7 +604,7 @@ class EnterRoom_Response final :
       ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
     }
   }
-  void UnsafeArenaSwap(EnterRoom_Response* other) {
+  void UnsafeArenaSwap(Ping_Response* other) {
     if (other == this) return;
     GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
     InternalSwap(other);
@@ -1125,14 +612,14 @@ class EnterRoom_Response final :
 
   // implements Message ----------------------------------------------
 
-  EnterRoom_Response* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<EnterRoom_Response>(arena);
+  Ping_Response* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<Ping_Response>(arena);
   }
   using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
-  void CopyFrom(const EnterRoom_Response& from);
+  void CopyFrom(const Ping_Response& from);
   using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
-  void MergeFrom( const EnterRoom_Response& from) {
-    EnterRoom_Response::MergeImpl(*this, from);
+  void MergeFrom( const Ping_Response& from) {
+    Ping_Response::MergeImpl(*this, from);
   }
   private:
   static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
@@ -1150,15 +637,15 @@ class EnterRoom_Response final :
   void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
   void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(EnterRoom_Response* other);
+  void InternalSwap(Ping_Response* other);
 
   private:
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "Hall_Protobuf.EnterRoom_Response";
+    return "Hall_Protobuf.Ping_Response";
   }
   protected:
-  explicit EnterRoom_Response(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+  explicit Ping_Response(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                        bool is_message_owned = false);
   public:
 
@@ -1172,28 +659,18 @@ class EnterRoom_Response final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kRoomIdFieldNumber = 1,
-    kResultFieldNumber = 2,
+    kPingpackIdFieldNumber = 1,
   };
-  // int32 room_id = 1;
-  void clear_room_id();
-  int32_t room_id() const;
-  void set_room_id(int32_t value);
+  // int32 pingpack_id = 1;
+  void clear_pingpack_id();
+  int32_t pingpack_id() const;
+  void set_pingpack_id(int32_t value);
   private:
-  int32_t _internal_room_id() const;
-  void _internal_set_room_id(int32_t value);
+  int32_t _internal_pingpack_id() const;
+  void _internal_set_pingpack_id(int32_t value);
   public:
 
-  // int32 result = 2;
-  void clear_result();
-  int32_t result() const;
-  void set_result(int32_t value);
-  private:
-  int32_t _internal_result() const;
-  void _internal_set_result(int32_t value);
-  public:
-
-  // @@protoc_insertion_point(class_scope:Hall_Protobuf.EnterRoom_Response)
+  // @@protoc_insertion_point(class_scope:Hall_Protobuf.Ping_Response)
  private:
   class _Internal;
 
@@ -1201,156 +678,7 @@ class EnterRoom_Response final :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   struct Impl_ {
-    int32_t room_id_;
-    int32_t result_;
-    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-  };
-  union { Impl_ _impl_; };
-  friend struct ::TableStruct_Hall_5fProtocol_2eproto;
-};
-// -------------------------------------------------------------------
-
-class Ping_info final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Hall_Protobuf.Ping_info) */ {
- public:
-  inline Ping_info() : Ping_info(nullptr) {}
-  ~Ping_info() override;
-  explicit PROTOBUF_CONSTEXPR Ping_info(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
-
-  Ping_info(const Ping_info& from);
-  Ping_info(Ping_info&& from) noexcept
-    : Ping_info() {
-    *this = ::std::move(from);
-  }
-
-  inline Ping_info& operator=(const Ping_info& from) {
-    CopyFrom(from);
-    return *this;
-  }
-  inline Ping_info& operator=(Ping_info&& from) noexcept {
-    if (this == &from) return *this;
-    if (GetOwningArena() == from.GetOwningArena()
-  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
-        && GetOwningArena() != nullptr
-  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
-    ) {
-      InternalSwap(&from);
-    } else {
-      CopyFrom(from);
-    }
-    return *this;
-  }
-
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return default_instance().GetMetadata().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return default_instance().GetMetadata().reflection;
-  }
-  static const Ping_info& default_instance() {
-    return *internal_default_instance();
-  }
-  static inline const Ping_info* internal_default_instance() {
-    return reinterpret_cast<const Ping_info*>(
-               &_Ping_info_default_instance_);
-  }
-  static constexpr int kIndexInFileMessages =
-    7;
-
-  friend void swap(Ping_info& a, Ping_info& b) {
-    a.Swap(&b);
-  }
-  inline void Swap(Ping_info* other) {
-    if (other == this) return;
-  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
-    if (GetOwningArena() != nullptr &&
-        GetOwningArena() == other->GetOwningArena()) {
-   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
-    if (GetOwningArena() == other->GetOwningArena()) {
-  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
-      InternalSwap(other);
-    } else {
-      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
-    }
-  }
-  void UnsafeArenaSwap(Ping_info* other) {
-    if (other == this) return;
-    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
-    InternalSwap(other);
-  }
-
-  // implements Message ----------------------------------------------
-
-  Ping_info* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<Ping_info>(arena);
-  }
-  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
-  void CopyFrom(const Ping_info& from);
-  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
-  void MergeFrom( const Ping_info& from) {
-    Ping_info::MergeImpl(*this, from);
-  }
-  private:
-  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
-  public:
-  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
-  bool IsInitialized() const final;
-
-  size_t ByteSizeLong() const final;
-  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
-  uint8_t* _InternalSerialize(
-      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
-  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
-
-  private:
-  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
-  void SharedDtor();
-  void SetCachedSize(int size) const final;
-  void InternalSwap(Ping_info* other);
-
-  private:
-  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
-  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "Hall_Protobuf.Ping_info";
-  }
-  protected:
-  explicit Ping_info(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                       bool is_message_owned = false);
-  public:
-
-  static const ClassData _class_data_;
-  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
-
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  enum : int {
-    kPingIdFieldNumber = 1,
-  };
-  // int32 ping_id = 1;
-  void clear_ping_id();
-  int32_t ping_id() const;
-  void set_ping_id(int32_t value);
-  private:
-  int32_t _internal_ping_id() const;
-  void _internal_set_ping_id(int32_t value);
-  public:
-
-  // @@protoc_insertion_point(class_scope:Hall_Protobuf.Ping_info)
- private:
-  class _Internal;
-
-  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
-  typedef void InternalArenaConstructable_;
-  typedef void DestructorSkippable_;
-  struct Impl_ {
-    int32_t ping_id_;
+    int32_t pingpack_id_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -1365,256 +693,44 @@ class Ping_info final :
   #pragma GCC diagnostic push
   #pragma GCC diagnostic ignored "-Wstrict-aliasing"
 #endif  // __GNUC__
-// HallInfo_Response_User
-
-// string name = 1;
-inline void HallInfo_Response_User::clear_name() {
-  _impl_.name_.ClearToEmpty();
-}
-inline const std::string& HallInfo_Response_User::name() const {
-  // @@protoc_insertion_point(field_get:Hall_Protobuf.HallInfo_Response.User.name)
-  return _internal_name();
-}
-template <typename ArgT0, typename... ArgT>
-inline PROTOBUF_ALWAYS_INLINE
-void HallInfo_Response_User::set_name(ArgT0&& arg0, ArgT... args) {
- 
- _impl_.name_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
-  // @@protoc_insertion_point(field_set:Hall_Protobuf.HallInfo_Response.User.name)
-}
-inline std::string* HallInfo_Response_User::mutable_name() {
-  std::string* _s = _internal_mutable_name();
-  // @@protoc_insertion_point(field_mutable:Hall_Protobuf.HallInfo_Response.User.name)
-  return _s;
-}
-inline const std::string& HallInfo_Response_User::_internal_name() const {
-  return _impl_.name_.Get();
-}
-inline void HallInfo_Response_User::_internal_set_name(const std::string& value) {
-  
-  _impl_.name_.Set(value, GetArenaForAllocation());
-}
-inline std::string* HallInfo_Response_User::_internal_mutable_name() {
-  
-  return _impl_.name_.Mutable(GetArenaForAllocation());
-}
-inline std::string* HallInfo_Response_User::release_name() {
-  // @@protoc_insertion_point(field_release:Hall_Protobuf.HallInfo_Response.User.name)
-  return _impl_.name_.Release();
-}
-inline void HallInfo_Response_User::set_allocated_name(std::string* name) {
-  if (name != nullptr) {
-    
-  } else {
-    
-  }
-  _impl_.name_.SetAllocated(name, GetArenaForAllocation());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (_impl_.name_.IsDefault()) {
-    _impl_.name_.Set("", GetArenaForAllocation());
-  }
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  // @@protoc_insertion_point(field_set_allocated:Hall_Protobuf.HallInfo_Response.User.name)
-}
-
-// -------------------------------------------------------------------
-
-// HallInfo_Response_RoomInfo
-
-// int32 room_id = 1;
-inline void HallInfo_Response_RoomInfo::clear_room_id() {
-  _impl_.room_id_ = 0;
-}
-inline int32_t HallInfo_Response_RoomInfo::_internal_room_id() const {
-  return _impl_.room_id_;
-}
-inline int32_t HallInfo_Response_RoomInfo::room_id() const {
-  // @@protoc_insertion_point(field_get:Hall_Protobuf.HallInfo_Response.RoomInfo.room_id)
-  return _internal_room_id();
-}
-inline void HallInfo_Response_RoomInfo::_internal_set_room_id(int32_t value) {
-  
-  _impl_.room_id_ = value;
-}
-inline void HallInfo_Response_RoomInfo::set_room_id(int32_t value) {
-  _internal_set_room_id(value);
-  // @@protoc_insertion_point(field_set:Hall_Protobuf.HallInfo_Response.RoomInfo.room_id)
-}
-
-// string host_name = 2;
-inline void HallInfo_Response_RoomInfo::clear_host_name() {
-  _impl_.host_name_.ClearToEmpty();
-}
-inline const std::string& HallInfo_Response_RoomInfo::host_name() const {
-  // @@protoc_insertion_point(field_get:Hall_Protobuf.HallInfo_Response.RoomInfo.host_name)
-  return _internal_host_name();
-}
-template <typename ArgT0, typename... ArgT>
-inline PROTOBUF_ALWAYS_INLINE
-void HallInfo_Response_RoomInfo::set_host_name(ArgT0&& arg0, ArgT... args) {
- 
- _impl_.host_name_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
-  // @@protoc_insertion_point(field_set:Hall_Protobuf.HallInfo_Response.RoomInfo.host_name)
-}
-inline std::string* HallInfo_Response_RoomInfo::mutable_host_name() {
-  std::string* _s = _internal_mutable_host_name();
-  // @@protoc_insertion_point(field_mutable:Hall_Protobuf.HallInfo_Response.RoomInfo.host_name)
-  return _s;
-}
-inline const std::string& HallInfo_Response_RoomInfo::_internal_host_name() const {
-  return _impl_.host_name_.Get();
-}
-inline void HallInfo_Response_RoomInfo::_internal_set_host_name(const std::string& value) {
-  
-  _impl_.host_name_.Set(value, GetArenaForAllocation());
-}
-inline std::string* HallInfo_Response_RoomInfo::_internal_mutable_host_name() {
-  
-  return _impl_.host_name_.Mutable(GetArenaForAllocation());
-}
-inline std::string* HallInfo_Response_RoomInfo::release_host_name() {
-  // @@protoc_insertion_point(field_release:Hall_Protobuf.HallInfo_Response.RoomInfo.host_name)
-  return _impl_.host_name_.Release();
-}
-inline void HallInfo_Response_RoomInfo::set_allocated_host_name(std::string* host_name) {
-  if (host_name != nullptr) {
-    
-  } else {
-    
-  }
-  _impl_.host_name_.SetAllocated(host_name, GetArenaForAllocation());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (_impl_.host_name_.IsDefault()) {
-    _impl_.host_name_.Set("", GetArenaForAllocation());
-  }
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  // @@protoc_insertion_point(field_set_allocated:Hall_Protobuf.HallInfo_Response.RoomInfo.host_name)
-}
-
-// -------------------------------------------------------------------
-
-// HallInfo_Response
-
-// repeated .Hall_Protobuf.HallInfo_Response.User userinfo = 1;
-inline int HallInfo_Response::_internal_userinfo_size() const {
-  return _impl_.userinfo_.size();
-}
-inline int HallInfo_Response::userinfo_size() const {
-  return _internal_userinfo_size();
-}
-inline void HallInfo_Response::clear_userinfo() {
-  _impl_.userinfo_.Clear();
-}
-inline ::Hall_Protobuf::HallInfo_Response_User* HallInfo_Response::mutable_userinfo(int index) {
-  // @@protoc_insertion_point(field_mutable:Hall_Protobuf.HallInfo_Response.userinfo)
-  return _impl_.userinfo_.Mutable(index);
-}
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Hall_Protobuf::HallInfo_Response_User >*
-HallInfo_Response::mutable_userinfo() {
-  // @@protoc_insertion_point(field_mutable_list:Hall_Protobuf.HallInfo_Response.userinfo)
-  return &_impl_.userinfo_;
-}
-inline const ::Hall_Protobuf::HallInfo_Response_User& HallInfo_Response::_internal_userinfo(int index) const {
-  return _impl_.userinfo_.Get(index);
-}
-inline const ::Hall_Protobuf::HallInfo_Response_User& HallInfo_Response::userinfo(int index) const {
-  // @@protoc_insertion_point(field_get:Hall_Protobuf.HallInfo_Response.userinfo)
-  return _internal_userinfo(index);
-}
-inline ::Hall_Protobuf::HallInfo_Response_User* HallInfo_Response::_internal_add_userinfo() {
-  return _impl_.userinfo_.Add();
-}
-inline ::Hall_Protobuf::HallInfo_Response_User* HallInfo_Response::add_userinfo() {
-  ::Hall_Protobuf::HallInfo_Response_User* _add = _internal_add_userinfo();
-  // @@protoc_insertion_point(field_add:Hall_Protobuf.HallInfo_Response.userinfo)
-  return _add;
-}
-inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Hall_Protobuf::HallInfo_Response_User >&
-HallInfo_Response::userinfo() const {
-  // @@protoc_insertion_point(field_list:Hall_Protobuf.HallInfo_Response.userinfo)
-  return _impl_.userinfo_;
-}
-
-// repeated .Hall_Protobuf.HallInfo_Response.RoomInfo roominfo = 2;
-inline int HallInfo_Response::_internal_roominfo_size() const {
-  return _impl_.roominfo_.size();
-}
-inline int HallInfo_Response::roominfo_size() const {
-  return _internal_roominfo_size();
-}
-inline void HallInfo_Response::clear_roominfo() {
-  _impl_.roominfo_.Clear();
-}
-inline ::Hall_Protobuf::HallInfo_Response_RoomInfo* HallInfo_Response::mutable_roominfo(int index) {
-  // @@protoc_insertion_point(field_mutable:Hall_Protobuf.HallInfo_Response.roominfo)
-  return _impl_.roominfo_.Mutable(index);
-}
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Hall_Protobuf::HallInfo_Response_RoomInfo >*
-HallInfo_Response::mutable_roominfo() {
-  // @@protoc_insertion_point(field_mutable_list:Hall_Protobuf.HallInfo_Response.roominfo)
-  return &_impl_.roominfo_;
-}
-inline const ::Hall_Protobuf::HallInfo_Response_RoomInfo& HallInfo_Response::_internal_roominfo(int index) const {
-  return _impl_.roominfo_.Get(index);
-}
-inline const ::Hall_Protobuf::HallInfo_Response_RoomInfo& HallInfo_Response::roominfo(int index) const {
-  // @@protoc_insertion_point(field_get:Hall_Protobuf.HallInfo_Response.roominfo)
-  return _internal_roominfo(index);
-}
-inline ::Hall_Protobuf::HallInfo_Response_RoomInfo* HallInfo_Response::_internal_add_roominfo() {
-  return _impl_.roominfo_.Add();
-}
-inline ::Hall_Protobuf::HallInfo_Response_RoomInfo* HallInfo_Response::add_roominfo() {
-  ::Hall_Protobuf::HallInfo_Response_RoomInfo* _add = _internal_add_roominfo();
-  // @@protoc_insertion_point(field_add:Hall_Protobuf.HallInfo_Response.roominfo)
-  return _add;
-}
-inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Hall_Protobuf::HallInfo_Response_RoomInfo >&
-HallInfo_Response::roominfo() const {
-  // @@protoc_insertion_point(field_list:Hall_Protobuf.HallInfo_Response.roominfo)
-  return _impl_.roominfo_;
-}
-
-// -------------------------------------------------------------------
-
-// HallMessage_Request
+// PublicMessage_Request
 
 // string content = 1;
-inline void HallMessage_Request::clear_content() {
+inline void PublicMessage_Request::clear_content() {
   _impl_.content_.ClearToEmpty();
 }
-inline const std::string& HallMessage_Request::content() const {
-  // @@protoc_insertion_point(field_get:Hall_Protobuf.HallMessage_Request.content)
+inline const std::string& PublicMessage_Request::content() const {
+  // @@protoc_insertion_point(field_get:Hall_Protobuf.PublicMessage_Request.content)
   return _internal_content();
 }
 template <typename ArgT0, typename... ArgT>
 inline PROTOBUF_ALWAYS_INLINE
-void HallMessage_Request::set_content(ArgT0&& arg0, ArgT... args) {
+void PublicMessage_Request::set_content(ArgT0&& arg0, ArgT... args) {
  
  _impl_.content_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
-  // @@protoc_insertion_point(field_set:Hall_Protobuf.HallMessage_Request.content)
+  // @@protoc_insertion_point(field_set:Hall_Protobuf.PublicMessage_Request.content)
 }
-inline std::string* HallMessage_Request::mutable_content() {
+inline std::string* PublicMessage_Request::mutable_content() {
   std::string* _s = _internal_mutable_content();
-  // @@protoc_insertion_point(field_mutable:Hall_Protobuf.HallMessage_Request.content)
+  // @@protoc_insertion_point(field_mutable:Hall_Protobuf.PublicMessage_Request.content)
   return _s;
 }
-inline const std::string& HallMessage_Request::_internal_content() const {
+inline const std::string& PublicMessage_Request::_internal_content() const {
   return _impl_.content_.Get();
 }
-inline void HallMessage_Request::_internal_set_content(const std::string& value) {
+inline void PublicMessage_Request::_internal_set_content(const std::string& value) {
   
   _impl_.content_.Set(value, GetArenaForAllocation());
 }
-inline std::string* HallMessage_Request::_internal_mutable_content() {
+inline std::string* PublicMessage_Request::_internal_mutable_content() {
   
   return _impl_.content_.Mutable(GetArenaForAllocation());
 }
-inline std::string* HallMessage_Request::release_content() {
-  // @@protoc_insertion_point(field_release:Hall_Protobuf.HallMessage_Request.content)
+inline std::string* PublicMessage_Request::release_content() {
+  // @@protoc_insertion_point(field_release:Hall_Protobuf.PublicMessage_Request.content)
   return _impl_.content_.Release();
 }
-inline void HallMessage_Request::set_allocated_content(std::string* content) {
+inline void PublicMessage_Request::set_allocated_content(std::string* content) {
   if (content != nullptr) {
     
   } else {
@@ -1626,49 +742,49 @@ inline void HallMessage_Request::set_allocated_content(std::string* content) {
     _impl_.content_.Set("", GetArenaForAllocation());
   }
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  // @@protoc_insertion_point(field_set_allocated:Hall_Protobuf.HallMessage_Request.content)
+  // @@protoc_insertion_point(field_set_allocated:Hall_Protobuf.PublicMessage_Request.content)
 }
 
 // -------------------------------------------------------------------
 
-// HallMessage_Response
+// PublicMessage_MutiResponse
 
 // string name = 1;
-inline void HallMessage_Response::clear_name() {
+inline void PublicMessage_MutiResponse::clear_name() {
   _impl_.name_.ClearToEmpty();
 }
-inline const std::string& HallMessage_Response::name() const {
-  // @@protoc_insertion_point(field_get:Hall_Protobuf.HallMessage_Response.name)
+inline const std::string& PublicMessage_MutiResponse::name() const {
+  // @@protoc_insertion_point(field_get:Hall_Protobuf.PublicMessage_MutiResponse.name)
   return _internal_name();
 }
 template <typename ArgT0, typename... ArgT>
 inline PROTOBUF_ALWAYS_INLINE
-void HallMessage_Response::set_name(ArgT0&& arg0, ArgT... args) {
+void PublicMessage_MutiResponse::set_name(ArgT0&& arg0, ArgT... args) {
  
  _impl_.name_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
-  // @@protoc_insertion_point(field_set:Hall_Protobuf.HallMessage_Response.name)
+  // @@protoc_insertion_point(field_set:Hall_Protobuf.PublicMessage_MutiResponse.name)
 }
-inline std::string* HallMessage_Response::mutable_name() {
+inline std::string* PublicMessage_MutiResponse::mutable_name() {
   std::string* _s = _internal_mutable_name();
-  // @@protoc_insertion_point(field_mutable:Hall_Protobuf.HallMessage_Response.name)
+  // @@protoc_insertion_point(field_mutable:Hall_Protobuf.PublicMessage_MutiResponse.name)
   return _s;
 }
-inline const std::string& HallMessage_Response::_internal_name() const {
+inline const std::string& PublicMessage_MutiResponse::_internal_name() const {
   return _impl_.name_.Get();
 }
-inline void HallMessage_Response::_internal_set_name(const std::string& value) {
+inline void PublicMessage_MutiResponse::_internal_set_name(const std::string& value) {
   
   _impl_.name_.Set(value, GetArenaForAllocation());
 }
-inline std::string* HallMessage_Response::_internal_mutable_name() {
+inline std::string* PublicMessage_MutiResponse::_internal_mutable_name() {
   
   return _impl_.name_.Mutable(GetArenaForAllocation());
 }
-inline std::string* HallMessage_Response::release_name() {
-  // @@protoc_insertion_point(field_release:Hall_Protobuf.HallMessage_Response.name)
+inline std::string* PublicMessage_MutiResponse::release_name() {
+  // @@protoc_insertion_point(field_release:Hall_Protobuf.PublicMessage_MutiResponse.name)
   return _impl_.name_.Release();
 }
-inline void HallMessage_Response::set_allocated_name(std::string* name) {
+inline void PublicMessage_MutiResponse::set_allocated_name(std::string* name) {
   if (name != nullptr) {
     
   } else {
@@ -1680,45 +796,45 @@ inline void HallMessage_Response::set_allocated_name(std::string* name) {
     _impl_.name_.Set("", GetArenaForAllocation());
   }
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  // @@protoc_insertion_point(field_set_allocated:Hall_Protobuf.HallMessage_Response.name)
+  // @@protoc_insertion_point(field_set_allocated:Hall_Protobuf.PublicMessage_MutiResponse.name)
 }
 
 // string content = 2;
-inline void HallMessage_Response::clear_content() {
+inline void PublicMessage_MutiResponse::clear_content() {
   _impl_.content_.ClearToEmpty();
 }
-inline const std::string& HallMessage_Response::content() const {
-  // @@protoc_insertion_point(field_get:Hall_Protobuf.HallMessage_Response.content)
+inline const std::string& PublicMessage_MutiResponse::content() const {
+  // @@protoc_insertion_point(field_get:Hall_Protobuf.PublicMessage_MutiResponse.content)
   return _internal_content();
 }
 template <typename ArgT0, typename... ArgT>
 inline PROTOBUF_ALWAYS_INLINE
-void HallMessage_Response::set_content(ArgT0&& arg0, ArgT... args) {
+void PublicMessage_MutiResponse::set_content(ArgT0&& arg0, ArgT... args) {
  
  _impl_.content_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
-  // @@protoc_insertion_point(field_set:Hall_Protobuf.HallMessage_Response.content)
+  // @@protoc_insertion_point(field_set:Hall_Protobuf.PublicMessage_MutiResponse.content)
 }
-inline std::string* HallMessage_Response::mutable_content() {
+inline std::string* PublicMessage_MutiResponse::mutable_content() {
   std::string* _s = _internal_mutable_content();
-  // @@protoc_insertion_point(field_mutable:Hall_Protobuf.HallMessage_Response.content)
+  // @@protoc_insertion_point(field_mutable:Hall_Protobuf.PublicMessage_MutiResponse.content)
   return _s;
 }
-inline const std::string& HallMessage_Response::_internal_content() const {
+inline const std::string& PublicMessage_MutiResponse::_internal_content() const {
   return _impl_.content_.Get();
 }
-inline void HallMessage_Response::_internal_set_content(const std::string& value) {
+inline void PublicMessage_MutiResponse::_internal_set_content(const std::string& value) {
   
   _impl_.content_.Set(value, GetArenaForAllocation());
 }
-inline std::string* HallMessage_Response::_internal_mutable_content() {
+inline std::string* PublicMessage_MutiResponse::_internal_mutable_content() {
   
   return _impl_.content_.Mutable(GetArenaForAllocation());
 }
-inline std::string* HallMessage_Response::release_content() {
-  // @@protoc_insertion_point(field_release:Hall_Protobuf.HallMessage_Response.content)
+inline std::string* PublicMessage_MutiResponse::release_content() {
+  // @@protoc_insertion_point(field_release:Hall_Protobuf.PublicMessage_MutiResponse.content)
   return _impl_.content_.Release();
 }
-inline void HallMessage_Response::set_allocated_content(std::string* content) {
+inline void PublicMessage_MutiResponse::set_allocated_content(std::string* content) {
   if (content != nullptr) {
     
   } else {
@@ -1730,112 +846,60 @@ inline void HallMessage_Response::set_allocated_content(std::string* content) {
     _impl_.content_.Set("", GetArenaForAllocation());
   }
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  // @@protoc_insertion_point(field_set_allocated:Hall_Protobuf.HallMessage_Response.content)
+  // @@protoc_insertion_point(field_set_allocated:Hall_Protobuf.PublicMessage_MutiResponse.content)
 }
 
 // -------------------------------------------------------------------
 
-// EnterRoom_Request
+// Ping_Request
 
-// int32 room_id = 1;
-inline void EnterRoom_Request::clear_room_id() {
-  _impl_.room_id_ = 0;
+// int32 pingpack_id = 1;
+inline void Ping_Request::clear_pingpack_id() {
+  _impl_.pingpack_id_ = 0;
 }
-inline int32_t EnterRoom_Request::_internal_room_id() const {
-  return _impl_.room_id_;
+inline int32_t Ping_Request::_internal_pingpack_id() const {
+  return _impl_.pingpack_id_;
 }
-inline int32_t EnterRoom_Request::room_id() const {
-  // @@protoc_insertion_point(field_get:Hall_Protobuf.EnterRoom_Request.room_id)
-  return _internal_room_id();
+inline int32_t Ping_Request::pingpack_id() const {
+  // @@protoc_insertion_point(field_get:Hall_Protobuf.Ping_Request.pingpack_id)
+  return _internal_pingpack_id();
 }
-inline void EnterRoom_Request::_internal_set_room_id(int32_t value) {
+inline void Ping_Request::_internal_set_pingpack_id(int32_t value) {
   
-  _impl_.room_id_ = value;
+  _impl_.pingpack_id_ = value;
 }
-inline void EnterRoom_Request::set_room_id(int32_t value) {
-  _internal_set_room_id(value);
-  // @@protoc_insertion_point(field_set:Hall_Protobuf.EnterRoom_Request.room_id)
+inline void Ping_Request::set_pingpack_id(int32_t value) {
+  _internal_set_pingpack_id(value);
+  // @@protoc_insertion_point(field_set:Hall_Protobuf.Ping_Request.pingpack_id)
 }
 
 // -------------------------------------------------------------------
 
-// EnterRoom_Response
+// Ping_Response
 
-// int32 room_id = 1;
-inline void EnterRoom_Response::clear_room_id() {
-  _impl_.room_id_ = 0;
+// int32 pingpack_id = 1;
+inline void Ping_Response::clear_pingpack_id() {
+  _impl_.pingpack_id_ = 0;
 }
-inline int32_t EnterRoom_Response::_internal_room_id() const {
-  return _impl_.room_id_;
+inline int32_t Ping_Response::_internal_pingpack_id() const {
+  return _impl_.pingpack_id_;
 }
-inline int32_t EnterRoom_Response::room_id() const {
-  // @@protoc_insertion_point(field_get:Hall_Protobuf.EnterRoom_Response.room_id)
-  return _internal_room_id();
+inline int32_t Ping_Response::pingpack_id() const {
+  // @@protoc_insertion_point(field_get:Hall_Protobuf.Ping_Response.pingpack_id)
+  return _internal_pingpack_id();
 }
-inline void EnterRoom_Response::_internal_set_room_id(int32_t value) {
+inline void Ping_Response::_internal_set_pingpack_id(int32_t value) {
   
-  _impl_.room_id_ = value;
+  _impl_.pingpack_id_ = value;
 }
-inline void EnterRoom_Response::set_room_id(int32_t value) {
-  _internal_set_room_id(value);
-  // @@protoc_insertion_point(field_set:Hall_Protobuf.EnterRoom_Response.room_id)
-}
-
-// int32 result = 2;
-inline void EnterRoom_Response::clear_result() {
-  _impl_.result_ = 0;
-}
-inline int32_t EnterRoom_Response::_internal_result() const {
-  return _impl_.result_;
-}
-inline int32_t EnterRoom_Response::result() const {
-  // @@protoc_insertion_point(field_get:Hall_Protobuf.EnterRoom_Response.result)
-  return _internal_result();
-}
-inline void EnterRoom_Response::_internal_set_result(int32_t value) {
-  
-  _impl_.result_ = value;
-}
-inline void EnterRoom_Response::set_result(int32_t value) {
-  _internal_set_result(value);
-  // @@protoc_insertion_point(field_set:Hall_Protobuf.EnterRoom_Response.result)
-}
-
-// -------------------------------------------------------------------
-
-// Ping_info
-
-// int32 ping_id = 1;
-inline void Ping_info::clear_ping_id() {
-  _impl_.ping_id_ = 0;
-}
-inline int32_t Ping_info::_internal_ping_id() const {
-  return _impl_.ping_id_;
-}
-inline int32_t Ping_info::ping_id() const {
-  // @@protoc_insertion_point(field_get:Hall_Protobuf.Ping_info.ping_id)
-  return _internal_ping_id();
-}
-inline void Ping_info::_internal_set_ping_id(int32_t value) {
-  
-  _impl_.ping_id_ = value;
-}
-inline void Ping_info::set_ping_id(int32_t value) {
-  _internal_set_ping_id(value);
-  // @@protoc_insertion_point(field_set:Hall_Protobuf.Ping_info.ping_id)
+inline void Ping_Response::set_pingpack_id(int32_t value) {
+  _internal_set_pingpack_id(value);
+  // @@protoc_insertion_point(field_set:Hall_Protobuf.Ping_Response.pingpack_id)
 }
 
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
-// -------------------------------------------------------------------
-
-// -------------------------------------------------------------------
-
-// -------------------------------------------------------------------
-
-// -------------------------------------------------------------------
-
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

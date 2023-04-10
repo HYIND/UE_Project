@@ -69,7 +69,7 @@ int Listen_Server::Listen_Process()
             //     cout<<exp;
             //     // addfd(listen_epoll,timefd,false);
             // }
-            if ((Listen_events[i].data.fd == Listen_pipe[0]) && (Listen_events[i].events & EPOLLIN))
+            if ((((Epoll_Data *)Listen_events[i].data.ptr)->fd == Listen_pipe[0]) && (Listen_events[i].events & EPOLLIN))
             {
                 int sig;
                 char signals[1024];
