@@ -1,0 +1,28 @@
+syntax = "proto3"; 
+package DS_Protobuf;
+ 
+message DSPlayerinfo
+{
+    int32 id=1;
+    string playersname = 2;
+    string token =3;
+    int32 group = 4;
+}
+message DSGameinfo
+{
+    int32 playersnum =1;
+    int32 playerslimit =2;
+    int32 mapid =3;
+    int32 hostid =4;
+    repeated DSPlayerinfo playersinfo =5;
+}
+
+
+message NewDSGame_Request{ //7000
+    DSGameinfo gameinfo=1; 
+}
+
+message NewDSGame_Response{   //7010
+    int32 result =1;
+    int32 Port =2;
+}
