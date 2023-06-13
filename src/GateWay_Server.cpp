@@ -2,7 +2,6 @@
 #include "Center_Server.h"
 #include "Login_Server.h"
 
-#define NumOfProcessThread 4
 bool GateWay_Server::Init_GateWayServer()
 {
     assert(socketpair(PF_UNIX, SOCK_DGRAM, 0, Pipe) != -1);
@@ -15,29 +14,28 @@ bool GateWay_Server::Init_GateWayServer()
 int GateWay_Server::Run()
 {
     Process_stop = false;
-    thread heartcheck_thread(&GateWay_Server::HeartBeatCheck_Process, this);
-    thread send_thread(&GateWay_Server::Send_Process, this);
-    thread hall_threadpool[NumOfProcessThread]; // 申请多个处理线程(线程池)，处理大厅信息
-    for (int i = 0; i < NumOfProcessThread; i++)
-        hall_threadpool[i] = thread(&GateWay_Server::GateWay_Process, this);
-    thread recv_thread(&GateWay_Server::Recv_Process, this);
+    thread heartcheck_thread(&GateWay_Server::HeartBeatCheck_Process, this); // 心跳
+    thread send_thread(&GateWay_Server::Send_Process, this);                 // 接收
+    Pool.start();                                                            // 处理
+    thread recv_thread(&GateWay_Server::Recv_Process, this);                 // 发送
     LOGINFO("GateWay_Server::Run ,GateWay_Server Start!");
 
     recv_thread.join();
-    for (int i = 0; i < NumOfProcessThread; i++)
-        hall_threadpool[i].join();
+    Pool.stop();
     send_thread.join();
     heartcheck_thread.join();
 
     ThreadEnd();
-    LOGINFO("GateWay_Server::Run ,GateWay_Server Close!");
+    LOGINFO("GateWay_Server::Run ,GateWay_Server Stop!");
     return 1;
 }
 void GateWay_Server::ThreadEnd()
 {
     close(Pipe[0]);
     close(Pipe[1]);
+    SigManager::Instance()->DelPipe(Pipe[1]);
 }
+
 void GateWay_Server::Recv_Process()
 {
     char buffer[1024];
@@ -127,10 +125,11 @@ void GateWay_Server::Recv_Process()
                         }
                         else
                         {
-                            unique_lock<mutex> Queuelck(RecvQueue_mtx);
-                            RecvQueue.emplace(Token_Msg); // 投递消息
-                            Queuelck.release()->unlock();
-                            GateWayProcess_cv.notify_one(); // 唤醒其中一个处理线程
+                            Pool.submit(&GateWay_Server::OnProcess, this, Token_Msg);
+                            // unique_lock<mutex> Queuelck(RecvQueue_mtx);
+                            // RecvQueue.enqueue(Token_Msg); // 投递消息
+                            // Queuelck.release()->unlock();
+                            // GateWayProcess_cv.notify_one(); // 唤醒其中一个处理线程
                         }
                     }
 
@@ -151,35 +150,9 @@ void GateWay_Server::Recv_Process()
             }
         }
     }
-    GateWayProcess_cv.notify_all();
+    // GateWayProcess_cv.notify_all();
     SendProcess_cv.notify_all();
     close(Epoll);
-}
-void GateWay_Server::GateWay_Process()
-{
-    Token_SocketMessage *Recv_TokenMessage = nullptr;
-    while (!Process_stop)
-    {
-        unique_lock<mutex> Processlck(GateWayProcess_mtx);
-        GateWayProcess_cv.wait(Processlck);
-        Processlck.release()->unlock();
-
-        while (!RecvQueue.empty())
-        {
-            // GetMessage
-            RecvQueue_mtx.lock();
-            Recv_TokenMessage = RecvQueue.front();
-            RecvQueue.pop();
-            RecvQueue_mtx.unlock();
-
-            if (!Recv_TokenMessage)
-                continue;
-
-            int ret = OnProcess(Recv_TokenMessage);
-            delete Recv_TokenMessage;
-            Recv_TokenMessage = nullptr;
-        }
-    }
 }
 void GateWay_Server::Send_Process()
 {
@@ -193,8 +166,7 @@ void GateWay_Server::Send_Process()
         while (!SendQueue.empty())
         {
             // GetMessage
-            Send_Message = SendQueue.front();
-            SendQueue.pop();
+            SendQueue.dequeue(Send_Message);
 
             if (!Send_Message)
                 continue;
@@ -220,7 +192,6 @@ void GateWay_Server::Send_Process()
         }
     }
 }
-
 void GateWay_Server::HeartBeatCheck_Process()
 {
     while (!Process_stop)
@@ -294,7 +265,7 @@ int GateWay_Server::OnProcess(Token_SocketMessage *Tokenmsg)
         break;
     }
 
-    //LoginServer
+    // LoginServer
     case Request_Login:
     case Request_Signup:
     case Request_Reconnect:

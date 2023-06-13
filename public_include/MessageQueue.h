@@ -37,7 +37,6 @@ public:
     bool Consumer_BuildQueue();
     int Consumer(char *&msg, size_t &length);
     int Consumer_Close();
-    int Process(const char *msg);
 };
 
 // 生产者

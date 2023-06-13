@@ -8,10 +8,10 @@ set(CMAKE_CXX_STANDARD 20)
 ADD_SUBDIRECTORY(protobuf)
 ADD_SUBDIRECTORY(public_src)
 
-# include_directories(include)
-# include_directories(protobuf)
-# include_directories(spdlog)
-# include_directories(public_include)
+include_directories(include)
+include_directories(protobuf)
+include_directories(spdlog)
+include_directories(public_include)
 
 aux_source_directory(src DIR_SRCS)
 

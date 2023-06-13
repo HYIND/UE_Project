@@ -1,6 +1,7 @@
 #pragma once
 #include "header.h"
 #include "RateLimiter.h"
+#include "ThreadPool.h"
 
 class Center_Server;
 class Login_Server;
@@ -26,8 +27,8 @@ public:
     int Get_pipe() { return Pipe[1]; };
 
 protected:
-    void Recv_Process();           // 接收线程函数
-    void GateWay_Process();        // 处理线程函数
+    void Recv_Process(); // 接收线程函数
+    // void GateWay_Process();        // 处理线程函数
     void Send_Process();           // 发送线程函数
     void HeartBeatCheck_Process(); // 心跳检测函数
 
@@ -37,17 +38,11 @@ private:
     int Epoll = epoll_create(100);
     epoll_event Events[100];
 
-    // Process
-    queue<Token_SocketMessage *> RecvQueue; // 接收队列
-    queue<Socket_Message *> SendQueue;      // 发送队列
+    ThreadPool Pool;    //线程池，处理请求
 
-    mutex GateWayProcess_mtx;             // 唤醒处理线程的锁
-    condition_variable GateWayProcess_cv; // 唤醒处理线程的条件变量
-    mutex SendProcess_mtx;                // 唤醒发送线程的锁
-    condition_variable SendProcess_cv;    // 唤醒发送线程的条件变量
-
-    mutex RecvQueue_mtx; // 接收队列的锁
-    mutex SendQueue_mtx; // 发送队列的锁
+    SafeQueue<Socket_Message *> SendQueue; // 发送队列
+    mutex SendProcess_mtx;                 // 唤醒发送线程的锁
+    condition_variable SendProcess_cv;     // 唤醒发送线程的条件变量
 
     bool Process_stop = false;
 
@@ -65,13 +60,10 @@ private:
     vector<User_Info *> AllUser_list;
     vector<User_Info *> wait_list;
     map<int, int> HeartBeat_map; //<fd->count>
+    map<string, int> Token_map;  //<token->userid>
 
 public:
     // Template
-
-    // template <typename T>
-    // int Get_Header_Type(T &message);
-
     template <typename T>
     void SendTo_SendQueue(int socket, T &message)
     {
@@ -85,7 +77,7 @@ public:
         msg->content = new char[header.length + 1];
         message.SerializeToArray(msg->content, header.length);
 
-        SendQueue.emplace(msg);      // 投递消息
+        SendQueue.enqueue(msg);      // 投递消息
         SendProcess_cv.notify_one(); // 唤醒一个发送线程
     }
 
@@ -113,7 +105,7 @@ public:
         int count = 0;
         for (auto &msg : Vec_msg)
         {
-            SendQueue.emplace(msg); // 投递消息
+            SendQueue.enqueue(msg); // 投递消息
             count++;
             if (count % 5 == 0)
                 SendProcess_cv.notify_one();

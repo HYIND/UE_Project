@@ -1,9 +1,9 @@
 #pragma once
 
-#include "../protobuf/Login_Protocol.pb.h"
-#include "../protobuf/Hall_Protocol.pb.h"
-#include "../protobuf/Room_Protocol.pb.h"
-#include "../protobuf/Game_Protocol.pb.h"
+#include "Login_Protocol.pb.h"
+#include "Hall_Protocol.pb.h"
+#include "Room_Protocol.pb.h"
+#include "Game_Protocol.pb.h"
 
 enum Heart
 {

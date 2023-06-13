@@ -19,7 +19,7 @@ private:
 public:
     vector<int> &GetPipes();
     void AddPipe(int pipe);
-    void ErasePipe(int pipe);
+    void DelPipe(int pipe);
 
 private:
     vector<int> Pipes;

@@ -63,13 +63,76 @@ int Init_Server(int argc, char *argv[])
 }
 
 #include "MessageQueue.h"
+void consume()
+{
+    Consumer_MQ rabbitmq;
+    if (!rabbitmq.Consumer_Connect())
+        return;
+    if (!rabbitmq.Consumer_BuildQueue())
+        return;
+    char *msg = nullptr;
+    size_t length = 0;
+    while (rabbitmq.Consumer(msg, length) > 0)
+    {
+        char m[20];
+        memcpy(m, msg, length);
+        cout << "consume , recv length :" << length << ",msg:" << msg << endl;
+        delete (msg);
+        msg = nullptr;
+        sleep(1);
+    }
+    rabbitmq.Consumer_Close();
+}
+
+void produce()
+{
+    Producer_MQ rabbitmq;
+    if (!rabbitmq.Producer_Connect())
+        return;
+    for (int i = 0; i < 5;)
+    {
+        char msg[] = "asjdha\0sdasd";
+        msg[0] += i;
+        int length = sizeof(msg);
+        rabbitmq.Producer_Publish(msg, length);
+        cout << "consume , send length :" << length << ",msg:" << msg << endl;
+
+        // sleep(1);
+    }
+    rabbitmq.Producer_Close();
+}
+
+void messagequeuetest()
+{
+    thread T1(consume);
+    thread T2(produce);
+    T1.join();
+    T2.join();
+}
+
+#include "ThreadPool.h"
+void threadpooltest()
+{
+
+    ThreadPool pool;
+    pool.start();
+
+    User_Info *user = new User_Info();
+    sockaddr_in tcp_addr_in;
+    user->sockinfo = new Socket_Info(10,tcp_addr_in);
+
+    pool.submit(&Center_Server::Push_LoginUser, Center_Server::Instance(), user);   //类成员函数
+    pool.submit(messagequeuetest);  //普通函数
+
+    pool.stop();
+}
 
 int main(int argc, char *argv[])
 {
     GOOGLE_PROTOBUF_VERIFY_VERSION;
     // Init_Server(argc, argv);
 
-    test();
+    threadpooltest();
 
     return 0;
 }

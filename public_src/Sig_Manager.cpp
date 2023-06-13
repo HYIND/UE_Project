@@ -12,7 +12,7 @@ void SigManager::AddPipe(int pipe)
 {
     Pipes.push_back(pipe);
 }
-void SigManager::ErasePipe(int pipe)
+void SigManager::DelPipe(int pipe)
 {
     auto it = find(Pipes.begin(), Pipes.end(), pipe);
     if (it != Pipes.end())

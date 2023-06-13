@@ -36,33 +36,26 @@ Producer_MQ::Producer_MQ(string &hostname, int port, string &exchange, string &r
 {
 }
 
-int Consumer_MQ::Process(const char *msg)
-{
-    cout << "process msg " << msg << endl;
-    return 0;
-}
-
 bool Consumer_MQ::Consumer_Connect()
 {
-    int status = 0;
-    int ret = 0;
     amqp_rpc_reply_t reply;
-    amqp_socket_t *socket = NULL;
+    amqp_socket_t *aqmp_socket = NULL;
 
     // 分配和初始化一个新的链接对象
     connection = amqp_new_connection();
     // 创建tcp socket链接
-    socket = amqp_tcp_socket_new(connection);
-    if (!socket)
+    aqmp_socket = amqp_tcp_socket_new(connection);
+    if (!aqmp_socket)
     {
         perror("consumer: creating TCP socket");
         // 销毁链接
         amqp_destroy_connection(connection);
         return false;
     }
+    struct timeval timeout = {10, 0};
     // 非阻塞方式打开socket链接
-    status = amqp_socket_open(socket, m_honstname.c_str(), m_port);
-    if (status)
+    int socket_fd = amqp_socket_open_noblock(aqmp_socket, m_honstname.c_str(), m_port, &timeout);
+    if (socket_fd == -1)
     {
         perror("consumer: opening TCP socket");
         amqp_destroy_connection(connection);
@@ -75,7 +68,7 @@ bool Consumer_MQ::Consumer_Connect()
         perror("consumer: failed to login rabbitmq");
         // 关闭链接
         reply = amqp_connection_close(connection, AMQP_REPLY_SUCCESS);
-        ret = amqp_destroy_connection(connection);
+        amqp_destroy_connection(connection);
         return false;
     }
     // 打开链接通道
@@ -145,7 +138,7 @@ bool Consumer_MQ::Consumer_BuildQueue()
         return false;
     }
 
-    cout << "MQ消费者启动完毕" << endl;
+    cout << "Consumer_MQ启动" << endl;
     return true;
 }
 
@@ -156,7 +149,7 @@ int Consumer_MQ::Consumer(char *&msg, size_t &length)
 
     amqp_envelope_t envelope;
     amqp_maybe_release_buffers(connection);
-    struct timeval timeout = {20, 0};
+    struct timeval timeout = {7, 0};
     // 接收消息
     reply = amqp_consume_message(connection, &envelope, &timeout, 0);
     if (reply.reply_type != AMQP_RESPONSE_NORMAL)
@@ -167,19 +160,13 @@ int Consumer_MQ::Consumer(char *&msg, size_t &length)
         }
         else
         {
-            perror("message");
+            perror("MessageQueue error:");
             amqp_channel_close(connection, 1, AMQP_REPLY_SUCCESS);
             amqp_connection_close(connection, AMQP_REPLY_SUCCESS);
             amqp_destroy_connection(connection);
+            reconnect = 1;
             return -1;
         }
-        // if (!reconnect)
-        //     continue;
-        // reconnect = 0;
-        // perror("message");
-        // amqp_channel_close(connection, 1, AMQP_REPLY_SUCCESS);
-        // amqp_connection_close(connection, AMQP_REPLY_SUCCESS);
-        // amqp_destroy_connection(connection);
     }
 
     length = envelope.message.body.len;
@@ -221,20 +208,24 @@ int Consumer_MQ::Consumer_Close()
 
 bool Producer_MQ::Producer_Connect()
 {
-    int status = 0;
-    amqp_socket_t *socket = NULL;
+    amqp_socket_t *aqmp_socket = NULL;
     amqp_rpc_reply_t reply;
+
+    // 分配和初始化一个新的链接对象
     connection = amqp_new_connection();
-    socket = amqp_tcp_socket_new(connection);
-    if (!socket)
+    // 创建tcp socket链接
+    aqmp_socket = amqp_tcp_socket_new(connection);
+    if (!aqmp_socket)
     {
         perror("producer: creating TCP socket");
         reconnect = 1;
         amqp_destroy_connection(connection);
         return false;
     }
-    status = amqp_socket_open(socket, m_honstname.c_str(), m_port);
-    if (status)
+    struct timeval timeout = {10, 0};
+    // 非阻塞方式打开socket链接
+    int socket_fd = amqp_socket_open_noblock(aqmp_socket, m_honstname.c_str(), m_port, &timeout);
+    if (socket_fd == -1)
     {
         perror("producer: opening TCP socket");
         reconnect = 1;
@@ -262,6 +253,8 @@ bool Producer_MQ::Producer_Connect()
         amqp_destroy_connection(connection);
         return false;
     }
+
+    cout << "Producer_MQ启动" << endl;
     return true;
 }
 
@@ -290,8 +283,7 @@ int Producer_MQ::Producer_Publish(char *msg, size_t length)
     }
     else
     {
-        reconnect = 0;
-        cout << "producer publish: " << msg << endl;
+        // cout << "producer publish: " << msg << endl;
         return 1;
     }
     return 0;
@@ -322,44 +314,4 @@ int Producer_MQ::Producer_Close()
 
     cout << "Producer_MQ退出" << endl;
     return ret;
-}
-
-#include "Log.h"
-void consume()
-{
-    Consumer_MQ rabbitmq;
-    if (!rabbitmq.Consumer_Connect())
-        return;
-    if (!rabbitmq.Consumer_BuildQueue())
-        return;
-    char *msg = nullptr;
-    size_t length = 0;
-    rabbitmq.Consumer(msg, length);
-    char m[20] = '\0';
-    memcpy(m, msg, length);
-    cout << "consume , recv length :" << length << ",msg:" << msg;
-}
-
-void produce()
-{
-    Producer_MQ rabbitmq;
-    if (!rabbitmq.Producer_Connect())
-        return;
-    for (int i = 0; i < 5; i++)
-    {
-        char msg[] = "asjdha\0sdasd";
-        rabbitmq.Producer_Publish(msg, 12);
-
-        sleep(1);
-    }
-    rabbitmq.Producer_Close();
-}
-
-#include <thread>
-void test()
-{
-    thread T1(consume);
-    thread T2(produce);
-    T1.join();
-    T2.join();
 }

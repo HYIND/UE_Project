@@ -367,19 +367,6 @@ int Center_Server::OnProcess(Token_SocketMessage *TokenMsg)
     return result ? 1 : 0;
 }
 
-// void Center_Server::Push_User(User_Info *userinfo)
-// {
-//     userinfo->states = USER_STATE::Hall;
-
-//     user_list.emplace_back(userinfo);
-//     addfd(epoll, userinfo->Get_SocketFd());
-//     HeartCount heartcount(userinfo);
-//     HeartBeat_map.insert(pair<int, HeartCount>(userinfo->Get_SocketFd(), heartcount));
-//     Token_map[userinfo->Get_Token()] = userinfo;
-
-//     LOGINFO("Center_Server::Push_User user login : {} IP : {} Token : {}", userinfo->Get_UserName(), userinfo->Get_IP(), userinfo->token);
-// }
-
 void Center_Server::Push_LoginUser(User_Info *userinfo)
 {
     userinfo->states = USER_STATE::Hall;
@@ -389,30 +376,6 @@ void Center_Server::Push_LoginUser(User_Info *userinfo)
 
     LOGINFO("Center_Server::Push_LoginUser user login : {} IP : {} Token : {}", userinfo->Get_UserName(), userinfo->Get_IP(), userinfo->token);
 }
-
-// void Center_Server::OnLogout(const int socket_fd, const Header header, const char *content)
-// {
-//     User_Info *userinfo = Get_Userinfo(socket_fd);
-//     if (userinfo)
-//     {
-//         delfd(epoll, socket_fd);
-//         Login_Server::Instance()->Push_Fd(*(userinfo->sockinfo));
-//         for (auto it = user_list.begin(); it != user_list.end(); it++)
-//         {
-//             if ((*it) == userinfo)
-//             {
-//                 LOGINFO("Center_Server::OnLogout user logout : {}", userinfo->Get_UserName());
-//                 if (*it)
-//                     delete (*it);
-//                 user_list.erase(it);
-//                 break;
-//             }
-//         }
-//         auto it = HeartBeat_map.find(socket_fd);
-//         if (it != HeartBeat_map.end())
-//             HeartBeat_map.erase(it);
-//     }
-// }
 
 void Center_Server::OnLogout(const int socket_fd, const Header header, const char *content)
 {
@@ -437,16 +400,6 @@ void Center_Server::OnLogout(const int socket_fd, const Header header, const cha
     }
 }
 
-// void Center_Server::OnPing(const int socket_fd, const Header header, const char *content)
-// {
-//     Hall_Protobuf::Ping_Request Request;
-//     Request.ParseFromArray(content, header.length);
-
-//     Hall_Protobuf::Ping_Response Response;
-//     Response.set_pingpack_id(Request.pingpack_id());
-
-//     SendTo_SendQueue(socket_fd, Response);
-// }
 
 // bool Center_Server::Check_Reconnect(Socket_Info *sockinfo, string &token)
 // {
