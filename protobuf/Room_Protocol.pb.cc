@@ -211,6 +211,17 @@ struct ChangeTeam_RequestDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ChangeTeam_RequestDefaultTypeInternal _ChangeTeam_Request_default_instance_;
+PROTOBUF_CONSTEXPR RoomInfo_Request::RoomInfo_Request(
+    ::_pbi::ConstantInitialized) {}
+struct RoomInfo_RequestDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR RoomInfo_RequestDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~RoomInfo_RequestDefaultTypeInternal() {}
+  union {
+    RoomInfo_Request _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 RoomInfo_RequestDefaultTypeInternal _RoomInfo_Request_default_instance_;
 PROTOBUF_CONSTEXPR CreateRoom_Response::CreateRoom_Response(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.result_)*/0
@@ -371,6 +382,19 @@ struct ChangeTeam_MutiResponseDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ChangeTeam_MutiResponseDefaultTypeInternal _ChangeTeam_MutiResponse_default_instance_;
+PROTOBUF_CONSTEXPR RoomInfo_Response::RoomInfo_Response(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.roominfo_)*/nullptr
+  , /*decltype(_impl_._cached_size_)*/{}} {}
+struct RoomInfo_ResponseDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR RoomInfo_ResponseDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~RoomInfo_ResponseDefaultTypeInternal() {}
+  union {
+    RoomInfo_Response _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 RoomInfo_ResponseDefaultTypeInternal _RoomInfo_Response_default_instance_;
 PROTOBUF_CONSTEXPR StartGame_Request::StartGame_Request(
     ::_pbi::ConstantInitialized) {}
 struct StartGame_RequestDefaultTypeInternal {
@@ -397,7 +421,7 @@ struct StartGame_MutiResponseDefaultTypeInternal {
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 StartGame_MutiResponseDefaultTypeInternal _StartGame_MutiResponse_default_instance_;
 }  // namespace Room_Protobuf
-static ::_pb::Metadata file_level_metadata_Room_5fProtocol_2eproto[28];
+static ::_pb::Metadata file_level_metadata_Room_5fProtocol_2eproto[30];
 static constexpr ::_pb::EnumDescriptor const** file_level_enum_descriptors_Room_5fProtocol_2eproto = nullptr;
 static constexpr ::_pb::ServiceDescriptor const** file_level_service_descriptors_Room_5fProtocol_2eproto = nullptr;
 
@@ -511,6 +535,12 @@ const uint32_t TableStruct_Room_5fProtocol_2eproto::offsets[] PROTOBUF_SECTION_V
   ~0u,  // no _inlined_string_donated_
   PROTOBUF_FIELD_OFFSET(::Room_Protobuf::ChangeTeam_Request, _impl_.group_),
   ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::Room_Protobuf::RoomInfo_Request, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  ~0u,  // no _inlined_string_donated_
+  ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::Room_Protobuf::CreateRoom_Response, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
@@ -600,6 +630,13 @@ const uint32_t TableStruct_Room_5fProtocol_2eproto::offsets[] PROTOBUF_SECTION_V
   PROTOBUF_FIELD_OFFSET(::Room_Protobuf::ChangeTeam_MutiResponse, _impl_.name_),
   PROTOBUF_FIELD_OFFSET(::Room_Protobuf::ChangeTeam_MutiResponse, _impl_.group_),
   ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::Room_Protobuf::RoomInfo_Response, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  ~0u,  // no _inlined_string_donated_
+  PROTOBUF_FIELD_OFFSET(::Room_Protobuf::RoomInfo_Response, _impl_.roominfo_),
+  ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::Room_Protobuf::StartGame_Request, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
@@ -629,20 +666,22 @@ static const ::_pbi::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protode
   { 87, -1, -1, sizeof(::Room_Protobuf::ChangeReady_Request)},
   { 94, -1, -1, sizeof(::Room_Protobuf::RoomMessage_Request)},
   { 101, -1, -1, sizeof(::Room_Protobuf::ChangeTeam_Request)},
-  { 108, -1, -1, sizeof(::Room_Protobuf::CreateRoom_Response)},
-  { 115, -1, -1, sizeof(::Room_Protobuf::SerachRoom_Response)},
-  { 122, -1, -1, sizeof(::Room_Protobuf::JoinRoom_Response)},
-  { 130, -1, -1, sizeof(::Room_Protobuf::JoinRoom_MutiResponse)},
-  { 137, -1, -1, sizeof(::Room_Protobuf::ExitRoom_Response)},
-  { 144, -1, -1, sizeof(::Room_Protobuf::ExitRoom_MutiResponse)},
-  { 153, -1, -1, sizeof(::Room_Protobuf::KickRoom_Response)},
-  { 159, -1, -1, sizeof(::Room_Protobuf::ChangeMap_MutiResponse)},
-  { 166, -1, -1, sizeof(::Room_Protobuf::ChangePlayerlimit_MutiResponse)},
-  { 173, -1, -1, sizeof(::Room_Protobuf::ChangeReady_MutiResponse)},
-  { 181, -1, -1, sizeof(::Room_Protobuf::RoomMessage_MutiResponse)},
-  { 189, -1, -1, sizeof(::Room_Protobuf::ChangeTeam_MutiResponse)},
-  { 197, -1, -1, sizeof(::Room_Protobuf::StartGame_Request)},
-  { 203, -1, -1, sizeof(::Room_Protobuf::StartGame_MutiResponse)},
+  { 108, -1, -1, sizeof(::Room_Protobuf::RoomInfo_Request)},
+  { 114, -1, -1, sizeof(::Room_Protobuf::CreateRoom_Response)},
+  { 121, -1, -1, sizeof(::Room_Protobuf::SerachRoom_Response)},
+  { 128, -1, -1, sizeof(::Room_Protobuf::JoinRoom_Response)},
+  { 136, -1, -1, sizeof(::Room_Protobuf::JoinRoom_MutiResponse)},
+  { 143, -1, -1, sizeof(::Room_Protobuf::ExitRoom_Response)},
+  { 150, -1, -1, sizeof(::Room_Protobuf::ExitRoom_MutiResponse)},
+  { 159, -1, -1, sizeof(::Room_Protobuf::KickRoom_Response)},
+  { 165, -1, -1, sizeof(::Room_Protobuf::ChangeMap_MutiResponse)},
+  { 172, -1, -1, sizeof(::Room_Protobuf::ChangePlayerlimit_MutiResponse)},
+  { 179, -1, -1, sizeof(::Room_Protobuf::ChangeReady_MutiResponse)},
+  { 187, -1, -1, sizeof(::Room_Protobuf::RoomMessage_MutiResponse)},
+  { 195, -1, -1, sizeof(::Room_Protobuf::ChangeTeam_MutiResponse)},
+  { 203, -1, -1, sizeof(::Room_Protobuf::RoomInfo_Response)},
+  { 210, -1, -1, sizeof(::Room_Protobuf::StartGame_Request)},
+  { 216, -1, -1, sizeof(::Room_Protobuf::StartGame_MutiResponse)},
 };
 
 static const ::_pb::Message* const file_default_instances[] = {
@@ -660,6 +699,7 @@ static const ::_pb::Message* const file_default_instances[] = {
   &::Room_Protobuf::_ChangeReady_Request_default_instance_._instance,
   &::Room_Protobuf::_RoomMessage_Request_default_instance_._instance,
   &::Room_Protobuf::_ChangeTeam_Request_default_instance_._instance,
+  &::Room_Protobuf::_RoomInfo_Request_default_instance_._instance,
   &::Room_Protobuf::_CreateRoom_Response_default_instance_._instance,
   &::Room_Protobuf::_SerachRoom_Response_default_instance_._instance,
   &::Room_Protobuf::_JoinRoom_Response_default_instance_._instance,
@@ -672,6 +712,7 @@ static const ::_pb::Message* const file_default_instances[] = {
   &::Room_Protobuf::_ChangeReady_MutiResponse_default_instance_._instance,
   &::Room_Protobuf::_RoomMessage_MutiResponse_default_instance_._instance,
   &::Room_Protobuf::_ChangeTeam_MutiResponse_default_instance_._instance,
+  &::Room_Protobuf::_RoomInfo_Response_default_instance_._instance,
   &::Room_Protobuf::_StartGame_Request_default_instance_._instance,
   &::Room_Protobuf::_StartGame_MutiResponse_default_instance_._instance,
 };
@@ -697,33 +738,35 @@ const char descriptor_table_protodef_Room_5fProtocol_2eproto[] PROTOBUF_SECTION_
   "\n\031ChangePlayerlimit_Request\022\r\n\005limit\030\001 \001"
   "(\005\"$\n\023ChangeReady_Request\022\r\n\005state\030\001 \001(\005"
   "\"&\n\023RoomMessage_Request\022\017\n\007content\030\001 \001(\t"
-  "\"#\n\022ChangeTeam_Request\022\r\n\005group\030\001 \001(\005\"%\n"
-  "\023CreateRoom_Response\022\016\n\006result\030\001 \001(\005\"G\n\023"
-  "SerachRoom_Response\0220\n\010roominfo\030\001 \003(\0132\036."
-  "Room_Protobuf.RoomDisplayInfo\"Q\n\021JoinRoo"
-  "m_Response\022\016\n\006result\030\001 \001(\005\022,\n\010roominfo\030\003"
-  " \001(\0132\032.Room_Protobuf.RoomAllInfo\"F\n\025Join"
-  "Room_MutiResponse\022-\n\nplayerinfo\030\001 \001(\0132\031."
-  "Room_Protobuf.Playerinfo\"#\n\021ExitRoom_Res"
-  "ponse\022\016\n\006result\030\001 \001(\005\"p\n\025ExitRoom_MutiRe"
-  "sponse\022-\n\nplayerinfo\030\001 \001(\0132\031.Room_Protob"
-  "uf.Playerinfo\022\022\n\nchangehost\030\002 \001(\005\022\024\n\014new"
-  "_hostname\030\003 \001(\t\"\023\n\021KickRoom_Response\"\'\n\026"
-  "ChangeMap_MutiResponse\022\r\n\005mapid\030\001 \001(\005\"/\n"
-  "\036ChangePlayerlimit_MutiResponse\022\r\n\005limit"
-  "\030\001 \001(\005\"7\n\030ChangeReady_MutiResponse\022\014\n\004na"
-  "me\030\001 \001(\t\022\r\n\005state\030\002 \001(\005\"9\n\030RoomMessage_M"
-  "utiResponse\022\014\n\004name\030\001 \001(\t\022\017\n\007content\030\002 \001"
-  "(\t\"6\n\027ChangeTeam_MutiResponse\022\014\n\004name\030\001 "
-  "\001(\t\022\r\n\005group\030\002 \001(\005\"\023\n\021StartGame_Request\""
-  "7\n\026StartGame_MutiResponse\022\016\n\006result\030\001 \001("
-  "\005\022\r\n\005DS_IP\030\002 \001(\tb\006proto3"
+  "\"#\n\022ChangeTeam_Request\022\r\n\005group\030\001 \001(\005\"\022\n"
+  "\020RoomInfo_Request\"%\n\023CreateRoom_Response"
+  "\022\016\n\006result\030\001 \001(\005\"G\n\023SerachRoom_Response\022"
+  "0\n\010roominfo\030\001 \003(\0132\036.Room_Protobuf.RoomDi"
+  "splayInfo\"Q\n\021JoinRoom_Response\022\016\n\006result"
+  "\030\001 \001(\005\022,\n\010roominfo\030\003 \001(\0132\032.Room_Protobuf"
+  ".RoomAllInfo\"F\n\025JoinRoom_MutiResponse\022-\n"
+  "\nplayerinfo\030\001 \001(\0132\031.Room_Protobuf.Player"
+  "info\"#\n\021ExitRoom_Response\022\016\n\006result\030\001 \001("
+  "\005\"p\n\025ExitRoom_MutiResponse\022-\n\nplayerinfo"
+  "\030\001 \001(\0132\031.Room_Protobuf.Playerinfo\022\022\n\ncha"
+  "ngehost\030\002 \001(\005\022\024\n\014new_hostname\030\003 \001(\t\"\023\n\021K"
+  "ickRoom_Response\"\'\n\026ChangeMap_MutiRespon"
+  "se\022\r\n\005mapid\030\001 \001(\005\"/\n\036ChangePlayerlimit_M"
+  "utiResponse\022\r\n\005limit\030\001 \001(\005\"7\n\030ChangeRead"
+  "y_MutiResponse\022\014\n\004name\030\001 \001(\t\022\r\n\005state\030\002 "
+  "\001(\005\"9\n\030RoomMessage_MutiResponse\022\014\n\004name\030"
+  "\001 \001(\t\022\017\n\007content\030\002 \001(\t\"6\n\027ChangeTeam_Mut"
+  "iResponse\022\014\n\004name\030\001 \001(\t\022\r\n\005group\030\002 \001(\005\"A"
+  "\n\021RoomInfo_Response\022,\n\010roominfo\030\001 \001(\0132\032."
+  "Room_Protobuf.RoomAllInfo\"\023\n\021StartGame_R"
+  "equest\"7\n\026StartGame_MutiResponse\022\016\n\006resu"
+  "lt\030\001 \001(\005\022\r\n\005DS_IP\030\002 \001(\tb\006proto3"
   ;
 static ::_pbi::once_flag descriptor_table_Room_5fProtocol_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_Room_5fProtocol_2eproto = {
-    false, false, 1624, descriptor_table_protodef_Room_5fProtocol_2eproto,
+    false, false, 1711, descriptor_table_protodef_Room_5fProtocol_2eproto,
     "Room_Protocol.proto",
-    &descriptor_table_Room_5fProtocol_2eproto_once, nullptr, 0, 28,
+    &descriptor_table_Room_5fProtocol_2eproto_once, nullptr, 0, 30,
     schemas, file_default_instances, TableStruct_Room_5fProtocol_2eproto::offsets,
     file_level_metadata_Room_5fProtocol_2eproto, file_level_enum_descriptors_Room_5fProtocol_2eproto,
     file_level_service_descriptors_Room_5fProtocol_2eproto,
@@ -3427,6 +3470,46 @@ void ChangeTeam_Request::InternalSwap(ChangeTeam_Request* other) {
 
 // ===================================================================
 
+class RoomInfo_Request::_Internal {
+ public:
+};
+
+RoomInfo_Request::RoomInfo_Request(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase(arena, is_message_owned) {
+  // @@protoc_insertion_point(arena_constructor:Room_Protobuf.RoomInfo_Request)
+}
+RoomInfo_Request::RoomInfo_Request(const RoomInfo_Request& from)
+  : ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase() {
+  RoomInfo_Request* const _this = this; (void)_this;
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  // @@protoc_insertion_point(copy_constructor:Room_Protobuf.RoomInfo_Request)
+}
+
+
+
+
+
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData RoomInfo_Request::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase::CopyImpl,
+    ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase::MergeImpl,
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*RoomInfo_Request::GetClassData() const { return &_class_data_; }
+
+
+
+
+
+
+
+::PROTOBUF_NAMESPACE_ID::Metadata RoomInfo_Request::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
+      &descriptor_table_Room_5fProtocol_2eproto_getter, &descriptor_table_Room_5fProtocol_2eproto_once,
+      file_level_metadata_Room_5fProtocol_2eproto[14]);
+}
+
+// ===================================================================
+
 class CreateRoom_Response::_Internal {
  public:
 };
@@ -3600,7 +3683,7 @@ void CreateRoom_Response::InternalSwap(CreateRoom_Response* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata CreateRoom_Response::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Room_5fProtocol_2eproto_getter, &descriptor_table_Room_5fProtocol_2eproto_once,
-      file_level_metadata_Room_5fProtocol_2eproto[14]);
+      file_level_metadata_Room_5fProtocol_2eproto[15]);
 }
 
 // ===================================================================
@@ -3785,7 +3868,7 @@ void SerachRoom_Response::InternalSwap(SerachRoom_Response* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata SerachRoom_Response::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Room_5fProtocol_2eproto_getter, &descriptor_table_Room_5fProtocol_2eproto_once,
-      file_level_metadata_Room_5fProtocol_2eproto[15]);
+      file_level_metadata_Room_5fProtocol_2eproto[16]);
 }
 
 // ===================================================================
@@ -4009,7 +4092,7 @@ void JoinRoom_Response::InternalSwap(JoinRoom_Response* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata JoinRoom_Response::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Room_5fProtocol_2eproto_getter, &descriptor_table_Room_5fProtocol_2eproto_once,
-      file_level_metadata_Room_5fProtocol_2eproto[16]);
+      file_level_metadata_Room_5fProtocol_2eproto[17]);
 }
 
 // ===================================================================
@@ -4202,7 +4285,7 @@ void JoinRoom_MutiResponse::InternalSwap(JoinRoom_MutiResponse* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata JoinRoom_MutiResponse::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Room_5fProtocol_2eproto_getter, &descriptor_table_Room_5fProtocol_2eproto_once,
-      file_level_metadata_Room_5fProtocol_2eproto[17]);
+      file_level_metadata_Room_5fProtocol_2eproto[18]);
 }
 
 // ===================================================================
@@ -4380,7 +4463,7 @@ void ExitRoom_Response::InternalSwap(ExitRoom_Response* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata ExitRoom_Response::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Room_5fProtocol_2eproto_getter, &descriptor_table_Room_5fProtocol_2eproto_once,
-      file_level_metadata_Room_5fProtocol_2eproto[18]);
+      file_level_metadata_Room_5fProtocol_2eproto[19]);
 }
 
 // ===================================================================
@@ -4656,7 +4739,7 @@ void ExitRoom_MutiResponse::InternalSwap(ExitRoom_MutiResponse* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata ExitRoom_MutiResponse::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Room_5fProtocol_2eproto_getter, &descriptor_table_Room_5fProtocol_2eproto_once,
-      file_level_metadata_Room_5fProtocol_2eproto[19]);
+      file_level_metadata_Room_5fProtocol_2eproto[20]);
 }
 
 // ===================================================================
@@ -4696,7 +4779,7 @@ const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*KickRoom_Response::GetClassDat
 ::PROTOBUF_NAMESPACE_ID::Metadata KickRoom_Response::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Room_5fProtocol_2eproto_getter, &descriptor_table_Room_5fProtocol_2eproto_once,
-      file_level_metadata_Room_5fProtocol_2eproto[20]);
+      file_level_metadata_Room_5fProtocol_2eproto[21]);
 }
 
 // ===================================================================
@@ -4874,7 +4957,7 @@ void ChangeMap_MutiResponse::InternalSwap(ChangeMap_MutiResponse* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata ChangeMap_MutiResponse::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Room_5fProtocol_2eproto_getter, &descriptor_table_Room_5fProtocol_2eproto_once,
-      file_level_metadata_Room_5fProtocol_2eproto[21]);
+      file_level_metadata_Room_5fProtocol_2eproto[22]);
 }
 
 // ===================================================================
@@ -5052,7 +5135,7 @@ void ChangePlayerlimit_MutiResponse::InternalSwap(ChangePlayerlimit_MutiResponse
 ::PROTOBUF_NAMESPACE_ID::Metadata ChangePlayerlimit_MutiResponse::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Room_5fProtocol_2eproto_getter, &descriptor_table_Room_5fProtocol_2eproto_once,
-      file_level_metadata_Room_5fProtocol_2eproto[22]);
+      file_level_metadata_Room_5fProtocol_2eproto[23]);
 }
 
 // ===================================================================
@@ -5282,7 +5365,7 @@ void ChangeReady_MutiResponse::InternalSwap(ChangeReady_MutiResponse* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata ChangeReady_MutiResponse::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Room_5fProtocol_2eproto_getter, &descriptor_table_Room_5fProtocol_2eproto_once,
-      file_level_metadata_Room_5fProtocol_2eproto[23]);
+      file_level_metadata_Room_5fProtocol_2eproto[24]);
 }
 
 // ===================================================================
@@ -5535,7 +5618,7 @@ void RoomMessage_MutiResponse::InternalSwap(RoomMessage_MutiResponse* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata RoomMessage_MutiResponse::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Room_5fProtocol_2eproto_getter, &descriptor_table_Room_5fProtocol_2eproto_once,
-      file_level_metadata_Room_5fProtocol_2eproto[24]);
+      file_level_metadata_Room_5fProtocol_2eproto[25]);
 }
 
 // ===================================================================
@@ -5765,7 +5848,200 @@ void ChangeTeam_MutiResponse::InternalSwap(ChangeTeam_MutiResponse* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata ChangeTeam_MutiResponse::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Room_5fProtocol_2eproto_getter, &descriptor_table_Room_5fProtocol_2eproto_once,
-      file_level_metadata_Room_5fProtocol_2eproto[25]);
+      file_level_metadata_Room_5fProtocol_2eproto[26]);
+}
+
+// ===================================================================
+
+class RoomInfo_Response::_Internal {
+ public:
+  static const ::Room_Protobuf::RoomAllInfo& roominfo(const RoomInfo_Response* msg);
+};
+
+const ::Room_Protobuf::RoomAllInfo&
+RoomInfo_Response::_Internal::roominfo(const RoomInfo_Response* msg) {
+  return *msg->_impl_.roominfo_;
+}
+RoomInfo_Response::RoomInfo_Response(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:Room_Protobuf.RoomInfo_Response)
+}
+RoomInfo_Response::RoomInfo_Response(const RoomInfo_Response& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  RoomInfo_Response* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.roominfo_){nullptr}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  if (from._internal_has_roominfo()) {
+    _this->_impl_.roominfo_ = new ::Room_Protobuf::RoomAllInfo(*from._impl_.roominfo_);
+  }
+  // @@protoc_insertion_point(copy_constructor:Room_Protobuf.RoomInfo_Response)
+}
+
+inline void RoomInfo_Response::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.roominfo_){nullptr}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+}
+
+RoomInfo_Response::~RoomInfo_Response() {
+  // @@protoc_insertion_point(destructor:Room_Protobuf.RoomInfo_Response)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void RoomInfo_Response::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  if (this != internal_default_instance()) delete _impl_.roominfo_;
+}
+
+void RoomInfo_Response::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void RoomInfo_Response::Clear() {
+// @@protoc_insertion_point(message_clear_start:Room_Protobuf.RoomInfo_Response)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  if (GetArenaForAllocation() == nullptr && _impl_.roominfo_ != nullptr) {
+    delete _impl_.roominfo_;
+  }
+  _impl_.roominfo_ = nullptr;
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* RoomInfo_Response::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // .Room_Protobuf.RoomAllInfo roominfo = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          ptr = ctx->ParseMessage(_internal_mutable_roominfo(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* RoomInfo_Response::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:Room_Protobuf.RoomInfo_Response)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // .Room_Protobuf.RoomAllInfo roominfo = 1;
+  if (this->_internal_has_roominfo()) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(1, _Internal::roominfo(this),
+        _Internal::roominfo(this).GetCachedSize(), target, stream);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:Room_Protobuf.RoomInfo_Response)
+  return target;
+}
+
+size_t RoomInfo_Response::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:Room_Protobuf.RoomInfo_Response)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // .Room_Protobuf.RoomAllInfo roominfo = 1;
+  if (this->_internal_has_roominfo()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *_impl_.roominfo_);
+  }
+
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
+}
+
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData RoomInfo_Response::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
+    RoomInfo_Response::MergeImpl
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*RoomInfo_Response::GetClassData() const { return &_class_data_; }
+
+
+void RoomInfo_Response::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<RoomInfo_Response*>(&to_msg);
+  auto& from = static_cast<const RoomInfo_Response&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:Room_Protobuf.RoomInfo_Response)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_has_roominfo()) {
+    _this->_internal_mutable_roominfo()->::Room_Protobuf::RoomAllInfo::MergeFrom(
+        from._internal_roominfo());
+  }
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void RoomInfo_Response::CopyFrom(const RoomInfo_Response& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:Room_Protobuf.RoomInfo_Response)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool RoomInfo_Response::IsInitialized() const {
+  return true;
+}
+
+void RoomInfo_Response::InternalSwap(RoomInfo_Response* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_impl_.roominfo_, other->_impl_.roominfo_);
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata RoomInfo_Response::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
+      &descriptor_table_Room_5fProtocol_2eproto_getter, &descriptor_table_Room_5fProtocol_2eproto_once,
+      file_level_metadata_Room_5fProtocol_2eproto[27]);
 }
 
 // ===================================================================
@@ -5805,7 +6081,7 @@ const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*StartGame_Request::GetClassDat
 ::PROTOBUF_NAMESPACE_ID::Metadata StartGame_Request::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Room_5fProtocol_2eproto_getter, &descriptor_table_Room_5fProtocol_2eproto_once,
-      file_level_metadata_Room_5fProtocol_2eproto[26]);
+      file_level_metadata_Room_5fProtocol_2eproto[28]);
 }
 
 // ===================================================================
@@ -6035,7 +6311,7 @@ void StartGame_MutiResponse::InternalSwap(StartGame_MutiResponse* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata StartGame_MutiResponse::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Room_5fProtocol_2eproto_getter, &descriptor_table_Room_5fProtocol_2eproto_once,
-      file_level_metadata_Room_5fProtocol_2eproto[27]);
+      file_level_metadata_Room_5fProtocol_2eproto[29]);
 }
 
 // @@protoc_insertion_point(namespace_scope)
@@ -6097,6 +6373,10 @@ template<> PROTOBUF_NOINLINE ::Room_Protobuf::ChangeTeam_Request*
 Arena::CreateMaybeMessage< ::Room_Protobuf::ChangeTeam_Request >(Arena* arena) {
   return Arena::CreateMessageInternal< ::Room_Protobuf::ChangeTeam_Request >(arena);
 }
+template<> PROTOBUF_NOINLINE ::Room_Protobuf::RoomInfo_Request*
+Arena::CreateMaybeMessage< ::Room_Protobuf::RoomInfo_Request >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::Room_Protobuf::RoomInfo_Request >(arena);
+}
 template<> PROTOBUF_NOINLINE ::Room_Protobuf::CreateRoom_Response*
 Arena::CreateMaybeMessage< ::Room_Protobuf::CreateRoom_Response >(Arena* arena) {
   return Arena::CreateMessageInternal< ::Room_Protobuf::CreateRoom_Response >(arena);
@@ -6144,6 +6424,10 @@ Arena::CreateMaybeMessage< ::Room_Protobuf::RoomMessage_MutiResponse >(Arena* ar
 template<> PROTOBUF_NOINLINE ::Room_Protobuf::ChangeTeam_MutiResponse*
 Arena::CreateMaybeMessage< ::Room_Protobuf::ChangeTeam_MutiResponse >(Arena* arena) {
   return Arena::CreateMessageInternal< ::Room_Protobuf::ChangeTeam_MutiResponse >(arena);
+}
+template<> PROTOBUF_NOINLINE ::Room_Protobuf::RoomInfo_Response*
+Arena::CreateMaybeMessage< ::Room_Protobuf::RoomInfo_Response >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::Room_Protobuf::RoomInfo_Response >(arena);
 }
 template<> PROTOBUF_NOINLINE ::Room_Protobuf::StartGame_Request*
 Arena::CreateMaybeMessage< ::Room_Protobuf::StartGame_Request >(Arena* arena) {

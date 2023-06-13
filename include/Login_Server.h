@@ -20,8 +20,8 @@ enum class Signup_Request_Result
 
 enum class Reconnect_Result
 {
-	Fail = 0,
-	Success = 1
+    Fail = 0,
+    Success = 1
 };
 
 class Login_Server
@@ -73,11 +73,12 @@ private:
 
     /* 以下为逻辑处理 */
 public:
+    int OnProcess(Socket_Message *msg);
     void Push_Fd(int socket_fd, sockaddr_in &tcp_addr);
     void Push_Fd(Socket_Info &info);
+    void RemoveFd(int fd);
 
 protected:
-    int OnLoginProcess(Socket_Message *msg);
     void OnLogin(const int socket_fd, const Header header, const char *content);
     void OnSignup(const int socket_fd, const Header header, const char *content);
     void OnReconnect(const int socket_fd, const Header header, const char *content);
@@ -85,7 +86,10 @@ protected:
     Login_Request_Result Check_Login(string &acount, string &password, User_Info **userinfo);
     Signup_Request_Result Check_Signup(string &name, string &acount, string &password);
 
-    void RemoveFd(int fd);
+
+    // rpctest
+public:
+    void OnLogin(Login_Protobuf::Login_Request& Request, Login_Protobuf::Login_Response& Response);
 
 private:
     // Logic Process

@@ -2,6 +2,7 @@
 
 #include "header.h"
 #include "Login_Server.h"
+#include "GateWay_Server.h"
 
 using namespace std;
 

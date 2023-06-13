@@ -69,13 +69,14 @@ class Room_Manager;
 
 struct PlayerInfo
 {
-    User_Info userinfo;
+    User_Info *user;
     Ready_State state;
     Groups group;
 
-    PlayerInfo(User_Info &user)
+    PlayerInfo(User_Info *user_in)
     {
-        userinfo = user;
+        user = user_in;
+        user->states = USER_STATE::Room;
         state = Ready_State::NoReady;
         group = Groups::Blue;
     }
@@ -96,27 +97,27 @@ struct Room_Info
     bool room_lock;
 
     vector<PlayerInfo> Get_player() { return playerinfo; }
-    vector<User_Info> Get_player_Userinfo()
+    vector<User_Info *> Get_player_Userinfo()
     {
-        vector<User_Info> result;
+        vector<User_Info *> result;
         for (auto &player : playerinfo)
-            result.emplace_back(player.userinfo);
+            result.emplace_back(player.user);
         return result;
     }
-    vector<User_Info> Get_player_Userinfo_nohost()
+    vector<User_Info *> Get_player_Userinfo_nohost()
     {
-        vector<User_Info> result;
+        vector<User_Info *> result;
         for (auto &player : playerinfo)
         {
-            if (player.userinfo.Get_ID() != host_id)
-                result.emplace_back(player.userinfo);
+            if (player.user->Get_ID() != host_id)
+                result.emplace_back(player.user);
         }
         return result;
     }
 
-    void Add_player(User_Info &userinfo)
+    void Add_player(User_Info *user)
     {
-        PlayerInfo player(userinfo);
+        PlayerInfo player(user);
         playerinfo.emplace_back(player);
         playersnum++;
     }
@@ -124,7 +125,7 @@ struct Room_Info
     {
         for (auto it = playerinfo.begin(); it != playerinfo.end(); it++)
         {
-            if ((*it).userinfo.Get_ID() == id)
+            if ((*it).user->Get_ID() == id)
             {
                 playerinfo.erase(it);
                 playersnum--;
@@ -150,11 +151,11 @@ struct Room_Info
     {
         for (auto &player : playerinfo)
         {
-            if (player.userinfo.Get_ID() == id)
+            if (player.user->Get_ID() == id)
             {
 
                 host_id = id;
-                host_name = player.userinfo.Get_UserName();
+                host_name = player.user->Get_UserName();
                 LOGINFO("Room_Info::Changehost roomid : {} , hostname : {}", room_id, host_name);
                 return true;
             }
@@ -165,7 +166,7 @@ struct Room_Info
     {
         for (auto &player : playerinfo)
         {
-            if (player.userinfo.Get_ID() == id)
+            if (player.user->Get_ID() == id)
             {
                 if (player.state == Ready_State::NoReady)
                     player.state = Ready_State::Ready;
@@ -173,7 +174,7 @@ struct Room_Info
                     player.state = Ready_State::NoReady;
 
                 state_out = player.state;
-                LOGINFO("Room_Info::ChangeReadyState roomid : {} , playername : {} , state : {}", room_id, player.userinfo.Get_UserName(), (int)player.state);
+                LOGINFO("Room_Info::ChangeReadyState roomid : {} , playername : {} , state : {}", room_id, player.user->Get_UserName(), (int)player.state);
                 return true;
             }
         }
@@ -183,7 +184,7 @@ struct Room_Info
     {
         for (auto &player : playerinfo)
         {
-            if (player.userinfo.Get_ID() == id)
+            if (player.user->Get_ID() == id)
             {
                 if (player.group == Groups::Blue)
                     player.group = Groups::Red;
@@ -191,7 +192,7 @@ struct Room_Info
                     player.group = Groups::Blue;
 
                 group_out = player.group;
-                LOGINFO("Room_Info::ChangeTeam roomid : {} , playername : {} , group : {}", room_id, player.userinfo.Get_UserName(), (int)player.group);
+                LOGINFO("Room_Info::ChangeTeam roomid : {} , playername : {} , group : {}", room_id, player.user->Get_UserName(), (int)player.group);
                 return true;
             }
         }
@@ -223,24 +224,29 @@ public:
     void OnChangeReady(const int socket_fd, const Header header, const char *content);
     void OnChangeTeam(const int socket_fd, const Header header, const char *content);
     void OnSendRoomMessage(const int socket_fd, const Header header, const char *content);
+    void OnRoomInfo(const int socket_fd, const Header header, const char *content);
 
     void OnStartGame(const int socket_fd, const Header header, const char *content);
 
+    bool RemoveUser(int fd);
+
 protected:
     shared_ptr<Room_Protobuf::SerachRoom_Response> Get_RoomList_ProtobufInfo();
-    CreateRoom_Result CreateRoom(User_Info *userinfo, const int playerslimit, const Map mapid);
-    JoinRoom_Result JoinRoom(User_Info *userinfo, const int room_id, Room_Info *&Info);
-    ExitRoom_Result ExitRoom(User_Info *userinfo, vector<User_Info> &remain_player, Room_Info *&room_out);
-    KickRoom_Result KickRoom(User_Info *userinfo, int killid, vector<User_Info> &remain_player);
-    StartGame_Result StartGame(User_Info *userinfo, vector<User_Info> &remain_player, string &ds_ip);
-    bool ChangeReadyState(User_Info *userinfo, Ready_State state_in, vector<User_Info> &remain_player);
-    bool ChangeMap(User_Info *userinfo, Map mapid, vector<User_Info> &remain_player);
-    bool Changelimit(User_Info *userinfo, int limit, vector<User_Info> &remain_player);
-    bool ChangeReady(User_Info *userinfo, Ready_State &State_out, vector<User_Info> &remain_player);
-    bool ChangeTeam(User_Info *userinfo, Groups &group_out, vector<User_Info> &remain_player);
+    CreateRoom_Result CreateRoom(User_Info *user, const int playerslimit, const Map mapid);
+    JoinRoom_Result JoinRoom(User_Info *user, const int room_id, Room_Info *&Info);
+    ExitRoom_Result ExitRoom(User_Info *user, vector<User_Info *> &remain_player_userinfo, Room_Info *&room_out);
+    KickRoom_Result KickRoom(User_Info *user, int kickid, vector<User_Info *> &remain_player_userinfo);
+    StartGame_Result StartGame(User_Info *user, vector<User_Info *> &remain_player_userinfo, string &ds_ip);
+    bool ChangeReadyState(User_Info *user, Ready_State state_in, vector<User_Info *> &remain_player_userinfo);
+    bool ChangeMap(User_Info *user, Map mapid, vector<User_Info *> &remain_player_userinfo);
+    bool Changelimit(User_Info *user, int limit, vector<User_Info *> &remain_player_userinfo);
+    bool ChangeReady(User_Info *user, Ready_State &State_out, vector<User_Info *> &remain_player_userinfo);
+    bool ChangeTeam(User_Info *user, Groups &group_out, vector<User_Info *> &remain_player_userinfo);
+    bool RoomInfo(User_Info *user, Room_Info *&Info);
 
     bool Get_RoomPlayer(int user_id, vector<PlayerInfo> &playerinfo);
     bool RemoveRoom(Room_Info *room);
+    bool Check(User_Info *user);
 
 private:
     Room_Manager();

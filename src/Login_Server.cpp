@@ -1,4 +1,5 @@
 #include "Login_Server.h"
+#include "GateWay_Server.h"
 #include "Center_Server.h"
 #include "RateLimiter.h"
 #include "MsgNum.h"
@@ -19,18 +20,20 @@ int Login_Server::Get_Header_Type(T &message)
 template <typename T>
 void Login_Server::SendTo_SendQueue(int socket, T &message)
 {
-    Header header;
-    header.type = Get_Header_Type(message);
-    if (header.type == 0)
-        return;
-    header.length = message.ByteSizeLong();
+    // Header header;
+    // header.type = Get_Header_Type(message);
+    // if (header.type == 0)
+    //     return;
+    // header.length = message.ByteSizeLong();
 
-    Socket_Message *msg = new Socket_Message(socket, header);
-    msg->content = new char[header.length + 1];
-    message.SerializeToArray(msg->content, header.length);
+    // Socket_Message *msg = new Socket_Message(socket, header);
+    // msg->content = new char[header.length + 1];
+    // message.SerializeToArray(msg->content, header.length);
 
-    SendQueue.emplace(msg);      // 投递消息
-    SendProcess_cv.notify_one(); // 唤醒一个发送线程
+    // SendQueue.emplace(msg);      // 投递消息
+    // SendProcess_cv.notify_one(); // 唤醒一个发送线程
+
+    GateWay_Server::Instance()->SendTo_SendQueue(socket, message);
 }
 
 bool Login_Server::Init_Login()
@@ -38,6 +41,7 @@ bool Login_Server::Init_Login()
     assert(socketpair(PF_UNIX, SOCK_DGRAM, 0, Login_pipe) != -1);
     setnonblocking(Login_pipe[1]);
     addfd(Login_epoll, Login_pipe[0]);
+    SigManager::Instance()->AddPipe(Login_pipe[1]);
 
     return true;
 }
@@ -194,7 +198,7 @@ void Login_Server::Login_Process()
                 continue;
 
             // Process
-            int ret = OnLoginProcess(Recv_Message);
+            int ret = OnProcess(Recv_Message);
         }
     }
 }
@@ -235,49 +239,78 @@ void Login_Server::HeartBeatCheck_Process()
     {
         for (auto map_it = HeartBeat_map.begin(); map_it != HeartBeat_map.end(); map_it++)
         {
-            if (++(map_it->second) == 6) // 5s*6没有收到心跳包，判定客户端掉线
+            (map_it->second)++;
+            if ((map_it->second) > 6) // 5s*6没有收到心跳包，判定客户端掉线
             {
                 LOGINFO("Login_Server::HeartBeatCheck_Process , fd {} timeout! disconnect", map_it->first);
                 int fd = map_it->first;
                 RemoveFd(fd);
-            }
-            else if (map_it->second < 6 && map_it->second >= 0)
-            {
-                (map_it->second)++;
             }
         }
         this_thread::sleep_for(std::chrono::seconds(5)); // 定时五秒
     }
 }
 
-int Login_Server::OnLoginProcess(Socket_Message *msg)
+// int Login_Server::OnProcess(Socket_Message *msg)
+// {
+//     const Header &header = msg->header;
+//     const int socket_fd = msg->socket_fd;
+//     const char *content = msg->content;
+
+//     switch (header.type)
+//     {
+//     case Request_Login:
+//     {
+//         OnLogin(socket_fd, header, content);
+//         break;
+//     }
+//     case Request_Signup:
+//     {
+//         OnSignup(socket_fd, header, content);
+//         break;
+//     }
+//     case Request_Reconnect:
+//     {
+//         OnReconnect(socket_fd, header, content);
+//         break;
+//     }
+//     }
+//     delete msg;
+//     msg = nullptr;
+
+//     return 1;
+// }
+
+int Login_Server::OnProcess(Socket_Message *msg)
 {
     const Header &header = msg->header;
     const int socket_fd = msg->socket_fd;
     const char *content = msg->content;
 
+    bool result = false;
     switch (header.type)
     {
     case Request_Login:
     {
         OnLogin(socket_fd, header, content);
+        result = true;
         break;
     }
     case Request_Signup:
     {
         OnSignup(socket_fd, header, content);
+        result = true;
         break;
     }
     case Request_Reconnect:
     {
         OnReconnect(socket_fd, header, content);
+        result = true;
         break;
     }
     }
-    delete msg;
-    msg = nullptr;
 
-    return 1;
+    return result ? 1 : 0;
 }
 
 void Login_Server::Push_Fd(int socket_fd, sockaddr_in &tcp_addr)
@@ -309,6 +342,10 @@ void Login_Server::OnLogin(const int socket_fd, const Header header, const char 
     Login_Protobuf::Login_Request Request;
     Request.ParseFromArray(content, header.length);
 
+    User_Info *user = GateWay_Server::Instance()->GetUser(socket_fd);
+    if (!user || user->states != USER_STATE::Logining)
+        return;
+
     string account = Request.logininfo().account();
     string password = Request.logininfo().password();
     User_Info *userinfo = nullptr;
@@ -318,33 +355,27 @@ void Login_Server::OnLogin(const int socket_fd, const Header header, const char 
 
     if (Response.result() == (int)Login_Request_Result::LoginSuccess)
     {
-
         if (!userinfo)
             Response.set_result((int)Login_Request_Result::InnerError);
         else
         {
-            bool find_result = false;
-            for (auto it = Login_fd_list.begin(); it != Login_fd_list.end(); it++)
-            {
-                Socket_Info *info = *it;
-                if (info->tcp_fd == socket_fd)
-                {
-                    userinfo->SetSocketinfo_Move(info);
-                    Login_fd_list.erase(it);
-                    delfd(Login_epoll, socket_fd);
-                    userinfo->token = Get_Token();
-                    HeartBeat_map.erase(socket_fd);
-                    Center_Server::Instance()->Push_User(userinfo);
+            user->id = userinfo->Get_ID();
+            user->name = userinfo->Get_UserName();
 
-                    Response.set_name(userinfo->Get_UserName());
-                    Response.set_result((int)Login_Request_Result::LoginSuccess);
-                    Response.set_token(userinfo->Get_Token());
-                    find_result = true;
-                    break;
-                }
-            }
-            if (!find_result)
-                Response.set_result((int)Login_Request_Result::InnerError);
+            string token;
+            bool result = false;
+            do
+            {
+                token = Get_Token();
+                result = Center_Server::Instance()->CheckToken(token);
+            } while (result);
+
+            user->token = token;
+            Center_Server::Instance()->Push_LoginUser(user);
+
+            Response.set_name(user->Get_UserName());
+            Response.set_result((int)Login_Request_Result::LoginSuccess);
+            Response.set_token(user->Get_Token());
         }
     }
     SendTo_SendQueue(socket_fd, Response);
@@ -369,12 +400,12 @@ Login_Request_Result Login_Server::Check_Login(string &acount, string &password,
 {
     MYSQL_RES *Res;
     int count = -1;
-    if (!Mysql_Server::Instance()->Select("select* from Account where account = \'" +
-                                              acount +
-                                              "\' and password = \'" +
-                                              password +
-                                              "\'",
-                                          &Res, &count))
+    if (!Mysql_Server::Instance()->Query("select* from Account where account = \'" +
+                                             acount +
+                                             "\' and password = \'" +
+                                             password +
+                                             "\'",
+                                         &Res, &count))
         return Login_Request_Result::InnerError;
 
     if (count > 0 && Res)
@@ -393,10 +424,27 @@ Signup_Request_Result Login_Server::Check_Signup(string &name, string &acount, s
 {
 
     int affected_count = -1;
-    if (!Mysql_Server::Instance()->Update("INSERT INTO Account( name, account, password) VALUES(\'" +
+    // if (!Mysql_Server::Instance()->Update("INSERT INTO Account( name, account, password) VALUES(\'" +
+    //                                           name + "\',\'" +
+    //                                           acount + "\',\'" +
+    //                                           password + "\') ",
+    //                                       &affected_count))
+    //     return Signup_Request_Result::RepeatError;
+
+    time_t now = time(0);
+    tm *ltm = localtime(&now);
+    //    to_string(1900 + ltm->tm_year) + "-" + to_string(ltm->tm_mon) + "-" + to_string(1900 + ltm->tm_year)
+    //     + " " + inttostring(t.GetHour()) + ":" + inttostring(t.GetMinute()) + ":" + inttostring(t.GetSecond());
+
+    string strtime = fmt::format("{}-{}-{} {}:{}:{}",
+                                 to_string(1900 + ltm->tm_year), to_string(ltm->tm_mon), to_string(ltm->tm_mday),
+                                 to_string(ltm->tm_hour), to_string(ltm->tm_min), to_string(ltm->tm_sec));
+
+    if (!Mysql_Server::Instance()->Update("INSERT INTO Account( name, account, password, createtime) VALUES(\'" +
                                               name + "\',\'" +
                                               acount + "\',\'" +
-                                              password + "\') ",
+                                              password + "\',\'" +
+                                              strtime + "\') ",
                                           &affected_count))
         return Signup_Request_Result::RepeatError;
 
@@ -436,33 +484,72 @@ void Login_Server::RemoveFd(int fd)
 
 void Login_Server::OnReconnect(const int socket_fd, const Header header, const char *content)
 {
-    Login_Protobuf::Reconnect_Request Request;
-    Request.ParseFromArray(content, header.length);
-    string Token = Request.token();
+    // Login_Protobuf::Reconnect_Request Request;
+    // Request.ParseFromArray(content, header.length);
+    // string Token = Request.token();
 
-    auto map_it = HeartBeat_map.find(socket_fd);
-    if (map_it != HeartBeat_map.end())
-        HeartBeat_map.erase(map_it);
+    // auto map_it = HeartBeat_map.find(socket_fd);
+    // if (map_it != HeartBeat_map.end())
+    //     HeartBeat_map.erase(map_it);
 
-    bool find_result = false;
-    for (auto it = Login_fd_list.begin(); it != Login_fd_list.end(); it++)
-    {
-        Socket_Info *info = *it;
-        if (info->tcp_fd == socket_fd)
-        {
-            Login_fd_list.erase(it);
-            delfd(Login_epoll, socket_fd);
-            HeartBeat_map.erase(socket_fd);
-            if (!Center_Server::Instance()->Check_Reconnect(info, Token))
-            {
-                Login_fd_list.emplace_back(info);
-                addfd(Login_epoll, socket_fd);
-                HeartBeat_map[socket_fd] = 0;
-                return;
-            }
-            find_result = true;
-            return;
-        }
-    }
-    HeartBeat_map[socket_fd] = 0;
+    // bool find_result = false;
+    // for (auto it = Login_fd_list.begin(); it != Login_fd_list.end(); it++)
+    // {
+    //     Socket_Info *info = *it;
+    //     if (info->tcp_fd == socket_fd)
+    //     {
+    //         Login_fd_list.erase(it);
+    //         delfd(Login_epoll, socket_fd);
+    //         HeartBeat_map.erase(socket_fd);
+    //         if (!Center_Server::Instance()->Check_Reconnect(info, Token))
+    //         {
+    //             Login_fd_list.emplace_back(info);
+    //             addfd(Login_epoll, socket_fd);
+    //             HeartBeat_map[socket_fd] = 0;
+    //             return;
+    //         }
+    //         find_result = true;
+    //         return;
+    //     }
+    // }
+    // HeartBeat_map[socket_fd] = 0;
+}
+
+void Login_Server::OnLogin(Login_Protobuf::Login_Request &Request, Login_Protobuf::Login_Response &Response)
+{
+    // User_Info *user = GateWay_Server::Instance()->GetUser(socket_fd);
+    // if (!user || user->states != USER_STATE::Logining)
+    //     return;
+
+    // string account = Request.logininfo().account();
+    // string password = Request.logininfo().password();
+    // User_Info *userinfo = nullptr;
+
+    // Response.set_result((int)Check_Login(account, password, &userinfo));
+
+    // if (Response.result() == (int)Login_Request_Result::LoginSuccess)
+    // {
+    //     if (!userinfo)
+    //         Response.set_result((int)Login_Request_Result::InnerError);
+    //     else
+    //     {
+    //         user->id = userinfo->Get_ID();
+    //         user->name = userinfo->Get_UserName();
+
+    //         string token;
+    //         bool result = false;
+    //         do
+    //         {
+    //             token = Get_Token();
+    //             result = Center_Server::Instance()->CheckToken(token);
+    //         } while (result);
+
+    //         user->token = token;
+    //         Center_Server::Instance()->Push_LoginUser(user);
+
+    //         Response.set_name(user->Get_UserName());
+    //         Response.set_result((int)Login_Request_Result::LoginSuccess);
+    //         Response.set_token(user->Get_Token());
+    //     }
+    // }
 }

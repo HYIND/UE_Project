@@ -70,6 +70,8 @@ message RoomMessage_Request{  // 880
 message ChangeTeam_Request{  //890
   int32 group =1;
 }
+message RoomInfo_Request{ //1000
+}
 
 message CreateRoom_Response{  //900
   int32 result=1;
@@ -121,6 +123,10 @@ message RoomMessage_MutiResponse{  // 980
 message ChangeTeam_MutiResponse{ //990
   string name =1;
   int32 group =2;
+}
+
+message RoomInfo_Response{  //1100
+  RoomAllInfo roominfo = 1;
 }
 
 message StartGame_Request{ //1800

@@ -6,6 +6,7 @@ bool Listen_Server::Init_Listen(int socket)
     assert(socketpair(PF_UNIX, SOCK_DGRAM, 0, Listen_pipe) != -1);
     setnonblocking(Listen_pipe[1]);
     addfd(Listen_epoll, Listen_pipe[0]);
+    SigManager::Instance()->AddPipe(Listen_pipe[1]);
 
     return true;
 }
@@ -99,7 +100,8 @@ int Listen_Server::Listen_Process()
                 int socket_fd = accept(Listen_Socket, (struct sockaddr *)&client, &length);
                 if (socket_fd != -1)
                 {
-                    Login_Server::Instance()->Push_Fd(socket_fd, client);
+                    // Login_Server::Instance()->Push_Fd(socket_fd, client);
+                    GateWay_Server::Instance()->Push_NewUser(socket_fd, client);
                     LOGINFO("user connect : address : {}:{},", inet_ntoa(client.sin_addr), ntohs(client.sin_port));
                 }
                 else
