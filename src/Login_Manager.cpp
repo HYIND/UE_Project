@@ -1,11 +1,11 @@
-#include "Login_Server.h"
+#include "Login_Manager.h"
 #include "GateWay_Server.h"
 #include "Center_Server.h"
 #include "RateLimiter.h"
 #include "MsgNum.h"
 
 template <typename T>
-int Login_Server::Get_Header_Type(T &message)
+int Login_Manager::Get_Header_Type(T &message)
 {
     if (is_same<T, Login_Protobuf::Login_Response>::value)
         return Login_Server_MsgNum::Response_Login;
@@ -18,25 +18,12 @@ int Login_Server::Get_Header_Type(T &message)
     return 0;
 }
 template <typename T>
-void Login_Server::SendTo_SendQueue(int socket, T &message)
+void Login_Manager::SendTo_SendQueue(int socket, T &message)
 {
-    // Header header;
-    // header.type = Get_Header_Type(message);
-    // if (header.type == 0)
-    //     return;
-    // header.length = message.ByteSizeLong();
-
-    // Socket_Message *msg = new Socket_Message(socket, header);
-    // msg->content = new char[header.length + 1];
-    // message.SerializeToArray(msg->content, header.length);
-
-    // SendQueue.emplace(msg);      // 投递消息
-    // SendProcess_cv.notify_one(); // 唤醒一个发送线程
-
     GateWay_Server::Instance()->SendTo_SendQueue(socket, message);
 }
 
-bool Login_Server::Init_Login()
+bool Login_Manager::Init_Login()
 {
     assert(socketpair(PF_UNIX, SOCK_DGRAM, 0, Login_pipe) != -1);
     setnonblocking(Login_pipe[1]);
@@ -45,13 +32,13 @@ bool Login_Server::Init_Login()
 
     return true;
 }
-int Login_Server::Run()
+int Login_Manager::Run()
 {
     Login_Process_stop = false;
-    thread heartcheck_thread(&Login_Server::HeartBeatCheck_Process, this);
-    thread send_thread(&Login_Server::Send_Process, this);
-    thread login_thread(&Login_Server::Login_Process, this);
-    thread recv_thread(&Login_Server::Recv_Process, this);
+    thread heartcheck_thread(&Login_Manager::HeartBeatCheck_Process, this);
+    thread send_thread(&Login_Manager::Send_Process, this);
+    thread login_thread(&Login_Manager::Login_Process, this);
+    thread recv_thread(&Login_Manager::Recv_Process, this);
 
     recv_thread.join();
     login_thread.join();
@@ -59,15 +46,15 @@ int Login_Server::Run()
     heartcheck_thread.join();
 
     ThreadEnd();
-    LOGINFO("Login_Server::Run ,Login_Server Close!");
+    LOGINFO("Login_Manager::Run ,Login_Manager Close!");
     return 1;
 }
-void Login_Server::ThreadEnd()
+void Login_Manager::ThreadEnd()
 {
     close(Login_pipe[0]);
     close(Login_pipe[1]);
 }
-void Login_Server::Recv_Process()
+void Login_Manager::Recv_Process()
 {
     // int timefd = timerfd_create(CLOCK_MONOTONIC, 0);
     // itimerspec timer;
@@ -179,7 +166,7 @@ void Login_Server::Recv_Process()
     // close(timefd);
     close(Login_epoll);
 }
-void Login_Server::Login_Process()
+void Login_Manager::Login_Process()
 {
     Socket_Message *Recv_Message = nullptr;
     while (!Login_Process_stop)
@@ -202,7 +189,7 @@ void Login_Server::Login_Process()
         }
     }
 }
-void Login_Server::Send_Process()
+void Login_Manager::Send_Process()
 {
     Socket_Message *Send_Message = nullptr;
     while (!Login_Process_stop)
@@ -233,7 +220,7 @@ void Login_Server::Send_Process()
         }
     }
 }
-void Login_Server::HeartBeatCheck_Process()
+void Login_Manager::HeartBeatCheck_Process()
 {
     while (!Login_Process_stop)
     {
@@ -242,7 +229,7 @@ void Login_Server::HeartBeatCheck_Process()
             (map_it->second)++;
             if ((map_it->second) > 6) // 5s*6没有收到心跳包，判定客户端掉线
             {
-                LOGINFO("Login_Server::HeartBeatCheck_Process , fd {} timeout! disconnect", map_it->first);
+                LOGINFO("Login_Manager::HeartBeatCheck_Process , fd {} timeout! disconnect", map_it->first);
                 int fd = map_it->first;
                 RemoveFd(fd);
             }
@@ -251,7 +238,7 @@ void Login_Server::HeartBeatCheck_Process()
     }
 }
 
-// int Login_Server::OnProcess(Socket_Message *msg)
+// int Login_Manager::OnProcess(Socket_Message *msg)
 // {
 //     const Header &header = msg->header;
 //     const int socket_fd = msg->socket_fd;
@@ -281,7 +268,7 @@ void Login_Server::HeartBeatCheck_Process()
 //     return 1;
 // }
 
-int Login_Server::OnProcess(Socket_Message *msg)
+int Login_Manager::OnProcess(Socket_Message *msg)
 {
     const Header &header = msg->header;
     const int socket_fd = msg->socket_fd;
@@ -313,7 +300,7 @@ int Login_Server::OnProcess(Socket_Message *msg)
     return result ? 1 : 0;
 }
 
-void Login_Server::Push_Fd(int socket_fd, sockaddr_in &tcp_addr)
+void Login_Manager::Push_Fd(int socket_fd, sockaddr_in &tcp_addr)
 {
     setnonblocking(socket_fd);
     Socket_Info *info = new Socket_Info(socket_fd, tcp_addr);
@@ -325,7 +312,7 @@ void Login_Server::Push_Fd(int socket_fd, sockaddr_in &tcp_addr)
     HeartBeat_map[socket_fd] = 0;
 }
 
-void Login_Server::Push_Fd(Socket_Info &info_in)
+void Login_Manager::Push_Fd(Socket_Info &info_in)
 {
     setnonblocking(info_in.Get_SocketFd());
     Socket_Info *info = new Socket_Info(info_in);
@@ -337,7 +324,7 @@ void Login_Server::Push_Fd(Socket_Info &info_in)
     RateLimiter_Manager::Instance()->Push(info_in.Get_SocketFd());
 }
 
-void Login_Server::OnLogin(const int socket_fd, const Header header, const char *content)
+void Login_Manager::OnLogin(const int socket_fd, const Header header, const char *content)
 {
     Login_Protobuf::Login_Request Request;
     Request.ParseFromArray(content, header.length);
@@ -381,7 +368,7 @@ void Login_Server::OnLogin(const int socket_fd, const Header header, const char 
     SendTo_SendQueue(socket_fd, Response);
 }
 
-void Login_Server::OnSignup(const int socket_fd, const Header header, const char *content)
+void Login_Manager::OnSignup(const int socket_fd, const Header header, const char *content)
 {
     Login_Protobuf::Signup_Request Request;
     Request.ParseFromArray(content, header.length);
@@ -396,7 +383,7 @@ void Login_Server::OnSignup(const int socket_fd, const Header header, const char
     SendTo_SendQueue(socket_fd, Response);
 }
 
-Login_Request_Result Login_Server::Check_Login(string &acount, string &password, User_Info **userinfo)
+Login_Request_Result Login_Manager::Check_Login(string &acount, string &password, User_Info **userinfo)
 {
     MYSQL_RES *Res;
     int count = -1;
@@ -420,7 +407,7 @@ Login_Request_Result Login_Server::Check_Login(string &acount, string &password,
     return Login_Request_Result::AccountError;
 }
 
-Signup_Request_Result Login_Server::Check_Signup(string &name, string &acount, string &password)
+Signup_Request_Result Login_Manager::Check_Signup(string &name, string &acount, string &password)
 {
 
     int affected_count = -1;
@@ -454,7 +441,7 @@ Signup_Request_Result Login_Server::Check_Signup(string &name, string &acount, s
     return Signup_Request_Result::InnerError;
 }
 
-void Login_Server::RemoveFd(int fd)
+void Login_Manager::RemoveFd(int fd)
 {
     try
     {
@@ -478,11 +465,11 @@ void Login_Server::RemoveFd(int fd)
     catch (exception &e)
     {
         perror(e.what());
-        LOGINFO("Login_Server::RemoveFd , an unknown error :{}", e.what());
+        LOGINFO("Login_Manager::RemoveFd , an unknown error :{}", e.what());
     }
 }
 
-void Login_Server::OnReconnect(const int socket_fd, const Header header, const char *content)
+void Login_Manager::OnReconnect(const int socket_fd, const Header header, const char *content)
 {
     // Login_Protobuf::Reconnect_Request Request;
     // Request.ParseFromArray(content, header.length);
@@ -515,7 +502,7 @@ void Login_Server::OnReconnect(const int socket_fd, const Header header, const c
     // HeartBeat_map[socket_fd] = 0;
 }
 
-void Login_Server::OnLogin(Login_Protobuf::Login_Request &Request, Login_Protobuf::Login_Response &Response)
+void Login_Manager::OnLogin(Login_Protobuf::Login_Request &Request, Login_Protobuf::Login_Response &Response)
 {
     // User_Info *user = GateWay_Server::Instance()->GetUser(socket_fd);
     // if (!user || user->states != USER_STATE::Logining)

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "header.h"
+#include "MsgNum.h"
 
 using namespace std;
 

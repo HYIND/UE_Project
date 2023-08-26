@@ -100,7 +100,7 @@ int Listen_Server::Listen_Process()
                 int socket_fd = accept(Listen_Socket, (struct sockaddr *)&client, &length);
                 if (socket_fd != -1)
                 {
-                    // Login_Server::Instance()->Push_Fd(socket_fd, client);
+                    // Login_Manager::Instance()->Push_Fd(socket_fd, client);
                     GateWay_Server::Instance()->Push_NewUser(socket_fd, client);
                     LOGINFO("user connect : address : {}:{},", inet_ntoa(client.sin_addr), ntohs(client.sin_port));
                 }

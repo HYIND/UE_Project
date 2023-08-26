@@ -5,7 +5,6 @@
 #include <map>
 #include <string>
 #include <sstream>
-using namespace std;
 
 #pragma region ParseIniFile
 /*

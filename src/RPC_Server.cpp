@@ -1,9 +1,7 @@
 #include "RPC_Server.h"
 
-void RPC_Server::Init()
+void RPC_Server::Init(string IP,int Port)
 {
-    string IP = Config::Instance()->Read<string>("center_rpcip", "0");
-    int Port = Config::Instance()->Read("center_rpcport", 0);
     Server_Socket = Get_newsocket(IP, Port, SOCK_DGRAM, Server_Addr);
     setnonblocking(Server_Socket);
 
@@ -97,7 +95,7 @@ int RPC_Server::OnProcess(RPC_Message &Msg)
     // switch (Msg.Request_header.type)
     // {
     // case Request_Login:
-    //     _Dispatche(Msg, &Login_Server::OnLogin, Login_Server::Instance());
+    //     _Dispatche(Msg, &Login_Manager::OnLogin, Login_Manager::Instance());
     //     break;
 
     // default:

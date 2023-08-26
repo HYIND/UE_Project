@@ -13,6 +13,7 @@ ADD_LIBRARY(public SHARED ${DIR_PUBLIC})
 
 target_link_libraries(public libmysqlclient.so)
 target_link_libraries(public librabbitmq.so)
+target_link_libraries(public libredis++.so)
 
 set(CMAKE_BUILD_TYPE "Debug")
 

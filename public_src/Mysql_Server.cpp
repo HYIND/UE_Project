@@ -1,6 +1,8 @@
 #include "Mysql_Server.h"
 #include <coroutine>
 
+using namespace std;
+
 Mysql_Server::Mysql_Server()
 {
     connection = mysql_init(NULL);

@@ -1,6 +1,6 @@
 #include "GateWay_Server.h"
 #include "Center_Server.h"
-#include "Login_Server.h"
+#include "Login_Manager.h"
 
 bool GateWay_Server::Init_GateWayServer()
 {
@@ -69,6 +69,7 @@ void GateWay_Server::Recv_Process()
                         case SIGINT:
                         case SIGTERM:
                         {
+                            LOGWARN("GateWay_Server::Recv_Process ,recvive Signal stop service");
                             Process_stop = true;
                             break;
                         }
@@ -113,7 +114,6 @@ void GateWay_Server::Recv_Process()
                             RemoveUser(socket_fd);
                         }
                         delete (Token_Msg);
-                        // Token_Msg.Delete_SocketMessage();
                     }
                     else
                     {
@@ -121,15 +121,10 @@ void GateWay_Server::Recv_Process()
                         if (!RateLimiter_Manager::Instance()->TryPass(socket_fd) || Token_Msg->msg->header.type == Heart_Package)
                         {
                             delete (Token_Msg);
-                            // Token_Msg.Delete_SocketMessage();
                         }
                         else
                         {
                             Pool.submit(&GateWay_Server::OnProcess, this, Token_Msg);
-                            // unique_lock<mutex> Queuelck(RecvQueue_mtx);
-                            // RecvQueue.enqueue(Token_Msg); // 投递消息
-                            // Queuelck.release()->unlock();
-                            // GateWayProcess_cv.notify_one(); // 唤醒其中一个处理线程
                         }
                     }
 
@@ -194,6 +189,7 @@ void GateWay_Server::Send_Process()
 }
 void GateWay_Server::HeartBeatCheck_Process()
 {
+    LOGINFO("GateWay_Server::HeartBeatCheck_Process Start");
     while (!Process_stop)
     {
         for (auto map_it = HeartBeat_map.begin(); map_it != HeartBeat_map.end();)
@@ -229,6 +225,7 @@ void GateWay_Server::HeartBeatCheck_Process()
         }
         this_thread::sleep_for(std::chrono::seconds(5)); // 定时五秒
     }
+    LOGINFO("GateWay_Server::HeartBeatCheck_Process Stop");
 }
 
 int GateWay_Server::OnProcess(Token_SocketMessage *Tokenmsg)
@@ -270,7 +267,7 @@ int GateWay_Server::OnProcess(Token_SocketMessage *Tokenmsg)
     case Request_Signup:
     case Request_Reconnect:
     {
-        Login_Server::Instance()->OnProcess(Tokenmsg->msg);
+        Login_Manager::Instance()->OnProcess(Tokenmsg->msg);
         break;
     }
     }
@@ -308,7 +305,7 @@ void GateWay_Server::RemoveUser(int fd)
         delfd(Epoll, fd);
         close(fd);
 
-        // Login_Server::Instance()->RemoveFd(fd);
+        // Login_Manager::Instance()->RemoveFd(fd);
         Center_Server::Instance()->RemoveUser(fd);
 
         for (auto it = AllUser_list.begin(); it != AllUser_list.end(); it++)

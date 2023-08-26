@@ -24,6 +24,3 @@ public:
 private:
     vector<int> Pipes;
 };
-
-void sig_handler(int sig);
-void addsig(int sig);

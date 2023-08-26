@@ -1,5 +1,22 @@
 #include "ThreadPool.h"
 
+/* // test code
+void threadpooltest()
+{
+
+    ThreadPool pool;
+    pool.start();
+
+    User_Info *user = new User_Info();
+    sockaddr_in tcp_addr_in;
+    user->sockinfo = new Socket_Info(10, tcp_addr_in);
+
+    pool.submit(&Center_Server::Push_LoginUser, Center_Server::Instance(), user); // 类成员函数
+    pool.submit(messagequeuetest);                                                // 普通函数
+
+    pool.stop();
+} */
+
 ThreadPool::ThreadPool(int threads_num)
     : _threads(std::vector<std::thread>(threads_num)), _stop(false)
 {

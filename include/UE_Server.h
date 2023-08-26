@@ -1,7 +1,7 @@
 #pragma once
 
 #include "header.h"
-#include "Login_Server.h"
+#include "Login_Manager.h"
 #include "GateWay_Server.h"
 
 using namespace std;

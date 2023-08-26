@@ -1,5 +1,5 @@
 #include "Config.h"
-
+using namespace std;
 /* static */
 template <>
 inline std::string Config::string_as_T<std::string>(const std::string& s)

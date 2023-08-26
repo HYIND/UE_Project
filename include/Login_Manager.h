@@ -1,6 +1,7 @@
 #pragma once
 
 #include "header.h"
+#include "MsgNum.h"
 
 using namespace std;
 
@@ -24,18 +25,18 @@ enum class Reconnect_Result
     Success = 1
 };
 
-class Login_Server
+class Login_Manager
 {
     /* 以下为基础服务框架 */
 public:
-    static Login_Server *Instance()
+    static Login_Manager *Instance()
     {
-        static Login_Server *m_Instance = new Login_Server();
+        static Login_Manager *m_Instance = new Login_Manager();
         return m_Instance;
     }
 
 private:
-    Login_Server(){};
+    Login_Manager(){};
 
 public:
     bool Init_Login();

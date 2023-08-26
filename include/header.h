@@ -41,7 +41,6 @@
 #include "Log.h"
 
 #include "Mysql_Server.h"
-#include "MsgNum.h"
 #include "NetworkBase.h"
 
 extern std::string LOCAL_IP;

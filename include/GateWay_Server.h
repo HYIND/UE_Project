@@ -1,14 +1,14 @@
 #pragma once
 #include "header.h"
-#include "RateLimiter.h"
+#include "RateLimiter_Manager.h"
 #include "ThreadPool.h"
 
 class Center_Server;
-class Login_Server;
+class Login_Manager;
 
 class GateWay_Server
 {
-    /* 以下为基础服务框架 */
+    
 public:
     static GateWay_Server *Instance()
     {

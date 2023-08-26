@@ -16,7 +16,7 @@ private:
     RPC_Server() {}
 
 public:
-    void Init();
+    void Init(string IP,int Port);
     void Start();
     int Get_pipe() { return pipe[1]; };
 

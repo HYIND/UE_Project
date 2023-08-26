@@ -1,9 +1,7 @@
 #pragma once
 
-#include "header.h"
 #include <mysql/mysql.h>
-
-using namespace std;
+#include "Log.h"
 
 struct MySQL_Query_Result
 {
@@ -22,10 +20,10 @@ public:
 public:
     bool CreateConnect();
 
-    bool Query(const string &command, MYSQL_RES **result, int *result_count);
-    bool Query(const string &&command, MYSQL_RES **result, int *result_count);
-    bool Update(const string &command, int *affected_row_num);
-    bool Update(const string &&command, int *affected_row_num);
+    bool Query(const std::string &command, MYSQL_RES **result, int *result_count);
+    bool Query(const std::string &&command, MYSQL_RES **result, int *result_count);
+    bool Update(const std::string &command, int *affected_row_num);
+    bool Update(const std::string &&command, int *affected_row_num);
 
 protected:
     void HeartBeat_Task();
@@ -38,7 +36,7 @@ private:
     MYSQL *connection;
     bool Stop;
 
-    condition_variable HeartBeat_cv;
-    mutex HeartBeat_mutex;
-    thread HeartBeat_thread;
+    std::condition_variable HeartBeat_cv;
+    std::mutex HeartBeat_mutex;
+    std::thread HeartBeat_thread;
 };

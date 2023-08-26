@@ -52,5 +52,3 @@ public:
     int Producer_Publish(char *msg, size_t length);
     int Producer_Close();
 };
-
-void test();

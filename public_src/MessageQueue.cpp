@@ -1,9 +1,55 @@
 #include "MessageQueue.h"
 #include <iostream>
 #include <memory.h>
-// #include <unistd.h>
 #include <assert.h>
 
+/* // test code
+void consume()
+{
+    Consumer_MQ rabbitmq;
+    if (!rabbitmq.Consumer_Connect())
+        return;
+    if (!rabbitmq.Consumer_BuildQueue())
+        return;
+    char *msg = nullptr;
+    size_t length = 0;
+    while (rabbitmq.Consumer(msg, length) > 0)
+    {
+        char m[20];
+        memcpy(m, msg, length);
+        cout << "consume , recv length :" << length << ",msg:" << msg << endl;
+        delete (msg);
+        msg = nullptr;
+        sleep(1);
+    }
+    rabbitmq.Consumer_Close();
+}
+
+void produce()
+{
+    Producer_MQ rabbitmq;
+    if (!rabbitmq.Producer_Connect())
+        return;
+    for (int i = 0; i < 5;)
+    {
+        char msg[] = "asjdha\0sdasd";
+        msg[0] += i;
+        int length = sizeof(msg);
+        rabbitmq.Producer_Publish(msg, length);
+        cout << "consume , send length :" << length << ",msg:" << msg << endl;
+
+        // sleep(1);
+    }
+    rabbitmq.Producer_Close();
+}
+void messagequeuetest()
+{
+    thread T1(consume);
+    thread T2(produce);
+    T1.join();
+    T2.join();
+}
+ */
 MQ::MQ()
 {
     m_honstname = "127.0.0.1";
