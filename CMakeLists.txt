@@ -6,12 +6,13 @@ project(UE_Server C CXX)
 set(CMAKE_CXX_STANDARD 20)
 
 ADD_SUBDIRECTORY(protobuf)
-ADD_SUBDIRECTORY(public_src)
+ADD_SUBDIRECTORY(public)
 
 include_directories(include)
 include_directories(protobuf)
-include_directories(spdlog)
-include_directories(public_include)
+include_directories(public/public_include)
+include_directories(public/spdlog)
+
 
 aux_source_directory(src DIR_SRCS)
 
