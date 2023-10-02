@@ -36,7 +36,13 @@ int Init_Server(int argc, char *argv[])
     signal(SIGPIPE, SIG_IGN);
 
     LOGINFO("Start Server!");
-    if (!Mysql_Server::Instance()->CreateConnect())
+
+    string host = Config::Instance()->Read<string>("mysql_host", "127.0.0.1");
+    int port = Config::Instance()->Read("mysql_port", 0);
+    string database = Config::Instance()->Read<string>("mysql_database", "NULL");
+    string user = Config::Instance()->Read<string>("mysql_user", "NULL");
+    string password = Config::Instance()->Read<string>("mysql_password", "NULL");
+    if (!Mysql_Server::Instance()->CreateConnect(host, port, database, user, password))
     {
         perror("Connect database error");
         return false;

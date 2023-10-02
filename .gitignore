@@ -7,6 +7,8 @@ build/*
 
 bin/*
 !bin/UE_Server
+!bin/libproto.so
+!bin/libpublic.so
 
 config/*
 !config模板.ini

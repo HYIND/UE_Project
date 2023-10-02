@@ -1,7 +1,10 @@
 #pragma once
 
 #include <mysql/mysql.h>
-#include "Log.h"
+#include <iostream>
+#include <mutex>
+#include <thread>
+#include <condition_variable>
 
 struct MySQL_Query_Result
 {
@@ -18,7 +21,7 @@ public:
     }
 
 public:
-    bool CreateConnect();
+    bool CreateConnect(const std::string &host, int port, const std::string &database, const std::string &user, const std::string &password);
 
     bool Query(const std::string &command, MYSQL_RES **result, int *result_count);
     bool Query(const std::string &&command, MYSQL_RES **result, int *result_count);
